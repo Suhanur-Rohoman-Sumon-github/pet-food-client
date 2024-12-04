@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { FaExchangeAlt, FaHeart } from "react-icons/fa";
+import { FaExchangeAlt, FaHeart, FaShoppingCart } from "react-icons/fa";
 export type TProduct = {
   _id: string;
   name: string;
@@ -36,8 +36,9 @@ const ProductCard = ({ product }: { product: TProduct }) => {
             ${product.price.toFixed(2)}
           </p>
         </div>
-        {/* Add to Cart Button (appears on hover) */}{" "}
-        <button className="button-secondary opacity-0 group-hover:opacity-100 transition-opacity duration-300 absolute bottom-4 left-4 right-4">
+
+        <button className="button-secondary opacity-0 group-hover:opacity-100 transition-opacity duration-300 absolute bottom-4 left-4 right-4 flex item-center">
+          <FaShoppingCart />
           Add To Cart
         </button>
       </div>

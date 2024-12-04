@@ -1,0 +1,143 @@
++------------------------+         +---------------------+         +-------------------+
+|       Frontend         |         |      Backend        |         |    External APIs  |
+| (Next.js)        |         | (Node.js + Express) |         |                   |
++------------------------+         +---------------------+         +-------------------+
+| Home Page              |         | API Layer           |         | Payment Gateway   |
+| Shop Page              |         | - Products          |         | (Stripe, Aamarpay)|
+| Product Details Page   |         | - Categories        |         |                   |
+| Vendor Dashboard       |         | - Cart              |         | Image Storage     |
+| Admin Dashboard        |         | - Orders            |         | (Cloudinary)      |
+| Recent Products Page   |         | - Authentication    |         |                   |
+| Comparison Page        |         +---------------------+         | Email Service     |
++------------------------+                | Database                | (SendGrid)        |
+        |                                 +-------------------------+-------------------+
+        |                                 |                                       |
++------------------------+   +----------------------------------------+  +----------------------+
+| Redux/Context API      |   |             Database                  |  |      Authentication |
+| Global State Management|   |  (PostgreSQL or MongoDB)              |  |        (JWT)         |
++------------------------+   |                                        |  +----------------------+
+        |                     | Users                                |
+        |                     | Vendors                              |
+        |                     | Products                             |
++------------------------+     | Categories                          |
+|   UI Components        |     | Orders                              |
+| Filtering, Cart,       |     | Reviews                             |
+| Search, Checkout       |     | Coupons                             |
++------------------------+     | Shop Details                        |
+                               |                                     |
+                               +-------------------------------------+
+
+
++----------------------+
+|       Users          |
+|----------------------|
+| id (PK)             |
+| name                |
+| email               |
+| password            |
+| role (admin/vendor/customer) |
+| created_at          |
+| updated_at          |
++----------------------+
+          |
+          | 1:N
+          |
++----------------------+
+|       Shops          |
+|----------------------|
+| id (PK)             |
+| vendor_id (FK)      |
+| name                |
+| description         |
+| logo_url            |
+| created_at          |
+| updated_at          |
++----------------------+
+          |
+          | 1:N
+          |
++----------------------+
+|     Products         |
+|----------------------|
+| id (PK)             |
+| shop_id (FK)        |
+| name                |
+| price               |
+| category_id (FK)    |
+| description         |
+| stock_quantity      |
+| discount_price      |
+| images (JSON)       |
+| created_at          |
+| updated_at          |
++----------------------+
+          |
+          | N:N (via Order_Items)
+          |
++----------------------+                +----------------------+
+|     Orders           |                |     Categories       |
+|----------------------|                |----------------------|
+| id (PK)             |                | id (PK)             |
+| user_id (FK)        |                | name                |
+| total_price         |                | created_at          |
+| payment_status      |                | updated_at          |
+| created_at          |                +----------------------+
+| updated_at          |
++----------------------+
+          |
+          | 1:N
+          |
++----------------------+
+|    Order_Items       |
+|----------------------|
+| id (PK)             |
+| order_id (FK)       |
+| product_id (FK)     |
+| quantity            |
+| price               |
++----------------------+
+
+
+frontend flow
+
++-------------------------+
+|     Frontend (API)      |
++-------------------------+
+          |
+          | HTTP Requests
+          v
++-------------------------+
+|    Node.js + Express    |
+|-------------------------|
+|   Routes and Controllers|
+| - Authentication        |
+| - Product Management    |
+| - Vendor Operations     |
+| - Cart/Checkout         |
++-------------------------+
+          |
+          | Business Logic
+          v
++-------------------------+
+|       Services Layer    |
+|-------------------------|
+| - Payment Gateway       |
+| - Inventory Management  |
+| - Reviews & Ratings     |
+| - Product Filtering     |
++-------------------------+
+          |
+          | ORM Queries
+          v
++-------------------------+
+|        Database         |
+|-------------------------|
+|   Relational Tables     |
+| - Users                |
+| - Shops                |
+| - Products             |
+| - Orders               |
+| - Order_Items          |
+| - Categories           |
++-------------------------+
+
