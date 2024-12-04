@@ -7,7 +7,6 @@ import "swiper/css";
 
 import "swiper/css/pagination";
 
-// Import required modules
 import { Autoplay, Pagination } from "swiper/modules";
 
 const Banner = () => {
@@ -46,6 +45,15 @@ const Banner = () => {
           <Image
             className="h-[480px] rounded-md w-full"
             src="https://static.vecteezy.com/system/resources/thumbnails/051/955/242/small_2x/a-dog-sitting-beside-a-large-pile-of-dog-food-looking-curiously-at-the-viewer-photo.jpg"
+            alt="Banner 3"
+            width={1200}
+            height={480}
+          />
+        </SwiperSlide>
+        <SwiperSlide>
+          <Image
+            className="h-[480px] rounded-md w-full"
+            src="https://i.ibb.co.com/Sc1DSCG/is-it-okay-to-hand-feed-birds.webp"
             alt="Banner 3"
             width={1200}
             height={480}

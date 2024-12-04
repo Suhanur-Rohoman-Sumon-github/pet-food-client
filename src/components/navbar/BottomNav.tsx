@@ -22,7 +22,7 @@ const BottomNav = () => {
     setIsOpen((prev) => !prev);
   };
   return (
-    <div className="relative  ">
+    <div className="relative   border shadow-md mb-4">
       <div className=" flex  gap-10 items-center   bg-white ">
         <div className="lg:w-[400px] flex items-center gap-2 py-2 rounded-md">
           <div className="relative">
@@ -34,7 +34,7 @@ const BottomNav = () => {
               <FaBars />
             </button>
             {isOpen && (
-              <div className="absolute mt-2 w-52 bg-white shadow-lg rounded-md border border-gray-200">
+              <div className="absolute mt-2 w-52 bg-white   border border-gray-200 shadow-md">
                 <ul className="flex flex-col">
                   <li className="hover:bg-gray-100">
                     <Link href="/" className="block px-4 py-2">
@@ -49,11 +49,6 @@ const BottomNav = () => {
                   <li className="hover:bg-gray-100">
                     <Link href="/about" className="block px-4 py-2">
                       About
-                    </Link>
-                  </li>
-                  <li className="hover:bg-gray-100">
-                    <Link href="/contact" className="block px-4 py-2">
-                      Contact
                     </Link>
                   </li>
                   <li className="hover:bg-gray-100">

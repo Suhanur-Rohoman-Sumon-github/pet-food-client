@@ -4,6 +4,7 @@ import "../../styels/global.css";
 import Navbar from "@/components/navbar/Navbar";
 import MiddleNav from "@/components/navbar/MidleNav";
 import TopNav from "@/components/navbar/TopNav";
+import MainFooter from "@/components/footer/MainFooter";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -28,6 +29,7 @@ export default function RootLayout({
             <main className="container mx-auto max-w-7xl flex-grow  ">
               <Navbar />
               {children}
+              <MainFooter />
             </main>
           </div>
         </Providers>
