@@ -1,3 +1,28 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  /* Radix UI and ShadCN reset styles */
+  :root {
+    --background: 255, 255, 255;
+    --foreground: 0, 0, 0;
+    --muted: 120, 120, 120;
+    --accent: 59, 130, 246;
+    --border: 220, 220, 220;
+    --radius: 0.5rem;
+  }
+}
+
+
+@layer components {
+  .button-primary {
+    @apply bg-[#f85606] text-white flex transition-all duration-200 items-center justify-center gap-2  font-bold py-[8px] px-[24px] rounded-full;
+  }
+  .button-secondary {
+    @apply bg-[#fff] border flex items-center justify-center gap-2 text-[#f85606] hover:text-[#FFF] font-bold py-[8px] px-[24px] transition-all duration-200 rounded-full hover:bg-[#f85606];
+  }
+  .button-icon {
+    @apply bg-[#7C3FFF]  gap-2 text-white font-bold py-[10px] ml-2 transition-all duration-200  px-[15px] rounded hover:bg-[#7C3FFF];
+  }
+}

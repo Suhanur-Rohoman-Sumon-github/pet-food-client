@@ -1,9 +1,10 @@
+import Banner from "@/components/home/Banner";
 import React from "react";
 
 const page = () => {
   return (
     <div className="">
-      <h1>hi this is sumon</h1>
+      <Banner />
     </div>
   );
 };
