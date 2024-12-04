@@ -47,8 +47,8 @@ const BottomNav = () => {
                     </Link>
                   </li>
                   <li className="hover:bg-gray-100">
-                    <Link href="/about" className="block px-4 py-2">
-                      About
+                    <Link href="/shop" className="block px-4 py-2">
+                      Shops
                     </Link>
                   </li>
                   <li className="hover:bg-gray-100">
@@ -102,11 +102,44 @@ const BottomNav = () => {
           </div>
         </div>
         <div className="flex gap-8  ml-[30px] items-center">
-          <Link href="/">Home</Link>
-          <Link href="/products">Products</Link>
-
-          <Link href="/about">About</Link>
-          <Link href="/contact">Contact</Link>
+          <Link
+            className={`px-4 py-2 rounded ${
+              pathname === "/" ? "bg-[#f85606] text-white" : "hover:bg-gray-200"
+            }`}
+            href="/"
+          >
+            Home
+          </Link>
+          <Link
+            href="/shop"
+            className={`px-4 py-2 rounded ${
+              pathname === "/shop"
+                ? "bg-[#f85606] text-white"
+                : "hover:bg-gray-200"
+            }`}
+          >
+            Shops
+          </Link>
+          <Link
+            className={`px-4 py-2 rounded ${
+              pathname === "/products"
+                ? "bg-[#f85606] text-white"
+                : "hover:bg-gray-200"
+            }`}
+            href="/products"
+          >
+            Products
+          </Link>
+          <Link
+            className={`px-4 py-2 rounded ${
+              pathname === "/Contact"
+                ? "bg-[#f85606] text-white"
+                : "hover:bg-gray-200"
+            }`}
+            href="/contact"
+          >
+            Contact
+          </Link>
         </div>
       </div>
     </div>

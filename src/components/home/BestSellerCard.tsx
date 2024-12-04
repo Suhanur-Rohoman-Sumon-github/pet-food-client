@@ -13,7 +13,7 @@ type TShop = {
 
 const BestSellerShopCard = ({ shop }: { shop: TShop }) => {
   return (
-    <div className="border rounded-lg overflow-hidden bg-white shadow-lg group hover:shadow-2xl transition-all duration-300">
+    <div className="border rounded-lg overflow-hidden group  transition-all duration-300">
       {/* Banner Image */}
       <div className="relative">
         <Image
@@ -35,7 +35,6 @@ const BestSellerShopCard = ({ shop }: { shop: TShop }) => {
         </div>
       </div>
 
-      {/* Shop Details */}
       <div className="pt-10 px-4 pb-4">
         <h3 className="text-xl font-semibold">{shop.name}</h3>
         <div className="flex items-center space-x-2 text-gray-600 text-sm mt-2">
@@ -56,11 +55,9 @@ const BestSellerShopCard = ({ shop }: { shop: TShop }) => {
         </div>
       </div>
 
-      {/* Visit Store Button */}
-      <div className="px-4 py-3 bg-gray-100 group-hover:bg-gray-200 transition-colors duration-300">
-        <button className="w-full py-2 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700">
-          Visit Store
-        </button>
+      <div className="px-4 py-3 flex items-center justify-between">
+        <button className="button-primary">Follow Store</button>
+        <button className="button-secondary">Visit Store</button>
       </div>
     </div>
   );
