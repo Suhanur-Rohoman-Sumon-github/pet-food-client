@@ -36,6 +36,46 @@ const Products = () => {
       image:
         "https://htmldemo.net/petmark/petmark/image/product/product-details/product-details-3.jpg",
     },
+    {
+      _id: "5",
+      name: "Small Animal Pellets",
+      category: "Small Animal",
+      price: 12.99,
+      image:
+        "https://htmldemo.net/petmark/petmark/image/product/product-details/product-details-3.jpg",
+    },
+    {
+      _id: "6",
+      name: "Small Animal Pellets",
+      category: "Small Animal",
+      price: 12.99,
+      image:
+        "https://htmldemo.net/petmark/petmark/image/product/product-details/product-details-3.jpg",
+    },
+    {
+      _id: "7",
+      name: "Small Animal Pellets",
+      category: "Small Animal",
+      price: 12.99,
+      image:
+        "https://htmldemo.net/petmark/petmark/image/product/product-details/product-details-3.jpg",
+    },
+    {
+      _id: "8",
+      name: "Small Animal Pellets",
+      category: "Small Animal",
+      price: 12.99,
+      image:
+        "https://htmldemo.net/petmark/petmark/image/product/product-details/product-details-3.jpg",
+    },
+    {
+      _id: "9",
+      name: "Small Animal Pellets",
+      category: "Small Animal",
+      price: 12.99,
+      image:
+        "https://htmldemo.net/petmark/petmark/image/product/product-details/product-details-3.jpg",
+    },
   ];
 
   return (

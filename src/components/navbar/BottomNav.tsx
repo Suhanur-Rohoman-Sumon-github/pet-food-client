@@ -34,7 +34,7 @@ const BottomNav = () => {
               <FaBars />
             </button>
             {isOpen && (
-              <div className="absolute mt-2 w-52 bg-white   border border-gray-200 shadow-md">
+              <div className="absolute mt-2 w-52 bg-white   border border-gray-200 shadow-md transform translate-x-0 duration-200">
                 <ul className="flex flex-col">
                   <li className="hover:bg-gray-100">
                     <Link href="/" className="block px-4 py-2">
@@ -129,16 +129,6 @@ const BottomNav = () => {
             href="/products"
           >
             Products
-          </Link>
-          <Link
-            className={`px-4 py-2 rounded ${
-              pathname === "/Contact"
-                ? "bg-[#f85606] text-white"
-                : "hover:bg-gray-200"
-            }`}
-            href="/contact"
-          >
-            Contact
           </Link>
         </div>
       </div>
