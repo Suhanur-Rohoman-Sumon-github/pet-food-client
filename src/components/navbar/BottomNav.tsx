@@ -28,7 +28,7 @@ const BottomNav = () => {
           <div className="relative">
             <button
               onClick={toggleDropdown}
-              className="button-primary flex items-center gap-2"
+              className="button-primary flex items-center gap-2 ml-2"
             >
               Shop Categories
               <FaBars />

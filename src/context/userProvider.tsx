@@ -1,3 +1,5 @@
+"use client";
+import { getCurrentUser } from "@/service/authServices";
 import { IUser } from "@/types";
 import {
   createContext,
@@ -8,10 +10,6 @@ import {
   useEffect,
   useState,
 } from "react";
-
-
-
-
 
 const UserContext = createContext<IUserProviderValues | undefined>(undefined);
 
@@ -26,10 +24,7 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<IUser | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const handleUser = async () => {
-
-    // TODO : fetch user from the user hook
-    
-    // const user = await getCurrentUser();
+    const user = await getCurrentUser();
 
     setUser(user);
     setIsLoading(false);

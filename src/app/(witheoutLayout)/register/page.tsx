@@ -25,7 +25,7 @@ const Register = () => {
   const onSubmit = async (data: FieldValues) => {
     const userInfo = {
       ...data,
-      memberId: data.memberId || Date.now().toString(), 
+      memberId: data.memberId,
       role: "ADMIN",
     };
 
