@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 "use client";
 
 import { FieldValues, useForm } from "react-hook-form";
@@ -7,77 +6,41 @@ import { FaArrowLeft, FaEye, FaEyeSlash } from "react-icons/fa";
 
 import Image from "next/image";
 import Link from "next/link";
+import { useUserRegistrationsMutation } from "@/hook/auth.hook";
 
 const Register = () => {
-  //   const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
   const [showPassword, setShowPassword] = useState(false);
-  const [imageUrl, setImageUrl] = useState("");
-  const [isUploading, setIsUploading] = useState(false);
-  //   const [userRegister, { data: userRes, error: errorRes }] =
-  //     useUserRegisterMutation();
-  const imgbbApiKey = "08dea360d9faac6a8de4cf6f88727008"; // Replace with your actual ImgBB API key
-
-  //   const uploadImageToImgBB = async (file: File) => {
-  //     const formData = new FormData();
-  //     formData.append("image", file);
-
-  //     setIsUploading(true);
-  //     try {
-  //       const response = await fetch(
-  //         `https://api.imgbb.com/1/upload?key=${imgbbApiKey}`,
-  //         {
-  //           method: "POST",
-  //           body: formData,
-  //         }
-  //       );
-  //       const data = await response.json();
-  //       setImageUrl(data.data.url); // Save the returned URL
-  //       setIsUploading(false);
-  //     } catch (error) {
-  //       console.error("Error uploading image:", error);
-  //       setIsUploading(false);
-  //     }
-  //   };
+  const {
+    mutate: handleUserRegistration,
+    isError,
+    error,
+  } = useUserRegistrationsMutation();
+  console.log(isError, error);
 
   const onSubmit = async (data: FieldValues) => {
-    // const userInfo = {
-    //   ...data,
-    //   image: imageUrl,
-    //   role: "user",
-    //   status: "active",
-    //   isDeleted: false,
-    // };
+    const userInfo = {
+      ...data,
+      memberId: data.memberId || Date.now().toString(), 
+      role: "ADMIN",
+    };
 
-    // Submit form data with image URL
-    // await userRegister(userInfo);
-    console.log(data);
+    await handleUserRegistration(userInfo);
+    console.log(userInfo);
   };
-  //   useEffect(() => {
-  //     if (userRes?.success) {
-  //       toast.success(userRes?.message);
 
-  //       navigate("/login");
-  //     }
-  //     if (errorRes) {
-  //       // @ts-ignore
-  //       toast.error(errorRes?.data?.errorSources[0].message);
-  //     }
-  //   }, [userRes, errorRes, navigate]);
   return (
     <div>
       <Link href={"/"}>
-        {" "}
-        <button className="mt-12 button-primary ">
-          {" "}
+        <button className="mt-12 button-primary">
           <FaArrowLeft /> Back to Home
         </button>
       </Link>
-      <div className="my-12 lg:flex justify-between gap-10 ">
+      <div className="my-12 lg:flex justify-between gap-10">
         <div className="lg:w-1/2">
           <Image
             className="w-[500px] h-[500px]"
@@ -87,7 +50,7 @@ const Register = () => {
             height={450}
           />
         </div>
-        <div className="flex justify-center lg:w-2/5 mx-auto items-center ">
+        <div className="flex justify-center lg:w-2/5 mx-auto items-center">
           <form
             onSubmit={handleSubmit(onSubmit)}
             className="bg-white p-8 rounded-lg shadow-md w-full"
@@ -97,23 +60,6 @@ const Register = () => {
             </h2>
 
             {/* Name Field */}
-            <div className="mb-4">
-              <label className="block text-gray-600 mb-2" htmlFor="name">
-                Name
-              </label>
-              <input
-                type="text"
-                id="name"
-                placeholder="Enter your name"
-                className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
-                {...register("name", { required: "Name is required" })}
-              />
-              {errors.name && (
-                <p className="text-red-500 text-sm mt-1">
-                  {errors.name.message as string}
-                </p>
-              )}
-            </div>
 
             {/* Email Field */}
             <div className="mb-4">
@@ -160,34 +106,43 @@ const Register = () => {
               )}
             </div>
 
-            {/* Address Field */}
-
-            {/* Phone Field */}
+            {/* Username Field */}
             <div className="mb-4">
-              <label className="block text-gray-600 mb-2" htmlFor="phone">
-                Phone
+              <label className="block text-gray-600 mb-2" htmlFor="username">
+                Username
               </label>
               <input
-                disabled={isUploading}
-                type="tel"
-                id="phone"
-                placeholder="Enter your phone number"
+                type="text"
+                id="username"
+                placeholder="Enter your username"
                 className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
-                {...register("phone", { required: "Phone number is required" })}
+                {...register("username", { required: "Username is required" })}
               />
-              {errors.phone && (
+              {errors.username && (
                 <p className="text-red-500 text-sm mt-1">
-                  {errors.phone.message as string}
+                  {errors.username.message as string}
                 </p>
               )}
             </div>
 
+            {/* Member ID Field */}
+            <div className="mb-4">
+              <label className="block text-gray-600 mb-2" htmlFor="memberId">
+                Member ID (optional)
+              </label>
+              <input
+                type="text"
+                id="memberId"
+                placeholder="Enter member ID (optional)"
+                className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                {...register("memberId")}
+              />
+            </div>
+
+            {/* Role Field */}
+
             {/* Submit Button */}
-            <button
-              type="submit"
-              className="button-primary w-full"
-              disabled={isUploading}
-            >
+            <button type="submit" className="button-primary w-full">
               Register
             </button>
 

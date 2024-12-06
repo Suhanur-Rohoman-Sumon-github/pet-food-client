@@ -8,6 +8,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { FieldValues, useForm } from "react-hook-form";
 import { CiLogin } from "react-icons/ci";
+import { useUserLoginMutations } from "@/hook/auth.hook";
 
 const Login = () => {
   const {
@@ -16,12 +17,13 @@ const Login = () => {
     formState: { errors },
   } = useForm();
   const [showPassword, setShowPassword] = useState(false);
+  const { mutate: login } = useUserLoginMutations();
   //   const [login, { data: loginRes, error }] = useLoginMutation();
   //   const navigate = useNavigate();
   //   const dispatch = useAppDispatch();
   const onSubmit = (data: FieldValues) => {
     console.log(data);
-    // login(data);
+    login(data);
   };
 
   //   useEffect(() => {
