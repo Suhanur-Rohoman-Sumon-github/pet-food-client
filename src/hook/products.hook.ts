@@ -1,18 +1,22 @@
-
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { getALlProducts } from "@/service/productsServices";
 import { useQuery } from "@tanstack/react-query";
 
-export const useGetAllProductsQuery = () => {
-  
+export const useGetAllProductsQuery = (queryParams: {
+  page: number;
+  limit: number;
+  category?: string;
+  minPrice?: number | "";
+  maxPrice?: number | "";
+  rating?: number | "";
+  sort?: string | "";
+}) => {
   const { data, refetch, isLoading, isError } = useQuery<any, Error>({
-    queryKey: ["get-products"], 
+    queryKey: ["get-products", queryParams],
     queryFn: async () => {
-      const data = await getALlProducts();
-        console.log(data);
-      return data?.data;
+      const data = await getALlProducts(queryParams);
+      return data; // Adjust this based on your API response structure
     },
-    
   });
 
   return { data, refetch, isLoading, isError };

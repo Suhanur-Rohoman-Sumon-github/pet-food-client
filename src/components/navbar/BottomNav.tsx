@@ -43,31 +43,34 @@ const BottomNav = () => {
     { name: "Horse Feed", slug: "horse-feed", icon: <FaHorse /> },
     { name: "Reptile Food", slug: "reptile-food", icon: <GiReptileTail /> },
   ];
+
   return (
-    <div className="relative   border shadow-md mb-4">
-      <div className=" flex  gap-10 items-center   bg-white ">
+    <div className="relative border shadow-md mb-4">
+      <div className="flex gap-10 items-center bg-white">
         <div className="lg:w-[400px] flex items-center gap-2 py-2 rounded-md">
           <div className="relative">
-            <button
-              onClick={toggleDropdown}
-              className="button-primary flex items-center gap-2 ml-2"
-            >
-              Shop Categories
-              <FaBars />
-            </button>
-            {isOpen && (
-              <div className="absolute mt-2 w-52 bg-white   border border-gray-200 shadow-md transform translate-x-0 duration-200">
+            {pathname !== "/products" && (
+              <button
+                onClick={toggleDropdown}
+                className="button-primary flex items-center gap-2 ml-2"
+              >
+                Shop Categories
+                <FaBars />
+              </button>
+            )}
+            {isOpen && pathname !== "/products" && (
+              <div className="absolute mt-2 w-52 bg-white border border-gray-200 shadow-md transform translate-x-0 duration-200">
                 <ul className="flex flex-col">
                   {categories.map((category) => (
                     <li
                       key={category.slug}
-                      className="hover:bg-[#f85606] flex items-center gap-2 px-4 py-1 text-[#f85606] hover:text-[#fff] rounded-md mx-2 mt-2 "
+                      className="hover:bg-[#f85606] flex items-center gap-2 px-4 py-1  hover:text-[#fff] rounded-md mx-2 mt-2 "
                     >
                       <Link
                         href={`/products?category=${category.slug}`}
-                        className="flex items-center gap-2  w-full p-2  font-bold text-center "
+                        className="flex items-center gap-2 w-full p-2  text-center"
                       >
-                        <p className=" hover:text-[#fff]">{category.icon}</p>
+                        <p className="hover:text-[#fff]">{category.icon}</p>
                         <span>{category.name}</span>
                       </Link>
                     </li>
@@ -77,7 +80,7 @@ const BottomNav = () => {
             )}
           </div>
         </div>
-        <div className="flex gap-8  ml-[30px] items-center">
+        <div className="flex gap-8 ml-[30px] items-center">
           <Link
             className={`px-4 py-2 rounded ${
               pathname === "/" ? "bg-[#f85606] text-white" : "hover:bg-gray-200"

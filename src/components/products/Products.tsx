@@ -1,28 +1,120 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
-import React from "react";
+import React, { useState } from "react";
+import {
+  FaDog,
+  FaCat,
+  FaDove,
+  FaFish,
+  FaHorse,
+  FaHamburger,
+} from "react-icons/fa";
+import { GiReptileTail } from "react-icons/gi";
+import { LucideRabbit, LucideTurtle } from "lucide-react";
+import { MdClose } from "react-icons/md";
+import { BsGrid3X3GapFill, BsList } from "react-icons/bs";
 import ProductCard from "./ProductsCard";
 import { useGetAllProductsQuery } from "@/hook/products.hook";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select";
+import HorazentalCard from "./ProductHorizantalVewCard";
+import { Badge } from "../ui/badge";
+import { Button } from "../ui/button";
+import CustomPagination from "./CustomPgination";
 
+const categories = [
+  { name: "Dog Food", slug: "dog-food", icon: <FaDog /> },
+  { name: "Cat Food", slug: "cat-food", icon: <FaCat /> },
+  { name: "Bird Food", slug: "bird-food", icon: <FaDove /> },
+  { name: "Fish Food", slug: "fish-food", icon: <FaFish /> },
+  { name: "Rabbit Food", slug: "rabbit-food", icon: <LucideRabbit /> },
+  { name: "Hamster Food", slug: "hamster-food", icon: <FaHamburger /> },
+  { name: "Turtle Food", slug: "turtle-food", icon: <LucideTurtle /> },
+  { name: "Horse Feed", slug: "horse-feed", icon: <FaHorse /> },
+  { name: "Reptile Food", slug: "reptile-food", icon: <GiReptileTail /> },
+];
 
 const Products = () => {
-  const { data, isLoading, isError } = useGetAllProductsQuery();
+  const [selectedCategory, setSelectedCategory] = useState<string | "">("");
+  const [minPrice, setMinPrice] = useState<number | "">("");
+  const [maxPrice, setMaxPrice] = useState<number | "">("");
+  const [selectedRating, setSelectedRating] = useState<number | "">("");
+  const [viewType, setViewType] = useState<"grid" | "inline">("grid");
+  const [sortOption, setSortOption] = useState<string | "">("Best Match");
+
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const itemsPerPage = 12;
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
+
+  const clearFilters = () => {
+    setSelectedCategory("");
+    setMinPrice("");
+    setMaxPrice("");
+    setSelectedRating("");
+    setSortOption("Best Match");
+  };
+
+  const removeFilter = (filter: string) => {
+    switch (filter) {
+      case "category":
+        setSelectedCategory("");
+        break;
+      case "price":
+        setMinPrice("");
+        setMaxPrice("");
+        break;
+      case "rating":
+        setSelectedRating("");
+        break;
+      default:
+        break;
+    }
+  };
+
+  const { data, isLoading, isError } = useGetAllProductsQuery({
+    page: currentPage,
+    limit: itemsPerPage,
+    category: selectedCategory,
+    minPrice,
+    maxPrice,
+    rating: selectedRating,
+    sort: sortOption,
+  });
+
+  console.log(data);
+
+  const totalPages = Math.ceil((data?.meta.total || 0) / itemsPerPage);
 
   return (
     <div className="flex min-h-screen bg-gray-50">
       {/* Sidebar */}
       <aside className="p-4 w-64 bg-white shadow-md border-r border-gray-200">
-        <h2 className="text-xl font-semibold mb-4 text-gray-800">Filters</h2>
-
         {/* Category Filter */}
         <div className="mb-6">
           <h3 className="text-lg font-medium mb-2 text-gray-700">Category</h3>
           <ul className="space-y-2">
-            {["Dog", "Cat", "Bird", "Small Animal", "All"].map((category) => (
+            {categories.map((category) => (
               <li
-                key={category}
-                className="cursor-pointer p-2 rounded text-gray-700 hover:bg-blue-100 hover:text-blue-700"
+                key={category.slug}
+                onClick={() => setSelectedCategory(category.slug)}
+                className={`cursor-pointer p-2 rounded flex items-center space-x-2 ${
+                  selectedCategory === category.slug
+                    ? "bg-[#f85606] text-white"
+                    : "text-gray-700 hover:bg-[#f85606] hover:text-white"
+                }`}
               >
-                {category}
+                {category.icon}
+                <span>{category.name}</span>
               </li>
             ))}
           </ul>
@@ -33,30 +125,43 @@ const Products = () => {
           <h3 className="text-lg font-medium mb-2 text-gray-700">
             Price Range
           </h3>
-          <ul className="space-y-2">
-            {["Under $10", "$10 - $20", "$20 - $30", "Over $30"].map(
-              (range) => (
-                <li
-                  key={range}
-                  className="cursor-pointer p-2 rounded text-gray-700 hover:bg-blue-100 hover:text-blue-700"
-                >
-                  {range}
-                </li>
-              )
-            )}
-          </ul>
+          <div className="flex items-center space-x-2">
+            <input
+              type="number"
+              placeholder="Min"
+              value={minPrice}
+              onChange={(e) => setMinPrice(Number(e.target.value) || "")}
+              className="w-20 p-2 border rounded text-gray-700"
+            />
+            <input
+              type="number"
+              placeholder="Max"
+              value={maxPrice}
+              onChange={(e) => setMaxPrice(Number(e.target.value) || "")}
+              className="w-20 p-2 border rounded text-gray-700"
+            />
+            <button
+              onClick={() => {}}
+              className="p-2 bg-[#f85606] text-white rounded hover:bg-[#f85606]"
+            >
+              Apply
+            </button>
+          </div>
         </div>
 
-        {/* Sorting Options */}
-        <div>
-          <h3 className="text-lg font-medium mb-2 text-gray-700">Sort By</h3>
+        {/* Rating Filter */}
+        <div className="mb-6">
+          <h3 className="text-lg font-medium mb-2 text-gray-700">Ratings</h3>
           <ul className="space-y-2">
-            {["Price: Low to High", "Price: High to Low"].map((sortOption) => (
+            {[5, 4, 3, 2, 1].map((rating) => (
               <li
-                key={sortOption}
-                className="cursor-pointer p-2 rounded text-gray-700 hover:bg-blue-100 hover:text-blue-700"
+                key={rating}
+                onClick={() => setSelectedRating(rating)}
+                className={`cursor-pointer p-2 rounded text-gray-700 hover:bg-[#f85606] hover:text-white text-[#f85606] ${
+                  selectedRating === rating ? "" : ""
+                }`}
               >
-                {sortOption}
+                {"★".repeat(rating) + "☆".repeat(5 - rating)}
               </li>
             ))}
           </ul>
@@ -65,22 +170,107 @@ const Products = () => {
 
       {/* Product Display */}
       <main className="flex-1 p-6">
-        <h1 className="text-2xl font-bold mb-6 text-gray-800">
-          Pet Food Products
-        </h1>
+        {/* Filter Summary */}
+        <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center space-x-4">
+            {selectedCategory && (
+              <Badge className=" rounded px-3 py-1 mr-2 relative bg-[#f85606] hover:bg-[#f85606]">
+                {categories.find((cat) => cat.slug === selectedCategory)?.name}
+                <MdClose
+                  onClick={() => removeFilter("category")}
+                  className="h-3 w-3 cursor-pointer absolute -top-2 bg-red-500 text-[#FFF] rounded-full -right-1"
+                />
+              </Badge>
+            )}
+            {minPrice && maxPrice && (
+              <Badge className=" rounded px-3 py-1 mr-2 relative bg-[#f85606] hover:bg-[#f85606]">
+                ${minPrice} - ${maxPrice}
+                <MdClose
+                  onClick={() => removeFilter("price")}
+                  className="h-3 w-3 cursor-pointer absolute -top-2 bg-red-500 text-[#FFF] rounded-full -right-1"
+                />
+              </Badge>
+            )}
+            {selectedRating && (
+              <Badge className=" rounded px-3 py-1 mr-2 relative bg-[#f85606] hover:bg-[#f85606]">
+                {selectedRating} Stars & Above
+                <MdClose
+                  onClick={() => removeFilter("rating")}
+                  className="h-3 w-3 cursor-pointer absolute -top-2 bg-red-500 text-[#FFF] rounded-full -right-1"
+                />
+              </Badge>
+            )}
+            {(selectedCategory || minPrice || maxPrice || selectedRating) && (
+              <Button
+                onClick={clearFilters}
+                variant="link"
+                className="text-[#f85606]"
+              >
+                Clear All
+              </Button>
+            )}
+          </div>
+
+          {/* Sort Options */}
+          <div className="flex items-center space-x-4">
+            <div className="flex items-center gap-2">
+              <p className="text-xs text-[#f85606]">Sort by:</p>
+              <Select>
+                <SelectTrigger className="w-[180px]">
+                  <SelectValue placeholder="Best match" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectGroup>
+                    <SelectItem value="apple">High to low</SelectItem>
+                    <SelectItem value="banana">Low to high</SelectItem>
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
+            </div>
+            <BsGrid3X3GapFill
+              onClick={() => setViewType("grid")}
+              className={`cursor-pointer text-2xl ${
+                viewType === "grid" ? "text-[#f85606]" : "text-gray-700"
+              }`}
+            />
+            <BsList
+              onClick={() => setViewType("inline")}
+              className={`cursor-pointer text-2xl ${
+                viewType === "inline" ? "text-[#f85606]" : "text-gray-700"
+              }`}
+            />
+          </div>
+        </div>
 
         {isLoading && <p>Loading products...</p>}
         {isError && <p className="text-red-600">Failed to fetch products</p>}
 
-        {data && data.length > 0 ? (
-          <div className="grid mt-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
-            {data.map((product: any) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
+        {data && data?.data.length > 0 ? (
+          <div
+            className={`${
+              viewType === "grid"
+                ? "grid mt-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5"
+                : ""
+            }`}
+          >
+            {data?.data.map((product: any) =>
+              viewType === "grid" ? (
+                <ProductCard key={product.id} product={product} />
+              ) : (
+                <HorazentalCard key={product.id} product={product} />
+              )
+            )}
           </div>
         ) : (
-          !isLoading && <p className="text-gray-600">No products found</p>
+          <p>No products found</p>
         )}
+        <div className="mt-6">
+          <CustomPagination
+            totalPages={totalPages}
+            currentPage={currentPage}
+            onPageChange={handlePageChange}
+          />
+        </div>
       </main>
     </div>
   );
