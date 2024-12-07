@@ -27,7 +27,11 @@ const MiddleNav = () => {
   return (
     <div className="flex justify-between items-center py-6 text-white container mx-auto">
       <div>
-        <h3 className="text-3xl font-semibold">Pet-Haven</h3>
+        {" "}
+        <p className="text-3xl font-semibold text-center">
+          {" "}
+          <Link href={"/"}>Pet-Haven</Link>
+        </p>
       </div>
       <div className="flex-1 flex items-center mx-24 relative">
         <Input

@@ -4,7 +4,17 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 import { usePathname } from "next/navigation";
-import { FaBars } from "react-icons/fa";
+import {
+  FaBars,
+  FaCat,
+  FaDog,
+  FaDove,
+  FaFish,
+  FaHamburger,
+  FaHorse,
+} from "react-icons/fa";
+import { LucideRabbit, LucideTurtle } from "lucide-react";
+import { GiReptileTail } from "react-icons/gi";
 
 const BottomNav = () => {
   const [isOpen, setIsOpen] = useState(true);
@@ -21,6 +31,18 @@ const BottomNav = () => {
   const toggleDropdown = () => {
     setIsOpen((prev) => !prev);
   };
+
+  const categories = [
+    { name: "Dog Food", slug: "dog-food", icon: <FaDog /> },
+    { name: "Cat Food", slug: "cat-food", icon: <FaCat /> },
+    { name: "Bird Food", slug: "bird-food", icon: <FaDove /> },
+    { name: "Fish Food", slug: "fish-food", icon: <FaFish /> },
+    { name: "Rabbit Food", slug: "rabbit-food", icon: <LucideRabbit /> },
+    { name: "Hamster Food", slug: "hamster-food", icon: <FaHamburger /> },
+    { name: "Turtle Food", slug: "turtle-food", icon: <LucideTurtle /> },
+    { name: "Horse Feed", slug: "horse-feed", icon: <FaHorse /> },
+    { name: "Reptile Food", slug: "reptile-food", icon: <GiReptileTail /> },
+  ];
   return (
     <div className="relative   border shadow-md mb-4">
       <div className=" flex  gap-10 items-center   bg-white ">
@@ -36,66 +58,20 @@ const BottomNav = () => {
             {isOpen && (
               <div className="absolute mt-2 w-52 bg-white   border border-gray-200 shadow-md transform translate-x-0 duration-200">
                 <ul className="flex flex-col">
-                  <li className="hover:bg-gray-100">
-                    <Link href="/" className="block px-4 py-2">
-                      Home
-                    </Link>
-                  </li>
-                  <li className="hover:bg-gray-100">
-                    <Link href="/products" className="block px-4 py-2">
-                      Products
-                    </Link>
-                  </li>
-                  <li className="hover:bg-gray-100">
-                    <Link href="/shop" className="block px-4 py-2">
-                      Shops
-                    </Link>
-                  </li>
-                  <li className="hover:bg-gray-100">
-                    <Link href="/contact" className="block px-4 py-2">
-                      Contact
-                    </Link>
-                  </li>
-                  <li className="hover:bg-gray-100">
-                    <Link href="/contact" className="block px-4 py-2">
-                      Contact
-                    </Link>
-                  </li>
-                  <li className="hover:bg-gray-100">
-                    <Link href="/contact" className="block px-4 py-2">
-                      Contact
-                    </Link>
-                  </li>
-                  <li className="hover:bg-gray-100">
-                    <Link href="/contact" className="block px-4 py-2">
-                      Contact
-                    </Link>
-                  </li>
-                  <li className="hover:bg-gray-100">
-                    <Link href="/contact" className="block px-4 py-2">
-                      Contact
-                    </Link>
-                  </li>
-                  <li className="hover:bg-gray-100">
-                    <Link href="/contact" className="block px-4 py-2">
-                      Contact
-                    </Link>
-                  </li>
-                  <li className="hover:bg-gray-100">
-                    <Link href="/contact" className="block px-4 py-2">
-                      Contact
-                    </Link>
-                  </li>
-                  <li className="hover:bg-gray-100">
-                    <Link href="/contact" className="block px-4 py-2">
-                      Contact
-                    </Link>
-                  </li>
-                  <li className="hover:bg-gray-100">
-                    <Link href="/contact" className="block px-4 py-2">
-                      Contact
-                    </Link>
-                  </li>
+                  {categories.map((category) => (
+                    <li
+                      key={category.slug}
+                      className="hover:bg-[#f85606] flex items-center gap-2 px-4 py-1 text-[#f85606] hover:text-[#fff] rounded-md mx-2 mt-2 "
+                    >
+                      <Link
+                        href={`/products?category=${category.slug}`}
+                        className="flex items-center gap-2  w-full p-2  font-bold text-center "
+                      >
+                        <p className=" hover:text-[#fff]">{category.icon}</p>
+                        <span>{category.name}</span>
+                      </Link>
+                    </li>
+                  ))}
                 </ul>
               </div>
             )}
