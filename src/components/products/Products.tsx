@@ -1,82 +1,11 @@
+"use client";
 import React from "react";
 import ProductCard from "./ProductsCard";
+import { useGetAllProductsQuery } from "@/hook/products.hook";
+
 
 const Products = () => {
-  // Dummy product data
-  const petFoodData = [
-    {
-      _id: "1",
-      name: "Premium Dog Food",
-      category: "Dog",
-      price: 29.99,
-      image:
-        "https://htmldemo.net/petmark/petmark/image/product/product-details/product-details-4.jpg",
-    },
-    {
-      _id: "2",
-      name: "Cat Tuna Delight",
-      category: "Cat",
-      price: 24.99,
-      image:
-        "https://htmldemo.net/petmark/petmark/image/product/product-details/product-details-1.jpg",
-    },
-    {
-      _id: "3",
-      name: "Bird Seed Mix",
-      category: "Bird",
-      price: 15.99,
-      image:
-        "https://htmldemo.net/petmark/petmark/image/product/product-details/product-details-2.jpg",
-    },
-    {
-      _id: "4",
-      name: "Small Animal Pellets",
-      category: "Small Animal",
-      price: 12.99,
-      image:
-        "https://htmldemo.net/petmark/petmark/image/product/product-details/product-details-3.jpg",
-    },
-    {
-      _id: "5",
-      name: "Small Animal Pellets",
-      category: "Small Animal",
-      price: 12.99,
-      image:
-        "https://htmldemo.net/petmark/petmark/image/product/product-details/product-details-3.jpg",
-    },
-    {
-      _id: "6",
-      name: "Small Animal Pellets",
-      category: "Small Animal",
-      price: 12.99,
-      image:
-        "https://htmldemo.net/petmark/petmark/image/product/product-details/product-details-3.jpg",
-    },
-    {
-      _id: "7",
-      name: "Small Animal Pellets",
-      category: "Small Animal",
-      price: 12.99,
-      image:
-        "https://htmldemo.net/petmark/petmark/image/product/product-details/product-details-3.jpg",
-    },
-    {
-      _id: "8",
-      name: "Small Animal Pellets",
-      category: "Small Animal",
-      price: 12.99,
-      image:
-        "https://htmldemo.net/petmark/petmark/image/product/product-details/product-details-3.jpg",
-    },
-    {
-      _id: "9",
-      name: "Small Animal Pellets",
-      category: "Small Animal",
-      price: 12.99,
-      image:
-        "https://htmldemo.net/petmark/petmark/image/product/product-details/product-details-3.jpg",
-    },
-  ];
+  const { data, isLoading, isError } = useGetAllProductsQuery();
 
   return (
     <div className="flex min-h-screen bg-gray-50">
@@ -139,14 +68,18 @@ const Products = () => {
         <h1 className="text-2xl font-bold mb-6 text-gray-800">
           Pet Food Products
         </h1>
-        {petFoodData && petFoodData.length > 0 ? (
+
+        {isLoading && <p>Loading products...</p>}
+        {isError && <p className="text-red-600">Failed to fetch products</p>}
+
+        {data && data.length > 0 ? (
           <div className="grid mt-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
-            {petFoodData.map((product) => (
-              <ProductCard key={product._id} product={product} />
+            {data.map((product: any) => (
+              <ProductCard key={product.id} product={product} />
             ))}
           </div>
         ) : (
-          <p className="text-gray-600">No products found</p>
+          !isLoading && <p className="text-gray-600">No products found</p>
         )}
       </main>
     </div>

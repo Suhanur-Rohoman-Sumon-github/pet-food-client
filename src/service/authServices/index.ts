@@ -22,7 +22,7 @@ export const registerUser = async (userData: FieldValues) => {
 };
 
 export const loginUser = async (userData: FieldValues) => {
-    console.log(userData);
+    
   try {
     const  {data}  = await axiosInstance.post("/auth/login", userData);
   const cookieStore = await cookies();
