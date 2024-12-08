@@ -6,7 +6,6 @@ import {
   PaginationPrevious,
   PaginationNext,
   PaginationLink,
-  PaginationEllipsis,
 } from "../ui/pagination";
 
 interface CustomPaginationProps {
@@ -30,16 +29,36 @@ const CustomPagination: React.FC<CustomPaginationProps> = ({
 
   return (
     <Pagination>
-      <PaginationContent>
+      <PaginationContent
+        style={{
+          backgroundColor: "#FFF",
+          padding: "10px",
+          borderRadius: "5px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
         {/* Previous Button */}
         <PaginationItem>
           <PaginationPrevious
             href="#"
             onClick={(e) => {
               e.preventDefault();
-              handlePrevious();
+              if (currentPage > 1) handlePrevious();
             }}
-          />
+            style={{
+              backgroundColor: currentPage === 1 ? "#cccccc" : "#f85606",
+              color: currentPage === 1 ? "#666666" : "white",
+              pointerEvents: currentPage === 1 ? "none" : "auto",
+              cursor: currentPage === 1 ? "not-allowed" : "pointer",
+              padding: "5px 10px",
+              borderRadius: "5px",
+              marginRight: "10px",
+            }}
+          >
+            Previous
+          </PaginationPrevious>
         </PaginationItem>
 
         {/* Page Numbers */}
@@ -51,14 +70,19 @@ const CustomPagination: React.FC<CustomPaginationProps> = ({
                 e.preventDefault();
                 onPageChange(index + 1);
               }}
+              style={{
+                backgroundColor: index + 1 === currentPage ? "#f85606" : "#FFF",
+                color: index + 1 === currentPage ? "#FFF" : "#f85606",
+                borderRadius: "5px",
+                padding: "5px 10px",
+                margin: "0 5px",
+                textAlign: "center",
+              }}
             >
               {index + 1}
             </PaginationLink>
           </PaginationItem>
         ))}
-
-        {/* Ellipsis (optional for large paginations) */}
-        {totalPages > 5 && <PaginationEllipsis />}
 
         {/* Next Button */}
         <PaginationItem>
@@ -66,9 +90,21 @@ const CustomPagination: React.FC<CustomPaginationProps> = ({
             href="#"
             onClick={(e) => {
               e.preventDefault();
-              handleNext();
+              if (currentPage < totalPages) handleNext();
             }}
-          />
+            style={{
+              backgroundColor:
+                currentPage === totalPages ? "#cccccc" : "#f85606",
+              color: currentPage === totalPages ? "#666666" : "white",
+              pointerEvents: currentPage === totalPages ? "none" : "auto",
+              cursor: currentPage === totalPages ? "not-allowed" : "pointer",
+              padding: "5px 10px",
+              borderRadius: "5px",
+              marginLeft: "10px",
+            }}
+          >
+            Next
+          </PaginationNext>
         </PaginationItem>
       </PaginationContent>
     </Pagination>
