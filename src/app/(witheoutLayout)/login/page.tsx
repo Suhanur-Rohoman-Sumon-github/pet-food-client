@@ -22,7 +22,7 @@ const Login = () => {
   //   const navigate = useNavigate();
   //   const dispatch = useAppDispatch();
   const onSubmit = (data: FieldValues) => {
-    console.log(data);
+    
     login(data);
   };
 

@@ -47,12 +47,12 @@ export const logout =async () => {
 };
 
 export const getCurrentUser = async () => {
-  const cookieStore = await cookies(); // Read-only cookies
+  const cookieStore = await cookies();
   const accessToken = cookieStore.get("accessToken")?.value;
 
   if (accessToken) {
     const decodedToken = jwtDecode(accessToken) as {
-      _id: string;
+      id: string;
       name: string; 
       username: string;
       email: string;
@@ -60,9 +60,10 @@ export const getCurrentUser = async () => {
       status: string;
       profilePicture: string;
     };
+    console.log(decodedToken);
 
     return {
-      _id: decodedToken._id,
+      id: decodedToken.id,
       name: decodedToken.name,
       username: decodedToken.username,
       email: decodedToken.email,

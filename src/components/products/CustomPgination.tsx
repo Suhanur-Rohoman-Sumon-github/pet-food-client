@@ -39,7 +39,6 @@ const CustomPagination: React.FC<CustomPaginationProps> = ({
           justifyContent: "center",
         }}
       >
-        {/* Previous Button */}
         <PaginationItem>
           <PaginationPrevious
             href="#"
@@ -61,7 +60,6 @@ const CustomPagination: React.FC<CustomPaginationProps> = ({
           </PaginationPrevious>
         </PaginationItem>
 
-        {/* Page Numbers */}
         {Array.from({ length: totalPages }, (_, index) => (
           <PaginationItem key={index}>
             <PaginationLink
@@ -84,7 +82,6 @@ const CustomPagination: React.FC<CustomPaginationProps> = ({
           </PaginationItem>
         ))}
 
-        {/* Next Button */}
         <PaginationItem>
           <PaginationNext
             href="#"

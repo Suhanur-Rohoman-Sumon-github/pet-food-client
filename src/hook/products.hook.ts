@@ -15,7 +15,7 @@ export const useGetAllProductsQuery = (queryParams: {
     queryKey: ["get-products", queryParams],
     queryFn: async () => {
       const data = await getALlProducts(queryParams);
-      return data; // Adjust this based on your API response structure
+      return data;
     },
   });
 
