@@ -1,3 +1,4 @@
+"use client";
 import { CgMail } from "react-icons/cg";
 import { LiaPagerSolid } from "react-icons/lia";
 import {
@@ -11,8 +12,14 @@ import {
 import { FaHeart } from "react-icons/fa";
 import { GoGitCompare } from "react-icons/go";
 import Image from "next/image";
+import { useUser } from "@/context/userProvider";
+import { useGetMyWishListQuery } from "@/hook/wishlist.hook";
+import Link from "next/link";
 
 const TopNav = () => {
+  const { user } = useUser();
+
+  const { data: wishlist } = useGetMyWishListQuery(user?.id || "");
   return (
     <div className="  pb-2 mt-1  flex justify-between items-center container mx-auto">
       <div className="w-fit flex items-center gap-1 ">
@@ -105,9 +112,17 @@ const TopNav = () => {
             </Select>
           </li>
           <li className="bg-slate-200 w-[2px] h-4"></li>
-          <li className="flex items-center gap-2">
-            <FaHeart /> Wishlist
-          </li>
+          <Link href={"/wishList"}>
+            <li className="flex items-center gap-2">
+              <FaHeart className="text-red-500" /> Wishlist{" "}
+              <span className=" text-[#f85606] rounded-full ">
+                {wishlist?.length}
+              </span>
+              <p className="absolute bottom-5 -right-4 text-xs bg-[#FF3838] px-2 border rounded-full  text-[#FFF] cursor-pointer">
+                {}
+              </p>
+            </li>
+          </Link>
           <li className="bg-slate-200 w-[2px] h-4"></li>
           <li className="flex items-center gap-2">
             <GoGitCompare /> Compare

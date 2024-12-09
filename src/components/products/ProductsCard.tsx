@@ -1,6 +1,7 @@
 "use client";
 import { useUser } from "@/context/userProvider";
 import { useAddToCartMutation } from "@/hook/card.hook";
+import { useAddWishListMutation } from "@/hook/wishlist.hook";
 import Image from "next/image";
 import Link from "next/link";
 import { FaExchangeAlt, FaHeart, FaShoppingCart } from "react-icons/fa";
@@ -23,14 +24,17 @@ const ProductCard = ({ product }: { product: TProduct }) => {
     user?.id ? user?.id : "",
     product.id
   );
+  const { mutate: addToWishList } = useAddWishListMutation(
+    user?.id ? user?.id : "",
+    product.id
+  );
 
   const handleAddToCart = () => {
-    console.log(`Add to cart clicked for product ${product.id}`);
     addToCart();
   };
 
   const handleFavorite = () => {
-    console.log(`Favorite clicked for product ${product.id}`);
+    addToWishList();
   };
 
   const handleCompare = () => {
