@@ -10,6 +10,7 @@ import {
 } from "../ui/select";
 import { FaHeart } from "react-icons/fa";
 import { GoGitCompare } from "react-icons/go";
+import Image from "next/image";
 
 const TopNav = () => {
   return (
@@ -35,10 +36,12 @@ const TopNav = () => {
                 <SelectGroup>
                   <SelectItem value="USD">
                     <div className="flex items-center gap-2">
-                      <img
+                      <Image
                         className="w-4 h-[11px]  "
                         src="https://cdn.britannica.com/33/4833-050-F6E415FE/Flag-United-States-of-America.jpg"
                         alt=""
+                        width={460}
+                        height={460}
                       />{" "}
                       <span>USD</span>
                     </div>
@@ -46,20 +49,24 @@ const TopNav = () => {
                   <SelectItem value="EUR">
                     {" "}
                     <div className="flex items-center gap-2">
-                      <img
+                      <Image
                         className="w-4 h-[11px]  "
                         src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Flag_of_Europe.svg/2560px-Flag_of_Europe.svg.png"
                         alt=""
+                        width={460}
+                        height={460}
                       />{" "}
                       <span>EUR</span>
                     </div>
                   </SelectItem>
                   <SelectItem value="GBP">
                     <div className="flex items-center gap-2">
-                      <img
+                      <Image
                         className="w-4 h-[11px]  "
                         src="https://upload.wikimedia.org/wikipedia/en/thumb/a/ae/Flag_of_the_United_Kingdom.svg/2560px-Flag_of_the_United_Kingdom.svg.png"
                         alt=""
+                        width={460}
+                        height={460}
                       />{" "}
                       <span>GBP</span>
                     </div>
@@ -67,10 +74,12 @@ const TopNav = () => {
                   <SelectItem value="AUD">
                     {" "}
                     <div className="flex items-center gap-2">
-                      <img
+                      <Image
                         className="w-4 h-[11px]  "
                         src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKGoZ7B2JY7aBv5f_c_-tiXyise-AirdopfsoGDOdyIGJN3oPTNEIstTW7wqDX6FM93p8&usqp=CAU"
                         alt=""
+                        width={460}
+                        height={460}
                       />{" "}
                       <span>AUD</span>
                     </div>
