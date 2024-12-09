@@ -8,16 +8,10 @@ export interface IUser {
   [x: string]: string;
   id: string;
   name: string;
-  username?: string; // Use this if you prefer "username"
   role: string;
   email: string;
   status: string;
-  mobileNumber?: string;
   profilePicture: string;
-  createdAt?: string;
-  updatedAt?: string;
-  __v?: number;
-  currentState?: string; // Remove userName property if keeping username
 }
 
 export interface IInput {
@@ -65,3 +59,12 @@ export type FriendRequest = {
   __v: number;
   _id: string;
 };
+
+
+export type item = {
+    id: string;
+    images:string[]
+    name:string
+    price:number
+    description :string
+}

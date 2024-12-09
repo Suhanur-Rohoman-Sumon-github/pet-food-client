@@ -3,30 +3,11 @@ import React from "react";
 import Image from "next/image";
 import { useGetMyCardQuery } from "@/hook/card.hook";
 import { useUser } from "@/context/userProvider";
+import { item } from "@/types";
 
 const MyCart = () => {
   const { user } = useUser();
   const { data: MyCart } = useGetMyCardQuery(user?.id ? user?.id : "");
-  console.log(MyCart);
-  // Dummy data for cart items
-  const cartItems = [
-    {
-      id: 1,
-      image: "https://via.placeholder.com/100",
-      title: "Product 1",
-      description: "Description of Product 1",
-      price: 30,
-    },
-    {
-      id: 2,
-      image: "https://via.placeholder.com/100",
-      title: "Product 2",
-      description: "Description of Product 2",
-      price: 50,
-    },
-  ];
-
-  const totalPrice = cartItems.reduce((sum, item) => sum + item.price, 0);
 
   const handleCheckout = () => {};
 
@@ -36,7 +17,7 @@ const MyCart = () => {
       <div className="flex-1">
         <h2 className="text-2xl font-bold mb-4">Your Cart</h2>
         <div className="space-y-4">
-          {MyCart?.products.map((item) => (
+          {MyCart?.products.map((item: item) => (
             <div
               key={item.id}
               className="flex items-center gap-4 p-4 border rounded-lg"

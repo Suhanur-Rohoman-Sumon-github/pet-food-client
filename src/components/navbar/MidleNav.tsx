@@ -15,9 +15,16 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { logout } from "@/service/authServices";
 import { FaShoppingCart } from "react-icons/fa";
+import { useGetMyCardQuery } from "@/hook/card.hook";
+import { useEffect } from "react";
 
 const MiddleNav = () => {
   const { setIsLoading: userLoading, setUser, user } = useUser();
+  const { data: MyCart, refetch } = useGetMyCardQuery(user?.id ? user?.id : "");
+  console.log(MyCart);
+  useEffect(() => {
+    refetch();
+  }, [refetch]);
   const handleLogout = () => {
     logout();
     userLoading(true);
@@ -47,10 +54,13 @@ const MiddleNav = () => {
           {user ? (
             <div className="flex items-center gap-8">
               <div className="relative">
-                <FaShoppingCart className="h-8 w-8" />
-                <p className="absolute bottom-5 -right-4 text-xs bg-[#FF3838] px-2 border rounded-full  text-[#FFF]">
-                  {4}
-                </p>
+                <Link href={"/cart"}>
+                  <FaShoppingCart className="h-8 w-8" />
+
+                  <p className="absolute bottom-5 -right-4 text-xs bg-[#FF3838] px-2 border rounded-full  text-[#FFF] cursor-pointer">
+                    {MyCart?.products?.length}
+                  </p>
+                </Link>
               </div>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
