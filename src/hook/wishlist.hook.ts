@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { addToWishList, getMyWishList } from "@/service/wishlistServices";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import axios from "axios";
 import { toast } from "sonner";
 
 export const useAddWishListMutation = (userID: string,productId: string) => {
@@ -18,9 +19,23 @@ export const useAddWishListMutation = (userID: string,productId: string) => {
         queryKey: ["add-to-wishList"],
       });
     },
-    onError: (error) => {
-      toast.error(`${error.message}`);
+       onError: (error) => {
+
+  if (axios.isAxiosError(error)) {
+ 
+    if (error.response?.data?.message) {
+     
+      toast.error(error.response.data.message);
+    } else {
+   
+      toast.error("An unexpected error occurred.");
     }
+  } else {
+    
+    console.log(error?.cause || error);
+    toast.error(error?.message || "An unknown error occurred.");
+  }
+},
   
 })}
 

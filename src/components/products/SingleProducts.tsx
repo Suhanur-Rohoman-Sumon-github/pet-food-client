@@ -13,13 +13,25 @@ import {
   useGetSingleProductQuery,
 } from "@/hook/products.hook";
 import ProductCard from "./ProductsCard";
+import { useUser } from "@/context/userProvider";
+import { useAddToCartMutation } from "@/hook/card.hook";
+import { useAddWishListMutation } from "@/hook/wishlist.hook";
 
 const SingleProducts = ({ productId }: { productId: string }) => {
+  const { user } = useUser();
   const { data: singleProducts, isLoading } = useGetSingleProductQuery(
     productId ? productId : ""
   );
   const { data } = useGetRelatedProductsQuery(singleProducts?.category_id);
-  console.log(data);
+
+  const { mutate: addToCart } = useAddToCartMutation(
+    user?.id ? user?.id : "",
+    productId
+  );
+  const { mutate: addToWishList } = useAddWishListMutation(
+    user?.id ? user?.id : "",
+    productId
+  );
   if (isLoading) {
     <p>loading.....</p>;
   }
@@ -30,7 +42,10 @@ const SingleProducts = ({ productId }: { productId: string }) => {
   const { images, description, name } = singleProducts;
 
   const handleAddToCart = () => {
-    console.log("clicked");
+    addToCart();
+  };
+  const handleAddFavorite = () => {
+    addToWishList();
   };
 
   return (
@@ -72,7 +87,10 @@ const SingleProducts = ({ productId }: { productId: string }) => {
           </div>
           <div className="flex space-x-4 my-4 border">
             {" "}
-            <button className="w-full text-center mx-auto p-2 flex items-center justify-center gap-2">
+            <button
+              onClick={handleAddFavorite}
+              className="w-full text-center mx-auto p-2 flex items-center justify-center gap-2"
+            >
               <GrFavorite /> Favourite
             </button>
           </div>
