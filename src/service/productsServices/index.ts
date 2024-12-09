@@ -16,7 +16,6 @@ export const getALlProducts = async (queryParams: {
     const { page, limit, category, minPrice, maxPrice, rating, sort } =
       queryParams;
 
-    // Build query string
     const query = new URLSearchParams();
 
     if (page) query.append("page", page.toString());
@@ -33,4 +32,13 @@ export const getALlProducts = async (queryParams: {
   } catch (error: any) {
     throw new Error(error.message);
   }
+};
+
+export const getSIngleProducts = async (productId:string) => {
+  const { data } = await axiosInstance.get(`/products/${productId}`);
+  return data.data; 
+};
+export const getRelatedProducts = async (categoryId:string) => {
+  const { data } = await axiosInstance.get(`/products/related-products/${categoryId}`);
+  return data.data; 
 };
