@@ -1,6 +1,9 @@
 import { useUser } from "@/context/userProvider";
+import { useAddToCartMutation } from "@/hook/card.hook";
+import { useAddWishListMutation } from "@/hook/wishlist.hook";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { FaExchangeAlt, FaHeart, FaShoppingCart } from "react-icons/fa";
 
 export type TProduct = {
@@ -16,17 +19,44 @@ export type TProduct = {
 };
 
 const HorazentalCard = ({ product }: { product: TProduct }) => {
-  const {user} = useUser();
+   const { user } = useUser();
+   const { mutate: addToCart } = useAddToCartMutation(
+     user?.id ? user?.id : "",
+     product.id
+   );
+   const { mutate: addToWishList } = useAddWishListMutation(
+     user?.id ? user?.id : "",
+     product.id
+   );
+   const router = useRouter();
 
-  const handleAddToCart = () => {};
+   const handleRedirectToLogin = (action: string) => {
+     const currentPath = window.location.pathname;
 
-  const handleFavorite = () => {
-    console.log(`Favorite clicked for product ${product.id}`);
-  };
+     router.push(
+       `/login?redirect=${encodeURIComponent(currentPath)}&action=${action}`
+     );
+   };
 
-  const handleCompare = () => {
-    console.log(`Compare clicked for product ${product.id}`);
-  };
+   const handleAddToCart = () => {
+     if (!user) {
+       handleRedirectToLogin("add-to-cart");
+     } else {
+       addToCart();
+     }
+   };
+
+   const handleFavorite = () => {
+     if (!user) {
+       handleRedirectToLogin("add-to-favorite");
+     } else {
+       addToWishList();
+     }
+   };
+
+   const handleCompare = () => {
+     console.log(`Compare clicked for product ${product.id}`);
+   };
 
   return (
     <div className="relative my-4">

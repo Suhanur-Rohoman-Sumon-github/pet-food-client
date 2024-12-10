@@ -31,10 +31,10 @@ const ProductCard = ({ product }: { product: TProduct }) => {
   );
   const router = useRouter();
 
-  // Logic to handle redirection if user is not logged in
+ 
   const handleRedirectToLogin = (action: string) => {
     const currentPath = window.location.pathname;
-    // Redirect to login with the current page as a redirect URL
+    
     router.push(
       `/login?redirect=${encodeURIComponent(currentPath)}&action=${action}`
     );

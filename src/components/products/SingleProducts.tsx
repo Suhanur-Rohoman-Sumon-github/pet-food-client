@@ -16,9 +16,11 @@ import ProductCard from "./ProductsCard";
 import { useUser } from "@/context/userProvider";
 import { useAddToCartMutation } from "@/hook/card.hook";
 import { useAddWishListMutation } from "@/hook/wishlist.hook";
+import { useRouter } from "next/navigation";
 
 const SingleProducts = ({ productId }: { productId: string }) => {
   const { user } = useUser();
+  const router = useRouter();
   const { data: singleProducts, isLoading } = useGetSingleProductQuery(
     productId ? productId : ""
   );
@@ -41,11 +43,28 @@ const SingleProducts = ({ productId }: { productId: string }) => {
   }
   const { images, description, name } = singleProducts;
 
-  const handleAddToCart = () => {
-    addToCart();
+  const handleRedirectToLogin = (action: string) => {
+    const currentPath = window.location.pathname;
+
+    router.push(
+      `/login?redirect=${encodeURIComponent(currentPath)}&action=${action}`
+    );
   };
-  const handleAddFavorite = () => {
-    addToWishList();
+
+  const handleAddToCart = () => {
+    if (!user) {
+      handleRedirectToLogin("add-to-cart");
+    } else {
+      addToCart();
+    }
+  };
+
+  const handleFavorite = () => {
+    if (!user) {
+      handleRedirectToLogin("add-to-favorite");
+    } else {
+      addToWishList();
+    }
   };
 
   return (
@@ -88,7 +107,7 @@ const SingleProducts = ({ productId }: { productId: string }) => {
           <div className="flex space-x-4 my-4 border">
             {" "}
             <button
-              onClick={handleAddFavorite}
+              onClick={handleFavorite}
               className="w-full text-center mx-auto p-2 flex items-center justify-center gap-2"
             >
               <GrFavorite /> Favourite
