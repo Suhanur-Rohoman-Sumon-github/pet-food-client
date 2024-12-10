@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
+import { useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import {
   FaDog,
@@ -27,7 +28,7 @@ import HorazentalCard from "./ProductHorizantalVewCard";
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
 import CustomPagination from "./CustomPgination";
-import { useSearchParams } from "next/navigation";
+
 
 const categories = [
   { name: "Dog Food", slug: "dog-food", icon: <FaDog /> },
@@ -42,7 +43,7 @@ const categories = [
 ];
 
 const Products = () => {
-  const searchParams = useSearchParams(); // Access URL search parameters
+  const searchParams = useSearchParams(); 
   const searchTerm = searchParams.get("searchTerm") || "";
 
   const [selectedCategory, setSelectedCategory] = useState<string | "">("");
