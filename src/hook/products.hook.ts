@@ -10,8 +10,11 @@ export const useGetAllProductsQuery = (queryParams: {
   maxPrice?: number | "";
   rating?: number | "";
   sort?: string | "";
+  searchTerm?:string|""
 }) => {
+  
   const { data, refetch, isLoading, isError } = useQuery<any, Error>({
+    
     queryKey: ["get-products", queryParams],
     queryFn: async () => {
       const data = await getALlProducts(queryParams);

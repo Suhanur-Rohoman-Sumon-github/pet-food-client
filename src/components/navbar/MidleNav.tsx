@@ -16,12 +16,13 @@ import {
 import { logout } from "@/service/authServices";
 import { FaShoppingCart } from "react-icons/fa";
 import { useGetMyCardQuery } from "@/hook/card.hook";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const MiddleNav = () => {
   const { setIsLoading: userLoading, setUser, user } = useUser();
+  const [searchData, setSearchData] = useState("");
   const { data: MyCart, refetch } = useGetMyCardQuery(user?.id ? user?.id : "");
-  console.log(MyCart);
+
   useEffect(() => {
     refetch();
   }, [refetch]);
@@ -43,11 +44,15 @@ const MiddleNav = () => {
       <div className="flex-1 flex items-center mx-24 relative">
         <Input
           placeholder="Search products"
-          className="bg-slate-100 rounded-e-none py-5"
+          className="bg-slate-100 rounded-e-none py-5 text-black"
+          onChange={(e) => setSearchData(e.target.value)}
         />
-        <button className="absolute right-0 top-1/2 transform -translate-y-1/2 border bg-[#f85606] px-8 py-3">
-          <LiaSearchSolid />
-        </button>
+        <Link href={`/products?searchTerm=${searchData}`}>
+          {" "}
+          <button className="absolute right-0 top-1/2 transform -translate-y-1/2 border bg-[#f85606] px-8 py-3">
+            <LiaSearchSolid />
+          </button>
+        </Link>
       </div>
       <div className="flex gap-8">
         <div className="flex items-center gap-2">

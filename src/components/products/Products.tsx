@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   FaDog,
   FaCat,
@@ -27,6 +27,7 @@ import HorazentalCard from "./ProductHorizantalVewCard";
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
 import CustomPagination from "./CustomPgination";
+import { useSearchParams } from "next/navigation";
 
 const categories = [
   { name: "Dog Food", slug: "dog-food", icon: <FaDog /> },
@@ -41,12 +42,16 @@ const categories = [
 ];
 
 const Products = () => {
+  const searchParams = useSearchParams(); // Access URL search parameters
+  const searchTerm = searchParams.get("searchTerm") || "";
+
   const [selectedCategory, setSelectedCategory] = useState<string | "">("");
   const [minPrice, setMinPrice] = useState<number | "">("");
   const [maxPrice, setMaxPrice] = useState<number | "">("");
   const [selectedRating, setSelectedRating] = useState<number | "">("");
   const [viewType, setViewType] = useState<"grid" | "inline">("grid");
   const [sortOption, setSortOption] = useState<string | "">("Best Match");
+  const [searchTerms, setSearchTerms] = useState<string | "">(searchTerm);
 
   const [currentPage, setCurrentPage] = useState<number>(1);
   const itemsPerPage = 12;
@@ -61,7 +66,12 @@ const Products = () => {
     setMaxPrice("");
     setSelectedRating("");
     setSortOption("Best Match");
+    window.history.replaceState(null, "", window.location.pathname);
+    setSearchTerms("");
   };
+  useEffect(() => {
+    setSearchTerms(searchTerm);
+  }, [searchTerm]);
 
   const removeFilter = (filter: string) => {
     switch (filter) {
@@ -74,6 +84,10 @@ const Products = () => {
         break;
       case "rating":
         setSelectedRating("");
+        break;
+      case "searchTerms":
+        window.history.replaceState(null, "", window.location.pathname);
+        setSearchTerms("");
         break;
       default:
         break;
@@ -88,9 +102,8 @@ const Products = () => {
     maxPrice,
     rating: selectedRating,
     sort: sortOption,
+    searchTerm: searchTerm,
   });
-
-  console.log(data);
 
   const totalPages = Math.ceil((data?.meta.total || 0) / itemsPerPage);
 
@@ -120,33 +133,6 @@ const Products = () => {
         </div>
 
         {/* Price Filter */}
-        <div className="mb-6">
-          <h3 className="text-lg font-medium mb-2 text-gray-700">
-            Price Range
-          </h3>
-          <div className="flex items-center space-x-2">
-            <input
-              type="number"
-              placeholder="Min"
-              value={minPrice}
-              onChange={(e) => setMinPrice(Number(e.target.value) || "")}
-              className="w-20 p-2 border rounded text-gray-700"
-            />
-            <input
-              type="number"
-              placeholder="Max"
-              value={maxPrice}
-              onChange={(e) => setMaxPrice(Number(e.target.value) || "")}
-              className="w-20 p-2 border rounded text-gray-700"
-            />
-            <button
-              onClick={() => {}}
-              className="p-2 bg-[#f85606] text-white rounded hover:bg-[#f85606]"
-            >
-              Apply
-            </button>
-          </div>
-        </div>
 
         {/* Rating Filter */}
         <div className="mb-6">
@@ -156,7 +142,7 @@ const Products = () => {
               <li
                 key={rating}
                 onClick={() => setSelectedRating(rating)}
-                className={`cursor-pointer p-2 rounded text-gray-700 hover:bg-[#f85606] hover:text-white text-[#f85606] ${
+                className={`cursor-pointer p-2 rounded   text-[#f85606] ${
                   selectedRating === rating ? "" : ""
                 }`}
               >
@@ -199,7 +185,20 @@ const Products = () => {
                 />
               </Badge>
             )}
-            {(selectedCategory || minPrice || maxPrice || selectedRating) && (
+            {searchTerms && (
+              <Badge className="rounded px-3 py-1 mr-2 relative bg-[#f85606] hover:bg-[#f85606]">
+                {searchTerms}
+                <MdClose
+                  onClick={() => removeFilter("searchTerms")}
+                  className="h-3 w-3 cursor-pointer absolute -top-2 bg-red-500 text-[#FFF] rounded-full -right-1"
+                />
+              </Badge>
+            )}
+            {(selectedCategory ||
+              minPrice ||
+              maxPrice ||
+              selectedRating ||
+              searchTerms) && (
               <Button
                 onClick={clearFilters}
                 variant="link"
@@ -214,14 +213,18 @@ const Products = () => {
           <div className="flex items-center space-x-4">
             <div className="flex items-center gap-2">
               <p className="text-xs text-[#f85606]">Sort by:</p>
-              <Select>
+              <Select onValueChange={(value) => setSortOption(value)}>
                 <SelectTrigger className="w-[180px]">
                   <SelectValue placeholder="Best match" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectGroup>
-                    <SelectItem value="apple">High to low</SelectItem>
-                    <SelectItem value="banana">Low to high</SelectItem>
+                    <SelectItem value="high-to-low">
+                      Price: High to Low
+                    </SelectItem>
+                    <SelectItem value="low-to-high">
+                      Price: Low to High
+                    </SelectItem>
                   </SelectGroup>
                 </SelectContent>
               </Select>

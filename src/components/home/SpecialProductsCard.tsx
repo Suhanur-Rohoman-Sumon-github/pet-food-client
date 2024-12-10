@@ -41,14 +41,14 @@ const SpecialProductCard = ({ product }: { product: TSpecialProduct }) => {
     return () => clearInterval(interval);
   }, []);
   return (
-    <div className="flex items-center border rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
+    <div className="md:flex items-center border rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
       {/* Image Section */}
       <div
         className="w-1/2 h-[280px] bg-cover bg-center"
         style={{ backgroundImage: `url(${product.image})` }}
       />
 
-      <div className="w-1/2 p-6 relative flex flex-col justify-between">
+      <div className="md:w-1/2 p-6 relative flex flex-col justify-between">
         <div>
           <h4 className="text-sm text-gray-500">{product.category}</h4>
           <h3 className="text-2xl font-semibold">{product.name}</h3>

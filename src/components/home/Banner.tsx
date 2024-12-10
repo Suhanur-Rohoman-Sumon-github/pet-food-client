@@ -11,7 +11,7 @@ import { Autoplay, Pagination } from "swiper/modules";
 
 const Banner = () => {
   return (
-    <div className="ml-[230px]">
+    <div className="md:ml-[230px]">
       <Swiper
         autoplay={{
           delay: 2000,

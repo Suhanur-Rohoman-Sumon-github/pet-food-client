@@ -43,16 +43,14 @@ const ProductCard = ({ product }: { product: TProduct }) => {
 
   return (
     <div className="relative border rounded-lg overflow-hidden group transition-all duration-300 transform">
-      {/* Favorite and Compare Icons */}
       <div className="absolute top-2 right-2 flex flex-col items-center space-y-2 z-10">
-        {/* Favorite Icon (Shows on Hover) */}
         <button
           onClick={handleFavorite}
           className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-[#f85606] hover:text-red-500"
         >
           <FaHeart className="text-lg" />
         </button>
-        {/* Compare Icon (Always Visible) */}
+
         <button
           onClick={handleCompare}
           className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-[#f85606] hover:text-red-500"
@@ -61,7 +59,6 @@ const ProductCard = ({ product }: { product: TProduct }) => {
         </button>
       </div>
 
-      {/* Product Content */}
       <div>
         <Link href={`/products/${product.id}`}>
           <div>
@@ -82,7 +79,9 @@ const ProductCard = ({ product }: { product: TProduct }) => {
               />
             </div>
             <div className="transition-opacity duration-300 opacity-100 group-hover:opacity-0 ml-4 mb-4">
-              <h3 className="mt-2 text-lg font-bold">{product.name}</h3>
+              <h3 className="mt-2 text-lg font-bold text-[#09090b]">
+                {product.name}
+              </h3>
               <p className="text-gray-600">{product.category}</p>
               <p className="mt-2 text-[#f85606] font-semibold">
                 ${product.price.toFixed(2)}
@@ -90,8 +89,6 @@ const ProductCard = ({ product }: { product: TProduct }) => {
             </div>
           </div>
         </Link>
-
-        {/* Add to Cart Button */}
         <button
           onClick={handleAddToCart}
           className="button-secondary opacity-0 group-hover:opacity-100 transition-opacity duration-300 absolute bottom-4 left-4 right-4 flex items-center justify-center"

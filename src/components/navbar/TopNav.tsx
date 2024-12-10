@@ -21,7 +21,7 @@ const TopNav = () => {
 
   const { data: wishlist } = useGetMyWishListQuery(user?.id || "");
   return (
-    <div className="  pb-2 mt-1  flex justify-between items-center container mx-auto">
+    <div className="  pb-2 mt-1  md:flex justify-between items-center container mx-auto hidden ">
       <div className="w-fit flex items-center gap-1 ">
         <LiaPagerSolid className="text-2xl" />{" "}
         <span className="text-sm">

@@ -32,7 +32,7 @@ export const useAddWishListMutation = (userID: string,productId: string) => {
     }
   } else {
     
-    console.log(error?.cause || error);
+    
     toast.error(error?.message || "An unknown error occurred.");
   }
 },

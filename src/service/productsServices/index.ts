@@ -11,9 +11,10 @@ export const getALlProducts = async (queryParams: {
   maxPrice?: number | "";
   rating?: number | "";
   sort?: string | "";
+  searchTerm?: string | "";
 }) => {
   try {
-    const { page, limit, category, minPrice, maxPrice, rating, sort } =
+    const { page, limit, category, minPrice, maxPrice, rating, sort,searchTerm } =
       queryParams;
 
     const query = new URLSearchParams();
@@ -25,6 +26,7 @@ export const getALlProducts = async (queryParams: {
     if (maxPrice !== "") query.append("maxPrice", maxPrice!.toString());
     if (rating) query.append("rating", rating.toString());
     if (sort) query.append("sort", sort);
+    if (searchTerm) query.append("searchTerm", searchTerm);
 
     const { data } = await axiosInstance.get(`/products?${query.toString()}`);
 

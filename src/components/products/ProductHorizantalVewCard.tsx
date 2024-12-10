@@ -17,7 +17,7 @@ export type TProduct = {
 
 const HorazentalCard = ({ product }: { product: TProduct }) => {
   const {user} = useUser();
-  console.log(user);
+
   const handleAddToCart = () => {};
 
   const handleFavorite = () => {

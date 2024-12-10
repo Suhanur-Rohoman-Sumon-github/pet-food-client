@@ -17,10 +17,9 @@ const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
   const {
     mutate: handleUserRegistration,
-    isError,
-    error,
+    
   } = useUserRegistrationsMutation();
-  console.log(isError, error);
+ 
 
   const onSubmit = async (data: FieldValues) => {
     const userInfo = {
@@ -30,7 +29,7 @@ const Register = () => {
     };
 
     await handleUserRegistration(userInfo);
-    console.log(userInfo);
+  
   };
 
   return (
