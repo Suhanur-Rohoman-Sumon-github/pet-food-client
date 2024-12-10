@@ -5,7 +5,7 @@ const BestSellerSection = () => {
   // Dummy data for products
   const dummyProducts: TProduct[] = [
     {
-      _id: "1",
+      id: "1",
       name: "Premium Dog Food",
       category: "Pet Food",
       price: 29.99,
@@ -19,7 +19,7 @@ const BestSellerSection = () => {
       rating: 4.5,
     },
     {
-      _id: "2",
+      id: "2",
       name: "Cat Tree Deluxe",
       category: "Pet Accessories",
       price: 89.99,
@@ -33,7 +33,7 @@ const BestSellerSection = () => {
       rating: 4.8,
     },
     {
-      _id: "3",
+      id: "3",
       name: "Bird Seed Mix",
       category: "Pet Food",
       price: 15.49,
@@ -47,7 +47,7 @@ const BestSellerSection = () => {
       rating: 4.3,
     },
     {
-      _id: "4",
+      id: "4",
       name: "Reptile Habitat",
       category: "Pet Supplies",
       price: 199.99,
@@ -61,7 +61,7 @@ const BestSellerSection = () => {
       rating: 4.7,
     },
     {
-      _id: "8",
+      id: "8",
       name: "Reptile Habitat",
       category: "Pet Supplies",
       price: 199.99,
@@ -75,7 +75,7 @@ const BestSellerSection = () => {
       rating: 4.7,
     },
     {
-      _id: "9",
+      id: "9",
       name: "Reptile Habitat",
       category: "Pet Supplies",
       price: 199.99,
@@ -89,7 +89,7 @@ const BestSellerSection = () => {
       rating: 4.7,
     },
     {
-      _id: "10",
+      id: "10",
       name: "Reptile Habitat",
       category: "Pet Supplies",
       price: 199.99,
@@ -111,7 +111,7 @@ const BestSellerSection = () => {
       </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
         {dummyProducts.map((product) => (
-          <ProductCard key={product._id} product={product} />
+          <ProductCard key={product.id} product={product} />
         ))}
       </div>
     </div>
