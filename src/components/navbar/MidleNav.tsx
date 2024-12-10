@@ -26,6 +26,7 @@ const MiddleNav = () => {
   useEffect(() => {
     refetch();
   }, [refetch]);
+
   const handleLogout = () => {
     logout();
     userLoading(true);
@@ -33,82 +34,86 @@ const MiddleNav = () => {
   };
 
   return (
-    <div className="flex justify-between items-center py-6 text-white container mx-auto">
-      <div>
-        {" "}
-        <p className="text-3xl font-semibold text-center">
-          {" "}
+    <div className="flex flex-wrap justify-between items-center py-6 text-white container mx-auto px-4 gap-2">
+      {/* Brand Name */}
+      <div className="mb-4 md:mb-0">
+        <p className="text-xl md:text-3xl font-semibold text-center hidden md:block">
           <Link href={"/"}>Pet-Haven</Link>
         </p>
+        <p className="text-xl md:hidden font-semibold text-center">
+          <Link href={"/"}>PH</Link>
+        </p>
       </div>
-      <div className="flex-1 flex items-center mx-24 relative">
+
+      {/* Search Bar */}
+      <div className="flex-1 flex items-center relative mb-4 md:mb-0 md:mx-8">
         <Input
           placeholder="Search products"
-          className="bg-slate-100 rounded-e-none py-5 text-black"
+          className="bg-slate-100 rounded-e-none py-2 md:py-5 text-black w-full"
           onChange={(e) => setSearchData(e.target.value)}
         />
         <Link href={`/products?searchTerm=${searchData}`}>
-          {" "}
-          <button className="absolute right-0 top-1/2 transform -translate-y-1/2 border bg-[#f85606] px-8 py-3">
-            <LiaSearchSolid />
+          <button className="absolute right-0 top-1/2 transform -translate-y-1/2 border bg-[#f85606] px-4 py-2 md:px-8 md:py-3">
+            <LiaSearchSolid className="text-lg" />
           </button>
         </Link>
       </div>
-      <div className="flex gap-8">
-        <div className="flex items-center gap-2">
-          {user ? (
-            <div className="flex items-center gap-8">
-              <div className="relative">
-                <Link href={"/cart"}>
-                  <FaShoppingCart className="h-8 w-8" />
 
-                  <p className="absolute bottom-5 -right-4 text-xs bg-[#FF3838] px-2 border rounded-full  text-[#FFF] cursor-pointer">
-                    {MyCart?.products?.length}
-                  </p>
-                </Link>
-              </div>
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Avatar className="cursor-pointer">
-                    <AvatarImage
-                      className=""
-                      src={user?.avatar || "https://github.com/shadcn.png"}
-                    />
-                    <AvatarFallback>{user?.name?.[0] || "U"}</AvatarFallback>
-                  </Avatar>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent className="w-48 bg-white text-black">
-                  <DropdownMenuItem>
-                    <Link href="/account">My Account</Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <Link href="/profile">Profile</Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <Link href="/orders">Order History</Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem
-                    onClick={() => {
-                      handleLogout();
-                    }}
-                  >
-                    Logout
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-            </div>
-          ) : (
-            <div className="flex items-center gap-2">
-              <Link href={"/login"}>
-                <button className="button-primary">Login</button>
-              </Link>
-              <Link href={"/register"}>
-                <button className="button-secondary">Register</button>
+      {/* User Actions */}
+      <div className="flex gap-4 md:gap-8 items-center">
+        {user ? (
+          <div className="flex items-center gap-4 md:gap-8">
+            {/* Cart */}
+            <div className="relative">
+              <Link href={"/cart"}>
+                <FaShoppingCart className="h-6 w-6 md:h-8 md:w-8" />
+                <p className="absolute bottom-5 -right-3 md:-right-4 text-xs bg-[#FF3838] px-2 border rounded-full text-white">
+                  {MyCart?.products?.length}
+                </p>
               </Link>
             </div>
-          )}
-        </div>
+
+            {/* User Dropdown */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Avatar className="cursor-pointer">
+                  <AvatarImage
+                    src={user?.avatar || "https://github.com/shadcn.png"}
+                  />
+                  <AvatarFallback>{user?.name?.[0] || "U"}</AvatarFallback>
+                </Avatar>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="w-48 bg-white text-black">
+                <DropdownMenuItem>
+                  <Link href="/account">My Account</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Link href="/profile">Profile</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Link href="/orders">Order History</Link>
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onClick={handleLogout}>
+                  Logout
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
+        ) : (
+          <div className="flex items-center gap-2">
+            <Link href={"/login"}>
+              <button className="button-primary py-2 px-4 md:py-3 md:px-6">
+                Login
+              </button>
+            </Link>
+            <Link href={"/register"}>
+              <button className="button-secondary py-2 px-4 md:py-3 md:px-6">
+                Register
+              </button>
+            </Link>
+          </div>
+        )}
       </div>
     </div>
   );
