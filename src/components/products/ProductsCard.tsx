@@ -5,6 +5,7 @@ import { useAddWishListMutation } from "@/hook/wishlist.hook";
 import Image from "next/image";
 import Link from "next/link";
 import { FaExchangeAlt, FaHeart, FaShoppingCart } from "react-icons/fa";
+import { useRouter } from "next/navigation";
 
 export type TProduct = {
   id: string;
@@ -28,13 +29,31 @@ const ProductCard = ({ product }: { product: TProduct }) => {
     user?.id ? user?.id : "",
     product.id
   );
+  const router = useRouter();
+
+  // Logic to handle redirection if user is not logged in
+  const handleRedirectToLogin = (action: string) => {
+    const currentPath = window.location.pathname;
+    // Redirect to login with the current page as a redirect URL
+    router.push(
+      `/login?redirect=${encodeURIComponent(currentPath)}&action=${action}`
+    );
+  };
 
   const handleAddToCart = () => {
-    addToCart();
+    if (!user) {
+      handleRedirectToLogin("add-to-cart");
+    } else {
+      addToCart();
+    }
   };
 
   const handleFavorite = () => {
-    addToWishList();
+    if (!user) {
+      handleRedirectToLogin("add-to-favorite");
+    } else {
+      addToWishList();
+    }
   };
 
   const handleCompare = () => {

@@ -34,7 +34,7 @@ const MiddleNav = () => {
   };
 
   return (
-    <div className="flex flex-wrap justify-between items-center py-6 text-white container mx-auto px-4 gap-2">
+    <div className="flex flex-wrap justify-between items-center py-6 text-white container mx-auto md:px-[125px] gap-2 ">
       {/* Brand Name */}
       <div className="mb-4 md:mb-0">
         <p className="text-xl md:text-3xl font-semibold text-center hidden md:block">

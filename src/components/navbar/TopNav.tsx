@@ -23,7 +23,7 @@ const TopNav = () => {
   return (
     <div>
       {/* Desktop View */}
-      <div className="hidden md:flex justify-between items-center container  pb-2 mt-1 mx-auto">
+      <div className="hidden md:flex justify-between items-center container md:px-[125px] pb-2 mt-1 mx-auto">
         <div className="w-fit flex items-center gap-1 container ">
           <LiaPagerSolid className="text-2xl" />
           <span className="text-sm">

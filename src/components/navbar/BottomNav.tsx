@@ -45,7 +45,7 @@ const BottomNav = () => {
   ];
 
   return (
-    <div className="relative border shadow-md mb-4">
+    <div className="relative border  mb-4">
       <div className="flex md:gap-10 gap-4 items-center bg-white md:justify-between">
         <div className="lg:w-[400px] flex items-center gap-2 py-2 rounded-md">
           <div className="relative hidden md:block">

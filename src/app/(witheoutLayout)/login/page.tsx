@@ -1,14 +1,12 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 "use client";
 import { useState } from "react";
-
 import { FaArrowLeft, FaEye, FaEyeSlash } from "react-icons/fa";
-
 import Image from "next/image";
 import Link from "next/link";
 import { FieldValues, useForm } from "react-hook-form";
 import { CiLogin } from "react-icons/ci";
 import { useUserLoginMutations } from "@/hook/auth.hook";
+import { useSearchParams, useRouter } from "next/navigation";
 
 const Login = () => {
   const {
@@ -18,37 +16,25 @@ const Login = () => {
   } = useForm();
   const [showPassword, setShowPassword] = useState(false);
   const { mutate: login } = useUserLoginMutations();
-  //   const [login, { data: loginRes, error }] = useLoginMutation();
-  //   const navigate = useNavigate();
-  //   const dispatch = useAppDispatch();
+  const router = useRouter();
+  const searchParams = useSearchParams(); 
+
+  // Fetch the redirect URL from the query params
+  const redirectTo = searchParams.get("redirect") || "/";
+
   const onSubmit = (data: FieldValues) => {
-    
-    login(data);
+    login(data); 
+    router.push(redirectTo);
   };
 
-  //   useEffect(() => {
-  //     if (loginRes?.success) {
-  //       toast.success(loginRes?.message);
-  //       dispatch(
-  //         setUser({ user: loginRes?.data?.user, token: loginRes?.data?.token })
-  //       );
-  //       navigate("/");
-  //     }
-  //     if (error) {
-  //       // @ts-ignore
-  //       toast.error(error?.data?.errorSources[0].message);
-  //     }
-  //   }, [loginRes, error, dispatch, navigate]);
   return (
     <div>
       <Link href={"/"}>
-        {" "}
-        <button className="mt-12 button-primary ">
-          {" "}
+        <button className="mt-12 button-primary">
           <FaArrowLeft /> Back to Home
         </button>
       </Link>
-      <div className="my-12 flex  flex-col-reverse lg:flex-row justify-between items-center">
+      <div className="my-12 flex flex-col-reverse lg:flex-row justify-between items-center">
         <div className="lg:w-1/2">
           <Image
             className="w-full"
@@ -58,7 +44,7 @@ const Login = () => {
             width={450}
           />
         </div>
-        <div className="flex justify-center w-full lg:w-2/5 mx-auto items-center ">
+        <div className="flex justify-center w-full lg:w-2/5 mx-auto items-center">
           <form
             onSubmit={handleSubmit(onSubmit)}
             className="bg-white p-8 rounded-lg shadow-md w-full"
@@ -120,7 +106,7 @@ const Login = () => {
               Login <CiLogin className="font-bold text-xl" />
             </button>
             <p className="text-center mt-4 text-gray-600">
-              Dont have an account?{" "}
+              Do not have an account?{" "}
               <Link
                 href="/register"
                 className="text-primary font-medium hover:underline"
