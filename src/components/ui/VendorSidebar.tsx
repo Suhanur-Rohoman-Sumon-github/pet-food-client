@@ -21,7 +21,7 @@ import { SiGoogleanalytics } from "react-icons/si";
 import { Avatar, AvatarFallback, AvatarImage } from "./avatar";
 import { FaArrowLeft } from "react-icons/fa6";
 
-export function AdminSidebar() {
+export function Vendor() {
   return (
     <Sidebar className="w-64 bg-white text-gray-800 shadow-lg border-r border-gray-200">
       {/* Sidebar Header */}
