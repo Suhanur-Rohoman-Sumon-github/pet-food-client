@@ -3,6 +3,8 @@ import { Providers } from "../providers";
 import "../../styels/global.css";
 import { AdminSidebar } from "@/components/ui/app-sidebar";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
+import { VendorSidebar } from "@/components/ui/VendorSidebar";
+import AdminNavbar from "@/components/navbar/AdminNavbar";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -23,8 +25,9 @@ export default function RootLayout({
             {/* Sidebar */}
 
             <SidebarProvider>
-              <AdminSidebar />
+              <VendorSidebar />
               <SidebarInset>
+                <AdminNavbar />
                 <main>{children}</main>
               </SidebarInset>
             </SidebarProvider>

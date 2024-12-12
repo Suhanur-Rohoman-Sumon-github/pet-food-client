@@ -17,11 +17,13 @@ import {
   FaSignOutAlt,
 } from "react-icons/fa";
 import { SiGoogleanalytics } from "react-icons/si";
+import { TbShoppingCartDiscount } from "react-icons/tb";
 
 import { Avatar, AvatarFallback, AvatarImage } from "./avatar";
 import { FaArrowLeft } from "react-icons/fa6";
+import { CiShop } from "react-icons/ci";
 
-export function Vendor() {
+export function VendorSidebar() {
   return (
     <Sidebar className="w-64 bg-white text-gray-800 shadow-lg border-r border-gray-200">
       {/* Sidebar Header */}
@@ -36,7 +38,7 @@ export function Vendor() {
         {/* Dashboard Link */}
         <SidebarMenuItem>
           <Link
-            href="/admin/admin-home"
+            href="/vendor/vendor-home"
             className="flex items-center gap-3 px-5 py-3 text-gray-800 hover:bg-gray-100 rounded-md transition"
           >
             <SiGoogleanalytics className="text-blue-600" size={18} />
@@ -47,34 +49,25 @@ export function Vendor() {
         {/* User Management Section */}
         <SidebarGroup>
           <h2 className="px-5 pt-6 pb-2 text-xs font-semibold text-gray-500 uppercase tracking-wider">
-            User Management
+            Shop Management
           </h2>
           <SidebarMenuItem>
             <Link
-              href="/admin/userManagement/users"
+              href="/vendor/shopManagement/create-shop"
               className="flex items-center gap-3 px-5 py-3 hover:bg-gray-100 rounded-md transition"
             >
-              <FaUsers className="text-blue-500" size={18} />
-              <span>All Users</span>
+              <CiShop className="text-blue-500" size={18} />
+              <span>create shops </span>
             </Link>
           </SidebarMenuItem>
 
           <SidebarMenuItem>
             <Link
-              href="/admin/userManagement/create-admin"
+              href="/vendor/shopManagement/update-shop"
               className="flex items-center gap-3 px-5 py-3 hover:bg-gray-100 rounded-md transition"
             >
-              <FaUser className="text-yellow-500" size={18} />
-              <span>Create Admin</span>
-            </Link>
-          </SidebarMenuItem>
-          <SidebarMenuItem>
-            <Link
-              href="/admin/userManagement/create-vendor"
-              className="flex items-center gap-3 px-5 py-3 hover:bg-gray-100 rounded-md transition"
-            >
-              <FaUser className="text-yellow-500" size={18} />
-              <span>Create Vendor</span>
+              <TbShoppingCartDiscount className="text-yellow-500" size={18} />
+              <span>update shop</span>
             </Link>
           </SidebarMenuItem>
         </SidebarGroup>
@@ -86,7 +79,7 @@ export function Vendor() {
           </h2>
           <SidebarMenuItem>
             <Link
-              href="/admin/productManagement/all-products"
+              href="/vendor/productManagement/all-products"
               className="flex items-center gap-3 px-5 py-3 hover:bg-gray-100 rounded-md transition"
             >
               <FaProductHunt className="text-purple-500" size={18} />
@@ -95,7 +88,7 @@ export function Vendor() {
           </SidebarMenuItem>
           <SidebarMenuItem>
             <Link
-              href="/admin/productManagement/create-products"
+              href="/vendor/productManagement/create-products"
               className="flex items-center gap-3 px-5 py-3 hover:bg-gray-100 rounded-md transition"
             >
               <FaPlus className="text-green-500" size={18} />
@@ -104,7 +97,7 @@ export function Vendor() {
           </SidebarMenuItem>
           <SidebarMenuItem>
             <Link
-              href="/admin/productManagement/update-products"
+              href="/vendor/productManagement/update-products"
               className="flex items-center gap-3 px-5 py-3 hover:bg-gray-100 rounded-md transition"
             >
               <FaEdit className="text-orange-500" size={18} />
@@ -120,7 +113,7 @@ export function Vendor() {
           </h2>
           <SidebarMenuItem>
             <Link
-              href="/admin/settings"
+              href="/vendor/settings"
               className="flex items-center gap-3 px-5 py-3 hover:bg-gray-100 rounded-md transition"
             >
               <FaCog className="text-gray-600" size={18} />
