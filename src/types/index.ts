@@ -5,13 +5,15 @@ export type IconSvgProps = SVGProps<SVGSVGElement> & {
 };
 
 export interface IUser {
-  [x: string]: string;
+ 
   id: string;
   name: string;
   role: string;
   email: string;
   status: string;
   profilePicture: string;
+  avatar:string
+  created_at? :Date
 }
 
 export interface IInput {
@@ -24,41 +26,8 @@ export interface IInput {
   disabled?: boolean;
 }
 
-export interface IComment {
-  user: IUser;
-  content: string;
-  createdAt?: Date;
-}
 
-export interface IPost {
-  _id: string;
-  user: IUser;
-  content: string;
-  imageUrls?: string[];
-  createdAt: string;
-  updatedAt: string;
-  likes: number;
-  comments: number;
-  postType: string;
-  category: string;
-}
 
-export type FriendsProps = {
-  friends: {
-    sender: string;
-    receiver: string;
-  };
-};
-
-export type FriendRequest = {
-  createdAt: string;
-  receiver: string;
-  sender: IUser;
-  status: string;
-  updatedAt: string;
-  __v: number;
-  _id: string;
-};
 
 
 export type item = {
@@ -68,3 +37,22 @@ export type item = {
     price:number
     description :string
 }
+
+
+export type AdminPayload = {
+  name: string;
+  email: string;
+  password: string;
+  location: string;
+  designation: string;
+  contactNo: string;
+};
+
+
+export type VendorPayload = {
+  name: string;
+  email: string;
+  password: string;
+  businessName: string;
+  contactNo: string;
+};

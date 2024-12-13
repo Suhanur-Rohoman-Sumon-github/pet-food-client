@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import {
   Table,
   TableBody,
@@ -17,45 +17,31 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Badge } from "@/components/ui/badge";
-
-const dummyUsers = [
-  {
-    id: "1",
-    avatar: "https://via.placeholder.com/50",
-    email: "john.doe@example.com",
-    status: "inProgress",
-    isDeleted: false,
-    role: "Admin",
-    created_at: "2023-12-01",
-  },
-  {
-    id: "2",
-    avatar: "https://via.placeholder.com/50",
-    email: "jane.smith@example.com",
-    status: "Blocked",
-    isDeleted: true,
-    role: "User",
-    created_at: "2023-11-25",
-  },
-  {
-    id: "3",
-    avatar: "https://via.placeholder.com/50",
-    email: "mark.jones@example.com",
-    status: "inProgress",
-    isDeleted: false,
-    role: "Editor",
-    created_at: "2023-11-20",
-  },
-];
+import { useGetAllUsersQuery } from "@/hook/user.hook";
+import CustomPagination from "@/components/products/CustomPgination";
+import { IUser } from "@/types";
+import { format } from "date-fns";
 
 const UsersTable = () => {
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const itemsPerPage = 8;
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
+  const { data } = useGetAllUsersQuery({
+    page: currentPage,
+    limit: itemsPerPage,
+  });
+  console.log(data);
+  const totalPages = Math.ceil((data?.meta.total || 0) / itemsPerPage);
   return (
     <div className="container mx-auto py-6">
       <h1 className="text-2xl font-bold mb-4">All Users</h1>
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead>ID</TableHead>
+            <TableHead>Index</TableHead>
             <TableHead>Avatar</TableHead>
             <TableHead>Email</TableHead>
             <TableHead>Status</TableHead>
@@ -65,9 +51,9 @@ const UsersTable = () => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {dummyUsers.map((user) => (
+          {data?.data.map((user: IUser, index: number) => (
             <TableRow key={user.id}>
-              <TableCell>{user.id}</TableCell>
+              <TableCell>{index + 1}</TableCell>
               <TableCell>
                 <Avatar>
                   <AvatarImage src={user.avatar} />
@@ -88,7 +74,9 @@ const UsersTable = () => {
               </TableCell>
               <TableCell>{user.role}</TableCell>
               <TableCell>
-                {new Date(user.created_at).toLocaleDateString()}
+                {user.created_at
+                  ? format(new Date(user.created_at), "yyyy-MM-dd")
+                  : "N/A"}
               </TableCell>
               <TableCell>
                 <DropdownMenu>
@@ -107,6 +95,13 @@ const UsersTable = () => {
           ))}
         </TableBody>
       </Table>
+      <div className="mt-6">
+        <CustomPagination
+          totalPages={totalPages}
+          currentPage={currentPage}
+          onPageChange={handlePageChange}
+        />
+      </div>
     </div>
   );
 };

@@ -53,7 +53,7 @@ export function VendorSidebar() {
           </h2>
           <SidebarMenuItem>
             <Link
-              href="/vendor/shopManagement/create-shop"
+              href="/vendor/create-shop"
               className="flex items-center gap-3 px-5 py-3 hover:bg-gray-100 rounded-md transition"
             >
               <CiShop className="text-blue-500" size={18} />
@@ -63,11 +63,21 @@ export function VendorSidebar() {
 
           <SidebarMenuItem>
             <Link
-              href="/vendor/shopManagement/update-shop"
+              href="/vendor/update-shop"
               className="flex items-center gap-3 px-5 py-3 hover:bg-gray-100 rounded-md transition"
             >
               <TbShoppingCartDiscount className="text-yellow-500" size={18} />
               <span>update shop</span>
+            </Link>
+          </SidebarMenuItem>
+
+          <SidebarMenuItem>
+            <Link
+              href="/vendor/my-shop"
+              className="flex items-center gap-3 px-5 py-3 hover:bg-gray-100 rounded-md transition"
+            >
+              <TbShoppingCartDiscount className="text-yellow-500" size={18} />
+              <span>my shops</span>
             </Link>
           </SidebarMenuItem>
         </SidebarGroup>
@@ -79,7 +89,7 @@ export function VendorSidebar() {
           </h2>
           <SidebarMenuItem>
             <Link
-              href="/vendor/productManagement/all-products"
+              href="/vendor/all-products"
               className="flex items-center gap-3 px-5 py-3 hover:bg-gray-100 rounded-md transition"
             >
               <FaProductHunt className="text-purple-500" size={18} />
@@ -88,7 +98,7 @@ export function VendorSidebar() {
           </SidebarMenuItem>
           <SidebarMenuItem>
             <Link
-              href="/vendor/productManagement/create-products"
+              href="/vendor/create-products"
               className="flex items-center gap-3 px-5 py-3 hover:bg-gray-100 rounded-md transition"
             >
               <FaPlus className="text-green-500" size={18} />
@@ -97,7 +107,7 @@ export function VendorSidebar() {
           </SidebarMenuItem>
           <SidebarMenuItem>
             <Link
-              href="/vendor/productManagement/update-products"
+              href="/vendor/update-products"
               className="flex items-center gap-3 px-5 py-3 hover:bg-gray-100 rounded-md transition"
             >
               <FaEdit className="text-orange-500" size={18} />

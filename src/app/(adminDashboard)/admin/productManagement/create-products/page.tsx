@@ -1,11 +1,171 @@
-import React from "react";
+"use client";
 
-const page = () => {
+import React, { useState } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import PForm from "@/components/PForm/PForm";
+import PInput from "@/components/PForm/PInput";
+import adminValidationSchema from "@/schema/adminValidationSchema"; // Replace with your product schema
+import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
+import PTextArea from "@/components/PForm/PTextArea";
+import Image from "next/image";
+import { AiOutlineClose, AiOutlineUpload } from "react-icons/ai";
+
+const CreateProductPage = () => {
+  const router = useRouter();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [imageFiles, setImageFiles] = useState<File[]>([]);
+  const [imagePreview, setImagePreview] = useState<string[]>([]);
+
+  const handleProductCreation = async (data: any) => {
+    setIsSubmitting(true);
+    console.log(data);
+
+    // Uncomment the following code to handle the API request
+    // try {
+    //   const response = await fetch("/api/products", {
+    //     method: "POST",
+    //     headers: { "Content-Type": "application/json" },
+    //     body: JSON.stringify(data),
+    //   });
+
+    //   if (!response.ok) throw new Error("Failed to create product");
+
+    //   router.push("/admin/products");
+    // } catch (error) {
+    //   console.error("Error creating product:", error);
+    // } finally {
+    //   setIsSubmitting(false);
+    // }
+  };
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+
+    if (files) {
+      const newFiles = Array.from(files);
+      setImageFiles((prev) => [...prev, ...newFiles]);
+
+      newFiles.forEach((file) => {
+        const reader = new FileReader();
+
+        reader.onloadend = () => {
+          setImagePreview((prev) => [...prev, reader.result as string]);
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+  };
+
+  const removeImage = (index: number) => {
+    const updatedFiles = imageFiles.filter((_, i) => i !== index);
+    setImageFiles(updatedFiles);
+
+    const updatedPreviews = imagePreview.filter((_, i) => i !== index);
+    setImagePreview(updatedPreviews);
+  };
+
   return (
-    <div className="w-full h-screen border border-red-500">
-      <h1>this is create products</h1>
+    <div className="min-h-screen bg-gradient-to-r from-gray-100 via-gray-200 to-gray-300 flex items-center justify-center">
+      <div className="w-full max-w-5xl p-8 bg-white rounded-lg shadow-md">
+        <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">
+          Create Product
+        </h2>
+
+        {/* Image Uploader Section */}
+        <div className="mb-6 text-center">
+          <label
+            htmlFor="image-upload"
+            className="inline-flex items-center justify-center px-4 py-2  border text-sm font-medium rounded-lg shadow-md focus:ring-2 cursor-pointer"
+          >
+            <AiOutlineUpload className="mr-2 text-lg" />
+            Upload Images
+          </label>
+          <input
+            id="image-upload"
+            type="file"
+            multiple
+            accept="image/*"
+            className="hidden"
+            onChange={handleImageChange}
+          />
+
+          {/* Image Previews */}
+          {imagePreview.length > 0 && (
+            <div className="flex flex-wrap gap-2 mt-3 justify-center">
+              {imagePreview.map((image, index) => (
+                <div key={index} className="relative">
+                  <Image
+                    alt={`Preview ${index + 1}`}
+                    className="border-2 border-dashed h-32 rounded"
+                    height={100}
+                    src={image}
+                    width={100}
+                  />
+                  <button
+                    className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1"
+                    onClick={() => removeImage(index)}
+                  >
+                    <AiOutlineClose />
+                  </button>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
+        <PForm
+          resolver={zodResolver(adminValidationSchema)} // Update to your product schema
+          onSubmit={handleProductCreation}
+        >
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Name Input */}
+            <PInput label="Product Name" name="name" type="text" />
+
+            {/* Price Input */}
+            <PInput label="Price" name="price" type="number" />
+
+            {/* Stock Quantity Input */}
+            <PInput
+              label="Stock Quantity"
+              name="stock_quantity"
+              type="number"
+            />
+
+            {/* Discount Price Input */}
+            <PInput
+              label="Discount Price"
+              name="discount_price"
+              type="number"
+            />
+
+            {/* Category ID Input */}
+            <PInput label="Category ID" name="category_id" type="text" />
+
+            {/* Shop ID Input */}
+            <PInput label="Shop ID" name="shop_id" type="text" />
+          </div>
+
+          {/* Description TextArea */}
+          <div className="mt-6">
+            <PTextArea label="Description" name="description" />
+          </div>
+
+          {/* Submit Button */}
+          <div className="mt-8">
+            <button
+              className="w-full button-primary"
+              color="primary"
+              type="submit"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? "Creating..." : "Create Product"}
+            </button>
+          </div>
+        </PForm>
+      </div>
     </div>
   );
 };
 
-export default page;
+export default CreateProductPage;
