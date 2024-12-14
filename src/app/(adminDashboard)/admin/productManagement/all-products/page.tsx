@@ -17,25 +17,47 @@ import {
 } from "@/components/ui/dropdown-menu";
 import CustomPagination from "@/components/products/CustomPgination";
 import { useGetAllProductsQuery } from "@/hook/products.hook";
+import { TProduct } from "@/components/products/ProductsCard";
 
-const page = () => {
+const AllProducts = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const itemsPerPage = 12;
+  const [searchTerm, setSearchTerm] = useState<string>("");
+  const [category, setCategory] = useState<string>("");
+  const [minPrice, setMinPrice] = useState<number | "">("");
+  const [maxPrice, setMaxPrice] = useState<number | "">("");
+  const itemsPerPage = 8;
+
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
   };
-  const {
-    data: products,
-    isLoading,
-    isError,
-  } = useGetAllProductsQuery({
+
+  const { data, isLoading, isError } = useGetAllProductsQuery({
     page: currentPage,
     limit: itemsPerPage,
+    searchTerm,
+    category,
+    minPrice,
+    maxPrice,
   });
-  console.log(products);
-  const totalPages = Math.ceil((products?.meta.total || 0) / itemsPerPage);
+
+  console.log(data);
+
+  const totalPages = Math.ceil((data?.meta.total || 0) / itemsPerPage);
+
   return (
     <div>
+      {/* Search & Filter Inputs */}
+      <div className="mb-4">
+        <input
+          type="text"
+          placeholder="Search by product name"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="px-4 py-2 border rounded"
+        />
+        {/* Add other filters (e.g., category, price) here if needed */}
+      </div>
+
       <Table>
         <TableHeader>
           <TableRow>
@@ -47,7 +69,7 @@ const page = () => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {products?.data.map((product) => (
+          {data?.data.map((product: TProduct) => (
             <TableRow key={product.id}>
               <TableCell>{product.name}</TableCell>
               <TableCell>{product.price}</TableCell>
@@ -72,6 +94,7 @@ const page = () => {
           ))}
         </TableBody>
       </Table>
+
       <div className="mt-6">
         <CustomPagination
           totalPages={totalPages}
@@ -83,4 +106,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default AllProducts;

@@ -28,8 +28,8 @@ export const getALlProducts = async (queryParams: {
     if (sort) query.append("sort", sort);
     if (searchTerm) query.append("searchTerm", searchTerm);
 
-    const { data } = await axiosInstance.get(`/products?${query.toString()}`);
-
+    const { data } = await axiosInstance.get(`/products?${query?.toString()}`);
+console.log(`/products?${query.toString()}`);
     return data;
   } catch (error: any) {
     throw new Error(error.message);

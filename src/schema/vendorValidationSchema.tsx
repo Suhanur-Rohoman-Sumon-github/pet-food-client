@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-const adminValidationSchema = z.object({
+const vendorValidationSchema = z.object({
   name: z.string().nonempty("Name is required"),
   email: z.string().email("Invalid email address"),
   password: z.string(),
@@ -12,4 +12,4 @@ const adminValidationSchema = z.object({
   location: z.string().nonempty("Location is required"),
 });
 
-export default adminValidationSchema;
+export default vendorValidationSchema;

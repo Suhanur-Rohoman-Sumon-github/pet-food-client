@@ -32,6 +32,7 @@ export const useUserLoginMutations = () => {
     },
     onError: (error) => {
       toast.error(error.message);
+      console.log(error);
     },
   });
 };

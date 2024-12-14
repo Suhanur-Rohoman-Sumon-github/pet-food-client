@@ -12,7 +12,7 @@ export const createAdmin = async (payload: {
   contactNo: string;
 }) => {
   try {
-    const { data } = await axiosInstance.post("/users/create-admin", payload);
+    const { data } = await axiosInstance.post("/user/create-admin", payload);
     return data;
   } catch (error: any) {
     throw new Error(error.message);
@@ -28,7 +28,7 @@ export const createVendor = async (payload: {
   contactNo: string;
 }) => {
   try {
-    const { data } = await axiosInstance.post("/users/create-vendor", payload);
+    const { data } = await axiosInstance.post("/user/create-vendor", payload);
     return data;
   } catch (error: any) {
     throw new Error(error.message);

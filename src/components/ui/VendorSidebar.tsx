@@ -135,10 +135,12 @@ export function VendorSidebar() {
 
       {/* Sidebar Footer */}
       <SidebarFooter className="mt-auto border-t border-gray-300">
-        <button className="button-secondary">
-          {" "}
-          <FaArrowLeft /> back to home
-        </button>
+        <Link href={"/"}>
+          <button className="button-secondary">
+            {" "}
+            <FaArrowLeft /> back to home
+          </button>
+        </Link>
       </SidebarFooter>
     </Sidebar>
   );

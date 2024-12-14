@@ -6,30 +6,21 @@ import PInput from "@/components/PForm/PInput";
 import adminValidationSchema from "@/schema/adminValidationSchema";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
+import { useCreateVendorMutation } from "@/hook/user.hook";
+import vendorValidationSchema from "@/schema/vendorValidationSchema";
 
 const CreateVendorPage = () => {
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { mutate: createVendor, isPending } = useCreateVendorMutation();
 
   const handleVendorCreation = async (data: any) => {
-    setIsSubmitting(true);
-    console.log(data);
-    // Uncomment the following code to handle the API request
-    // try {
-    //   const response = await fetch("/api/admin", {
-    //     method: "POST",
-    //     headers: { "Content-Type": "application/json" },
-    //     body: JSON.stringify(data),
-    //   });
+    const VendorData = {
+      ...data,
+    };
+    VendorData.role = "VENDOR";
 
-    //   if (!response.ok) throw new Error("Failed to create admin");
-
-    //   router.push("/admin/userManagement");
-    // } catch (error) {
-    //   console.error("Error creating admin:", error);
-    // } finally {
-    //   setIsSubmitting(false);
-    // }
+    createVendor(VendorData);
   };
 
   return (
@@ -39,7 +30,7 @@ const CreateVendorPage = () => {
           Create Vendor
         </h2>
         <PForm
-          resolver={zodResolver(adminValidationSchema)}
+          resolver={zodResolver(vendorValidationSchema)}
           onSubmit={handleVendorCreation}
         >
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -48,6 +39,7 @@ const CreateVendorPage = () => {
 
             {/* Email Input */}
             <PInput label="Email" name="email" type="email" />
+            <PInput label="Password" name="password" type="password" />
 
             {/* Contact Number Input */}
             <PInput label="Contact Number" name="contactNo" type="text" />

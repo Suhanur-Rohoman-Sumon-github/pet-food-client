@@ -17,6 +17,8 @@ export type TProduct = {
   details: string;
   stock: number;
   rating: number;
+  stock_quantity: number;
+  created_at: Date;
 };
 
 const ProductCard = ({ product }: { product: TProduct }) => {
@@ -31,10 +33,9 @@ const ProductCard = ({ product }: { product: TProduct }) => {
   );
   const router = useRouter();
 
- 
   const handleRedirectToLogin = (action: string) => {
     const currentPath = window.location.pathname;
-    
+
     router.push(
       `/login?redirect=${encodeURIComponent(currentPath)}&action=${action}`
     );
