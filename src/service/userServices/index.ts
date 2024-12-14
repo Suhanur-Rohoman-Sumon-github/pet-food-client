@@ -1,6 +1,7 @@
 "use server";
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import axiosInstance from "@/lib/AxiosInostance";
+import axios from "axios";
 
 // Create Admin
 export const createAdmin = async (payload: {
@@ -69,7 +70,9 @@ export const getSingleUser = async (userId: string) => {
     const { data } = await axiosInstance.get(`/user/${userId}`);
     return data;
   } catch (error: any) {
-    throw new Error(error.message);
+    
+     if (axios.isAxiosError(error)) {
+      throw new Error(error.response?.data.message)}
   }
 };
 
@@ -79,7 +82,8 @@ export const updateUser = async (userId: string, payload: { [key: string]: any }
     const { data } = await axiosInstance.put(`/users/${userId}`, payload);
     return data;
   } catch (error: any) {
-    throw new Error(error.message);
+     if (axios.isAxiosError(error)) {
+      throw new Error(error.response?.data.message)}
   }
 };
 

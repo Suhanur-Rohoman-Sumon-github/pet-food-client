@@ -1,9 +1,10 @@
+import AllProducts from "@/app/(adminDashboard)/admin/productManagement/all-products/page";
 import React from "react";
 
 const page = () => {
   return (
     <div>
-      <h1>this is all product page</h1>
+      <AllProducts />
     </div>
   );
 };

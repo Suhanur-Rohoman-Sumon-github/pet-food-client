@@ -1,5 +1,6 @@
 "use client";
-import { useState } from "react";
+
+import { useState, useEffect } from "react";
 import { FaArrowLeft, FaEye, FaEyeSlash } from "react-icons/fa";
 import Image from "next/image";
 import Link from "next/link";
@@ -15,7 +16,7 @@ const Login = () => {
     formState: { errors },
   } = useForm();
   const [showPassword, setShowPassword] = useState(false);
-  const { mutate: login } = useUserLoginMutations();
+  const { mutate: login, isSuccess, isError } = useUserLoginMutations();
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -23,9 +24,15 @@ const Login = () => {
   const redirectTo = searchParams.get("redirect") || "/";
 
   const onSubmit = (data: FieldValues) => {
-    login(data);
-    router.push(redirectTo);
+    login(data); // Triggers the login mutation
   };
+
+  // Handle redirect on successful login
+  useEffect(() => {
+    if (isSuccess) {
+      router.push(redirectTo); // Redirect to the desired page
+    }
+  }, [isSuccess, redirectTo, router]);
 
   return (
     <div>
@@ -39,7 +46,7 @@ const Login = () => {
           <Image
             className="w-full"
             src="https://cdn.dribbble.com/users/6498639/screenshots/17337524/media/2f5c8ea2aa7af3ed9121693ac0b51622.gif"
-            alt=""
+            alt="Login Illustration"
             height={450}
             width={450}
           />
@@ -67,7 +74,7 @@ const Login = () => {
               />
               {errors.email && (
                 <p className="text-red-500 text-sm mt-1">
-                  {errors?.email.message as string}
+                  {errors.email.message as string}
                 </p>
               )}
             </div>

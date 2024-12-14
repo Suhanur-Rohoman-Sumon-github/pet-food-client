@@ -26,6 +26,16 @@ export interface IInput {
   disabled?: boolean;
 }
 
+export type shop ={
+  id:string
+  profile_picture: string
+  name:string
+  location:string
+  status:string
+  created_at:Date
+  coverPhoto:string
+}
+
 
 
 

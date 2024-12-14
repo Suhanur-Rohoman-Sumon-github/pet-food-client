@@ -4,6 +4,7 @@ import { cookies } from "next/headers";
 import { FieldValues } from "react-hook-form";
 import {jwtDecode} from "jwt-decode";
 import axiosInstance from "@/lib/AxiosInostance";
+import axios from "axios";
 
 // Note: Use `cookies().set` and `cookies().delete` in API routes or client-side
 
@@ -17,6 +18,8 @@ export const registerUser = async (userData: FieldValues) => {
     return data;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
+    if (axios.isAxiosError(error)) {
+      console.error('Axios error:', error.response?.data);}
     console.log(error);
   }
 };
@@ -35,7 +38,9 @@ export const loginUser = async (userData: FieldValues) => {
     return data;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
-   console.log(error)
+    console.log(error.response?.data.message);
+    if (axios.isAxiosError(error)) {
+      throw new Error(error.response?.data.message)}
   }
 };
 

@@ -3,40 +3,35 @@
 import React, { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import PForm from "@/components/PForm/PForm";
-import PInput from "@/components/PForm/PInput";
-import adminValidationSchema from "@/schema/adminValidationSchema"; // Replace with your product schema
+import PInput from "@/components/PForm/PInput"; // Replace with your product schema
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import PTextArea from "@/components/PForm/PTextArea";
 import Image from "next/image";
 import { AiOutlineClose, AiOutlineUpload } from "react-icons/ai";
+import { FieldValues } from "react-hook-form";
+import { useCreateProductMutation } from "@/hook/products.hook";
+import productValidationSchema from "@/schema/productValidationSchema";
 
 const CreateProductPage = () => {
   const router = useRouter();
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [imageFiles, setImageFiles] = useState<File[]>([]);
   const [imagePreview, setImagePreview] = useState<string[]>([]);
+  const { mutate: handleCreateProduct, isPending } = useCreateProductMutation(); // Handle loading state
 
-  const handleProductCreation = async (data: any) => {
-    setIsSubmitting(true);
-    console.log(data);
+  const handleSubmit = (data: FieldValues): void => {
+    const formData = new FormData();
 
-    // Uncomment the following code to handle the API request
-    // try {
-    //   const response = await fetch("/api/products", {
-    //     method: "POST",
-    //     headers: { "Content-Type": "application/json" },
-    //     body: JSON.stringify(data),
-    //   });
+    // Add product data (make sure it's a stringified JSON)
+    formData.append("data", JSON.stringify(data));
 
-    //   if (!response.ok) throw new Error("Failed to create product");
+    // Add image files to form data
+    imageFiles.forEach((image) => {
+      formData.append("images", image);
+    });
 
-    //   router.push("/admin/products");
-    // } catch (error) {
-    //   console.error("Error creating product:", error);
-    // } finally {
-    //   setIsSubmitting(false);
-    // }
+    // Send data via mutation hook
+    handleCreateProduct(formData);
   };
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -46,9 +41,9 @@ const CreateProductPage = () => {
       const newFiles = Array.from(files);
       setImageFiles((prev) => [...prev, ...newFiles]);
 
+      // Generate image previews
       newFiles.forEach((file) => {
         const reader = new FileReader();
-
         reader.onloadend = () => {
           setImagePreview((prev) => [...prev, reader.result as string]);
         };
@@ -76,7 +71,7 @@ const CreateProductPage = () => {
         <div className="mb-6 text-center">
           <label
             htmlFor="image-upload"
-            className="inline-flex items-center justify-center px-4 py-2  border text-sm font-medium rounded-lg shadow-md focus:ring-2 cursor-pointer"
+            className="inline-flex items-center justify-center px-4 py-2 border text-sm font-medium rounded-lg shadow-md focus:ring-2 cursor-pointer"
           >
             <AiOutlineUpload className="mr-2 text-lg" />
             Upload Images
@@ -115,8 +110,8 @@ const CreateProductPage = () => {
         </div>
 
         <PForm
-          resolver={zodResolver(adminValidationSchema)} // Update to your product schema
-          onSubmit={handleProductCreation}
+          resolver={zodResolver(productValidationSchema)}
+          onSubmit={handleSubmit}
         >
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Name Input */}
@@ -153,14 +148,15 @@ const CreateProductPage = () => {
 
           {/* Submit Button */}
           <div className="mt-8">
-            <button
-              className="w-full button-primary"
-              color="primary"
+            <Button
+              className={`w-full button-primary ${
+                isPending ? "opacity-50 cursor-not-allowed" : ""
+              }`}
               type="submit"
-              disabled={isSubmitting}
+              disabled={isPending} // Disable button when submitting
             >
-              {isSubmitting ? "Creating..." : "Create Product"}
-            </button>
+              {isPending ? "Creating..." : "Create Product"}
+            </Button>
           </div>
         </PForm>
       </div>

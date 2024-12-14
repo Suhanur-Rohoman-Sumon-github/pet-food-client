@@ -1,6 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { getALlProducts, getRelatedProducts, getSIngleProducts } from "@/service/productsServices";
 import { useQuery } from "@tanstack/react-query";
+import { toast } from "sonner";
+import { useMutation } from "@tanstack/react-query";
+import { createProduct } from "@/service/productsServices"; 
+import { FieldValues } from "react-hook-form";
 
 export const useGetAllProductsQuery = (queryParams: {
   page: number;
@@ -57,4 +61,24 @@ export const useGetRelatedProductsQuery = (categoryID: string) => {
   });
 
   return { data, refetch, isLoading, isError };
+};
+
+
+
+
+
+
+export const useCreateProductMutation = () => {
+  return useMutation<any, Error, FieldValues>({
+    mutationKey: ["create-product"],
+    mutationFn: async (productData) => {
+      await createProduct(productData); 
+    },
+    onSuccess: () => {
+      toast.success("Product created successfully!");
+    },
+    onError: (error) => {
+      toast.error(error.message || "Failed to create product.");
+    },
+  });
 };

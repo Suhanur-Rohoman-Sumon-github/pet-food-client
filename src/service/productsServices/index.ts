@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import axiosInstance from "@/lib/AxiosInostance";
+import axios from "axios";
 
 export const getALlProducts = async (queryParams: {
   page?: number;
@@ -29,7 +30,7 @@ export const getALlProducts = async (queryParams: {
     if (searchTerm) query.append("searchTerm", searchTerm);
 
     const { data } = await axiosInstance.get(`/products?${query?.toString()}`);
-console.log(`/products?${query.toString()}`);
+
     return data;
   } catch (error: any) {
     throw new Error(error.message);
@@ -43,4 +44,18 @@ export const getSIngleProducts = async (productId:string) => {
 export const getRelatedProducts = async (categoryId:string) => {
   const { data } = await axiosInstance.get(`/products/related-products/${categoryId}`);
   return data.data; 
+};
+
+
+export const createProduct = async (productData: any) => {
+ try {
+     const { data } = await axiosInstance.post('/products', productData, {
+      headers: {
+        'Content-Type': 'multipart/form-data', 
+      }});
+  return data.data;
+  } catch (error: any) {
+    if (axios.isAxiosError(error)) {
+      throw new Error(error.response?.data.message)}
+  }
 };

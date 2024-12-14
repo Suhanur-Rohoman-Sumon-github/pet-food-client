@@ -19,6 +19,9 @@ import {
 import { Badge } from "@/components/ui/badge";
 import CustomPagination from "@/components/products/CustomPgination"; // Pagination component
 import { format } from "date-fns";
+import { useGetMyShopsQuery } from "@/hook/shop.hook";
+import { useUser } from "@/context/userProvider";
+import { shop } from "@/types";
 
 // Dummy shop data
 const dummyShops = [
@@ -50,14 +53,10 @@ const dummyShops = [
 ];
 
 const ShopsTable = () => {
-  const [currentPage, setCurrentPage] = useState<number>(1);
-  const itemsPerPage = 8;
+  const { user } = useUser();
+  const { data: myShopData } = useGetMyShopsQuery(user?.id as string);
+  
 
-  const handlePageChange = (page: number) => {
-    setCurrentPage(page);
-  };
-
-  const totalPages = Math.ceil(dummyShops.length / itemsPerPage);
 
   return (
     <div className="container mx-auto py-6">
@@ -75,59 +74,50 @@ const ShopsTable = () => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {dummyShops
-            .slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
-            .map((shop, index) => (
-              <TableRow key={shop.id}>
-                <TableCell>{index + 1}</TableCell>
-                <TableCell>
-                  <Avatar>
-                    <AvatarImage src={shop.profile_picture} />
-                    <AvatarFallback>
-                      {shop.name.charAt(0).toUpperCase()}
-                    </AvatarFallback>
-                  </Avatar>
-                </TableCell>
-                <TableCell>{shop.name}</TableCell>
-                <TableCell>{shop.location}</TableCell>
-                <TableCell>
-                  <Badge
-                    variant={
-                      shop.status === "Inactive" ? "destructive" : "secondary"
-                    }
-                  >
-                    {shop.status}
-                  </Badge>
-                </TableCell>
-                <TableCell>
-                  {shop.created_at
-                    ? format(new Date(shop.created_at), "yyyy-MM-dd")
-                    : "N/A"}
-                </TableCell>
-                <TableCell>
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <button className="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300">
-                        Actions
-                      </button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent>
-                      <DropdownMenuItem>Update Shop</DropdownMenuItem>
-                      <DropdownMenuItem>Delete Shop</DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                </TableCell>
-              </TableRow>
-            ))}
+          {myShopData?.map((shop: shop, index: number) => (
+            <TableRow key={shop.id}>
+              <TableCell>{index + 1}</TableCell>
+              <TableCell>
+                <Avatar>
+                  <AvatarImage src={shop.profile_picture} />
+                  <AvatarFallback>
+                    {shop.name.charAt(0).toUpperCase()}
+                  </AvatarFallback>
+                </Avatar>
+              </TableCell>
+              <TableCell>{shop.name}</TableCell>
+              <TableCell>{shop.location}</TableCell>
+              <TableCell>
+                <Badge
+                  variant={
+                    shop.status === "Inactive" ? "destructive" : "secondary"
+                  }
+                >
+                  {shop.status}
+                </Badge>
+              </TableCell>
+              <TableCell>
+                {shop.created_at
+                  ? format(new Date(shop.created_at), "yyyy-MM-dd")
+                  : "N/A"}
+              </TableCell>
+              <TableCell>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <button className="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300">
+                      Actions
+                    </button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent>
+                    <DropdownMenuItem>Update Shop</DropdownMenuItem>
+                    <DropdownMenuItem>Delete Shop</DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </TableCell>
+            </TableRow>
+          ))}
         </TableBody>
       </Table>
-      <div className="mt-6">
-        <CustomPagination
-          totalPages={totalPages}
-          currentPage={currentPage}
-          onPageChange={handlePageChange}
-        />
-      </div>
     </div>
   );
 };
