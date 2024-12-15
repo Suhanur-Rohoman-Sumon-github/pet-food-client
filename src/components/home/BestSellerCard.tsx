@@ -1,3 +1,6 @@
+"use client";
+import { useUser } from "@/context/userProvider";
+import { useAddFollowerMutations } from "@/hook/shop.hook";
 import Image from "next/image";
 import Link from "next/link";
 import { FaMapMarkerAlt, FaStar } from "react-icons/fa";
@@ -10,9 +13,27 @@ type TShop = {
   status: string;
   created_at: Date;
   cover_photo: string;
+  follower: string[]; // Add followers array
 };
 
 const BestSellerShopCard = ({ shop }: { shop: TShop }) => {
+  const { user } = useUser();
+
+  // Mutation to add a follower
+  const { mutate: addFollowers, isPending } = useAddFollowerMutations(
+    user?.id as string,
+    shop?.id as string
+  );
+
+  // Check if the current user is already following the shop
+  const isFollowing = shop?.follower?.includes(user?.id as string);
+
+  const handleFollow = () => {
+    if (!isFollowing) {
+      addFollowers();
+    }
+  };
+
   return (
     <div className="border rounded-lg overflow-hidden group transition-all duration-300">
       {/* Banner Image */}
@@ -49,14 +70,20 @@ const BestSellerShopCard = ({ shop }: { shop: TShop }) => {
       </div>
 
       <div className="px-4 py-3 flex items-center justify-between">
+        {/* Follow/Following button */}
         <button
-          className="button-primary"
-          aria-label={`Follow ${shop.name} Store`}
+          className={`button-primary ${
+            isFollowing ? "button-primary" : ""
+          } disabled:opacity-50`}
+          aria-label={
+            isFollowing ? `Following ${shop.name}` : `Follow ${shop.name} Store`
+          }
+          onClick={handleFollow}
+          disabled={isPending || isFollowing}
         >
-          Follow Store
+          {isFollowing ? "Following" : "Follow Store"}
         </button>
         <Link href={`shop/${shop.id}`}>
-          {" "}
           <button
             className="button-secondary"
             aria-label={`Visit ${shop.name} Store`}

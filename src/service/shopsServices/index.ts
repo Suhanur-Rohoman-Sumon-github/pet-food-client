@@ -73,6 +73,18 @@ export const createShop = async (shopData: any) => {
   }
     
 };
+export const addFollower = async (userId: string ,shopId:string) => {
+  
+  try {
+    const { data } = await axiosInstance.patch(`/shops/shop/${shopId}/${userId}`);
+    return data.data;
+  } catch (error: any) {
+     if (axios.isAxiosError(error)) {
+      throw new Error(error.response?.data.message)}
+      console.log(error);
+  }
+    
+};
 
 // Fetch related shops by category or vendor
 export const getMyShops = async (vendorId: string) => {

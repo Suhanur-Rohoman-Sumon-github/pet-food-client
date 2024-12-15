@@ -55,7 +55,7 @@ const SingleShopPage = () => {
         <h1 className="text-4xl font-bold">{shop?.name}</h1>
         <p className="text-gray-600 mt-2">{shop?.location}</p>
         <div className="flex gap-4 justify-center items-center mt-4">
-          <Badge className="bg-[#f85606]">{`Followers ${shop?.follower}`}</Badge>
+          <Badge className="bg-[#f85606]">{`Followers ${shop?.follower.length}`}</Badge>
           <Badge className="bg-[#f85606]">{`Total products ${shop?.products?.length}`}</Badge>
         </div>
       </div>

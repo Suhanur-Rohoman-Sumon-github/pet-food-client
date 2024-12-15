@@ -45,8 +45,11 @@ const categories = [
 const Products = () => {
   const searchParams = useSearchParams();
   const searchTerm = searchParams.get("searchTerm") || "";
+  const homeCategory = searchParams.get("category");
 
-  const [selectedCategory, setSelectedCategory] = useState<string | "">("");
+  const [selectedCategory, setSelectedCategory] = useState<string | "">(
+    homeCategory ? homeCategory : ""
+  );
   const [minPrice, setMinPrice] = useState<number | "">("");
   const [maxPrice, setMaxPrice] = useState<number | "">("");
   const [selectedRating, setSelectedRating] = useState<number | "">("");

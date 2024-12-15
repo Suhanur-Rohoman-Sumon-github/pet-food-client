@@ -7,7 +7,8 @@ const authRoutes = ["/login", "/register"];
 const protectedRoutes = [
   "/cart",
   "/wishList",
-  "/vendor", // Protect vendor routes
+  "/vendor",
+  "/admin" 
 ];
 
 export async function middleware(request: NextRequest) {
@@ -27,9 +28,7 @@ export async function middleware(request: NextRequest) {
   }
 
   // Ensure only specific roles (e.g., vendors) can access the /vendor route
-  if (pathname.startsWith("/vendor") && user?.role !== "vendor") {
-    return NextResponse.redirect(new URL("/vendor/vendor-home", request.url));
-  }
+ 
 
   return NextResponse.next();
 }
@@ -41,5 +40,6 @@ export const config = {
     "/login",
     "/register",
     "/vendor/:path*", // Protect all /vendor routes
+    "/admin/:path*", // Protect all /vendor routes
   ],
 };
