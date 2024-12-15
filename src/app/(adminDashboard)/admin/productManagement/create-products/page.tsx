@@ -6,7 +6,6 @@ import PForm from "@/components/PForm/PForm";
 import PInput from "@/components/PForm/PInput";
 import PSelect from "@/components/PForm/PSelect";
 import PTextArea from "@/components/PForm/PTextArea";
-import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { AiOutlineClose, AiOutlineUpload } from "react-icons/ai";
 import { FieldValues } from "react-hook-form";
@@ -18,6 +17,7 @@ import { useGetMyShopsQuery } from "@/hook/shop.hook";
 import { useUser } from "@/context/userProvider";
 import productValidationSchema from "@/schema/productValidationSchema";
 import { shop } from "@/types";
+import Loading from "@/components/ui/Loading";
 
 const CreateProductPage = () => {
   const { user } = useUser();
@@ -80,100 +80,103 @@ const CreateProductPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-gray-100 via-gray-200 to-gray-300 flex items-center justify-center">
-      <div className="w-full max-w-5xl p-8 bg-white rounded-lg shadow-md">
-        <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">
-          Create Product
-        </h2>
+    <div>
+      {isPending && <Loading />}
+      <div className="min-h-screen bg-gradient-to-r from-gray-100 via-gray-200 to-gray-300 flex items-center justify-center">
+        <div className="w-full max-w-5xl p-8 bg-white rounded-lg shadow-md">
+          <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">
+            Create Product
+          </h2>
 
-        {/* Image Uploader Section */}
-        <div className="mb-6 text-center">
-          <label
-            htmlFor="image-upload"
-            className="inline-flex items-center justify-center px-4 py-2 border text-sm font-medium rounded-lg shadow-md focus:ring-2 cursor-pointer"
-          >
-            <AiOutlineUpload className="mr-2 text-lg" />
-            Upload Images
-          </label>
-          <input
-            id="image-upload"
-            type="file"
-            multiple
-            accept="image/*"
-            className="hidden"
-            onChange={handleImageChange}
-          />
-
-          {/* Image Previews */}
-          {imagePreview.length > 0 && (
-            <div className="flex flex-wrap gap-2 mt-3 justify-center">
-              {imagePreview.map((image, index) => (
-                <div key={index} className="relative">
-                  <Image
-                    alt={`Preview ${index + 1}`}
-                    className="border-2 border-dashed h-32 rounded"
-                    height={100}
-                    src={image}
-                    width={100}
-                  />
-                  <button
-                    className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1"
-                    onClick={() => removeImage(index)}
-                  >
-                    <AiOutlineClose />
-                  </button>
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-
-        <PForm
-          resolver={zodResolver(productValidationSchema)}
-          onSubmit={handleSubmit}
-        >
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* Product Inputs */}
-            <PInput label="Product Name" name="name" type="text" />
-            <PInput label="Price" name="price" type="number" />
-            <PInput
-              label="Stock Quantity"
-              name="stock_quantity"
-              type="number"
-            />
-            <PInput
-              label="Discount Price"
-              name="discount_price"
-              type="number"
-            />
-
-            {/* Category & Shop Selects */}
-            <PSelect
-              options={categoriesOptions}
-              name="category_id"
-              label="Category"
-            />
-            <PSelect options={myShopsOptions} name="shop_id" label="Shop" />
-          </div>
-
-          {/* Description */}
-          <div className="mt-6">
-            <PTextArea label="Description" name="description" />
-          </div>
-
-          {/* Submit Button */}
-          <div className="mt-8">
-            <Button
-              className={`w-full button-primary ${
-                isPending ? "opacity-50 cursor-not-allowed" : ""
-              }`}
-              type="submit"
-              disabled={isPending}
+          {/* Image Uploader Section */}
+          <div className="mb-6 text-center">
+            <label
+              htmlFor="image-upload"
+              className="inline-flex items-center justify-center px-4 py-2 border text-sm font-medium rounded-lg shadow-md focus:ring-2 cursor-pointer"
             >
-              {isPending ? "Creating..." : "Create Product"}
-            </Button>
+              <AiOutlineUpload className="mr-2 text-lg" />
+              Upload Images
+            </label>
+            <input
+              id="image-upload"
+              type="file"
+              multiple
+              accept="image/*"
+              className="hidden"
+              onChange={handleImageChange}
+            />
+
+            {/* Image Previews */}
+            {imagePreview.length > 0 && (
+              <div className="flex flex-wrap gap-2 mt-3 justify-center">
+                {imagePreview.map((image, index) => (
+                  <div key={index} className="relative">
+                    <Image
+                      alt={`Preview ${index + 1}`}
+                      className="border-2 border-dashed h-32 rounded"
+                      height={100}
+                      src={image}
+                      width={100}
+                    />
+                    <button
+                      className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1"
+                      onClick={() => removeImage(index)}
+                    >
+                      <AiOutlineClose />
+                    </button>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
-        </PForm>
+
+          <PForm
+            resolver={zodResolver(productValidationSchema)}
+            onSubmit={handleSubmit}
+          >
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {/* Product Inputs */}
+              <PInput label="Product Name" name="name" type="text" />
+              <PInput label="Price" name="price" type="number" />
+              <PInput
+                label="Stock Quantity"
+                name="stock_quantity"
+                type="number"
+              />
+              <PInput
+                label="Discount Price"
+                name="discount_price"
+                type="number"
+              />
+
+              {/* Category & Shop Selects */}
+              <PSelect
+                options={categoriesOptions}
+                name="category_id"
+                label="Category"
+              />
+              <PSelect options={myShopsOptions} name="shop_id" label="Shop" />
+            </div>
+
+            {/* Description */}
+            <div className="mt-6">
+              <PTextArea label="Description" name="description" />
+            </div>
+
+            {/* Submit Button */}
+            <div className="mt-8">
+              <button
+                className={`w-full button-primary ${
+                  isPending ? "opacity-50 cursor-not-allowed" : ""
+                }`}
+                type="submit"
+                disabled={isPending}
+              >
+                {isPending ? "Creating..." : "Create Product"}
+              </button>
+            </div>
+          </PForm>
+        </div>
       </div>
     </div>
   );

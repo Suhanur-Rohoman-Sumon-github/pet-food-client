@@ -20,6 +20,7 @@ import { SiGoogleanalytics } from "react-icons/si";
 
 import { Avatar, AvatarFallback, AvatarImage } from "./avatar";
 import { FaArrowLeft } from "react-icons/fa6";
+import { MdCategory } from "react-icons/md";
 
 export function AdminSidebar() {
   return (
@@ -109,6 +110,15 @@ export function AdminSidebar() {
             >
               <FaEdit className="text-orange-500" size={18} />
               <span>Update Product</span>
+            </Link>
+          </SidebarMenuItem>
+          <SidebarMenuItem>
+            <Link
+              href="/admin/productManagement/createCategory"
+              className="flex items-center gap-3 px-5 py-3 hover:bg-gray-100 rounded-md transition"
+            >
+              <MdCategory className="text-orange-500" size={18} />
+              <span>Create category</span>
             </Link>
           </SidebarMenuItem>
         </SidebarGroup>

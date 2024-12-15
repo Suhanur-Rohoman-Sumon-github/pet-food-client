@@ -25,7 +25,7 @@ const AllProducts = () => {
   const [category, setCategory] = useState<string>("");
   const [minPrice, setMinPrice] = useState<number | "">("");
   const [maxPrice, setMaxPrice] = useState<number | "">("");
-  const itemsPerPage = 8;
+  const itemsPerPage = 10;
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);

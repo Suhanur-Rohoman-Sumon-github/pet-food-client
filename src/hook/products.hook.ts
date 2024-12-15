@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { getALlProducts, getCateGory, getRelatedProducts, getSIngleProducts } from "@/service/productsServices";
+import { createCategory, getALlProducts, getCateGory, getRelatedProducts, getSIngleProducts } from "@/service/productsServices";
 import { useQuery } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { useMutation } from "@tanstack/react-query";
@@ -87,6 +87,20 @@ export const useCreateProductMutation = () => {
     },
     onError: (error) => {
       toast.error(error.message || "Failed to create product.");
+    },
+  });
+};
+export const useCreateCategoryMutations = () => {
+  return useMutation<any, Error, FieldValues>({
+    mutationKey: ["create-category"],
+    mutationFn: async (categoryData) => {
+      await createCategory(categoryData); 
+    },
+    onSuccess: () => {
+      toast.success("Category  created successfully!");
+    },
+    onError: (error) => {
+      toast.error(error.message || "Failed to create category.");
     },
   });
 };
