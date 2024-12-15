@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { addToCard, getMyCard, removeFromCard } from "@/service/cardServices";
+import { TNewProduct } from "@/types";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { toast } from "sonner";
@@ -59,13 +60,14 @@ export const useAddToCartMutation = (userID: string,productId: string) => {
   });
 };
 
-export const useRemoveCardMutation = (userID: string,productId: string) => {
+export const useRemoveCardMutation = (userID: string,productId: string,newProducts:TNewProduct) => {
+  console.log(newProducts);
   const queryClient = useQueryClient();
 
   return useMutation<any, Error>({
     mutationKey: ["add to cart"],
     mutationFn: async () => {
-      await removeFromCard(userID,productId);
+      await removeFromCard(userID,productId,newProducts);
     },
     onSuccess: () => {
       toast.success("product added successfully");

@@ -1,11 +1,14 @@
 "use client";
 import { useUser } from "@/context/userProvider";
-import { useAddToCartMutation } from "@/hook/card.hook";
+
 import { useAddWishListMutation } from "@/hook/wishlist.hook";
 import Image from "next/image";
 import Link from "next/link";
 import { FaExchangeAlt, FaHeart, FaShoppingCart } from "react-icons/fa";
 import { useRouter } from "next/navigation";
+import Alert from "../alert/Alert";
+import { useState } from "react";
+import { useAddToCartMutation, useGetMyCardQuery, useRemoveCardMutation } from "@/hook/card.hook";
 
 export type TProduct = {
   id: string;
@@ -19,10 +22,15 @@ export type TProduct = {
   rating: number;
   stock_quantity: number;
   created_at: Date;
+  shop_id: string;
 };
 
 const ProductCard = ({ product }: { product: TProduct }) => {
+  const [alertOpen, setAlertOpen] = useState(false);
+  const [actionType, setActionType] = useState("");
   const { user } = useUser();
+  const { data: MyCart } = useGetMyCardQuery(user?.id ? user?.id : "");
+
   const { mutate: addToCart } = useAddToCartMutation(
     user?.id ? user?.id : "",
     product.id
@@ -30,6 +38,15 @@ const ProductCard = ({ product }: { product: TProduct }) => {
   const { mutate: addToWishList } = useAddWishListMutation(
     user?.id ? user?.id : "",
     product.id
+  );
+  const newProducts = {
+    replaceCartWithNewItem: true,
+    newProductId: product.id,
+  };
+  const { mutate: removeFromCart } = useRemoveCardMutation(
+    user?.id ? user?.id : "",
+    product.id,
+    newProducts
   );
   const router = useRouter();
 
@@ -44,9 +61,20 @@ const ProductCard = ({ product }: { product: TProduct }) => {
   const handleAddToCart = () => {
     if (!user) {
       handleRedirectToLogin("add-to-cart");
-    } else {
-      addToCart();
+      return;
     }
+
+    if (MyCart?.products?.length > 0) {
+      const existingShopId = MyCart.products[0].shop_id;
+      if (product.shop_id !== existingShopId) {
+        setActionType("add-to-cart");
+        setAlertOpen(true);
+        return;
+      }
+    }
+
+    // Add to cart if no conflicts
+    addToCart();
   };
 
   const handleFavorite = () => {
@@ -59,6 +87,16 @@ const ProductCard = ({ product }: { product: TProduct }) => {
 
   const handleCompare = () => {
     console.log(`Compare clicked for product ${product.id}`);
+  };
+
+  const handleAlertConfirm = async () => {
+    removeFromCart();
+    // addToCart();
+    setAlertOpen(false);
+  };
+
+  const handleAlertCancel = () => {
+    setAlertOpen(false);
   };
 
   return (
@@ -117,6 +155,14 @@ const ProductCard = ({ product }: { product: TProduct }) => {
           Add To Cart
         </button>
       </div>
+      <Alert
+        isOpen={alertOpen}
+        onClose={handleAlertCancel}
+        title="Different Vendor Detected"
+        description="You are trying to add products from a different vendor. Do you want to replace the cart with the new product(s) or retain the current cart?"
+        onConfirm={handleAlertConfirm}
+        cancelText="Retain the current cart and cancel the addition."
+      />
     </div>
   );
 };

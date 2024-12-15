@@ -8,6 +8,7 @@ import { item } from "@/types";
 const MyCart = () => {
   const { user } = useUser();
   const { data: MyCart } = useGetMyCardQuery(user?.id ? user?.id : "");
+  console.log(MyCart);
 
   const handleCheckout = () => {};
 

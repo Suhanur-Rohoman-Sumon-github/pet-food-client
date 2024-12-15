@@ -34,10 +34,14 @@ export type shop ={
   status:string
   created_at:Date
   cover_photo:string
+  follower:string[]
 }
 
 
-
+export type TNewProduct = {
+  replaceCartWithNewItem: boolean;
+  newProductId: string;
+};
 
 
 export type item = {

@@ -16,7 +16,10 @@ export const addToCard = async (userID :string,productId: string) => {
 };
 
 // Remove a product from the card
-export const removeFromCard = async (userID:string,productId: string) => {
-  const { data } = await axiosInstance.delete(`/user/card/${productId}`);
+export const removeFromCard = async (userID:string,productId: string,newProducts : any) => {
+ 
+  const { data } = await axios.delete(`http://localhost:5000/api/v1/products/remove/${userID}/${productId}`, {
+      data: newProducts  // This sends the data in the body
+    });
   return data; 
 };
