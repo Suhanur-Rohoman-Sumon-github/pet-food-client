@@ -3,36 +3,43 @@
 import React, { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import PForm from "@/components/PForm/PForm";
-import PInput from "@/components/PForm/PInput"; // Replace with your product schema
-import { Button } from "@/components/ui/button";
-import { useRouter } from "next/navigation";
+import PInput from "@/components/PForm/PInput";
+import PSelect from "@/components/PForm/PSelect";
 import PTextArea from "@/components/PForm/PTextArea";
+import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { AiOutlineClose, AiOutlineUpload } from "react-icons/ai";
 import { FieldValues } from "react-hook-form";
-import { useCreateProductMutation } from "@/hook/products.hook";
+import {
+  useCreateProductMutation,
+  useGetCategoryQuery,
+} from "@/hook/products.hook";
+import { useGetMyShopsQuery } from "@/hook/shop.hook";
+import { useUser } from "@/context/userProvider";
 import productValidationSchema from "@/schema/productValidationSchema";
+import { shop } from "@/types";
 
 const CreateProductPage = () => {
-  const router = useRouter();
+  const { user } = useUser();
   const [imageFiles, setImageFiles] = useState<File[]>([]);
   const [imagePreview, setImagePreview] = useState<string[]>([]);
-  const { mutate: handleCreateProduct, isPending } = useCreateProductMutation(); // Handle loading state
+  const { mutate: handleCreateProduct, isPending } = useCreateProductMutation();
+  const { data: categories } = useGetCategoryQuery();
+  const { data: shopData } = useGetMyShopsQuery(user?.id as string);
 
-  const handleSubmit = (data: FieldValues): void => {
-    const formData = new FormData();
+  // Transform category data for options
+  const categoriesOptions =
+    categories?.map((category: any) => ({
+      key: category.id,
+      label: category.name,
+    })) || [];
 
-    // Add product data (make sure it's a stringified JSON)
-    formData.append("data", JSON.stringify(data));
-
-    // Add image files to form data
-    imageFiles.forEach((image) => {
-      formData.append("images", image);
-    });
-
-    // Send data via mutation hook
-    handleCreateProduct(formData);
-  };
+  // Transform shop data for options
+  const myShopsOptions =
+    shopData?.map((shop: shop) => ({
+      key: shop.id,
+      label: shop.name,
+    })) || [];
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
@@ -53,11 +60,23 @@ const CreateProductPage = () => {
   };
 
   const removeImage = (index: number) => {
-    const updatedFiles = imageFiles.filter((_, i) => i !== index);
-    setImageFiles(updatedFiles);
+    setImageFiles((prev) => prev.filter((_, i) => i !== index));
+    setImagePreview((prev) => prev.filter((_, i) => i !== index));
+  };
 
-    const updatedPreviews = imagePreview.filter((_, i) => i !== index);
-    setImagePreview(updatedPreviews);
+  const handleSubmit = (data: FieldValues): void => {
+    const formData = new FormData();
+
+    // Add product data
+    formData.append("data", JSON.stringify(data));
+
+    // Add image files
+    imageFiles.forEach((image) => {
+      formData.append("images", image);
+    });
+
+    // Handle product creation
+    handleCreateProduct(formData);
   };
 
   return (
@@ -114,34 +133,30 @@ const CreateProductPage = () => {
           onSubmit={handleSubmit}
         >
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* Name Input */}
+            {/* Product Inputs */}
             <PInput label="Product Name" name="name" type="text" />
-
-            {/* Price Input */}
             <PInput label="Price" name="price" type="number" />
-
-            {/* Stock Quantity Input */}
             <PInput
               label="Stock Quantity"
               name="stock_quantity"
               type="number"
             />
-
-            {/* Discount Price Input */}
             <PInput
               label="Discount Price"
               name="discount_price"
               type="number"
             />
 
-            {/* Category ID Input */}
-            <PInput label="Category ID" name="category_id" type="text" />
-
-            {/* Shop ID Input */}
-            <PInput label="Shop ID" name="shop_id" type="text" />
+            {/* Category & Shop Selects */}
+            <PSelect
+              options={categoriesOptions}
+              name="category_id"
+              label="Category"
+            />
+            <PSelect options={myShopsOptions} name="shop_id" label="Shop" />
           </div>
 
-          {/* Description TextArea */}
+          {/* Description */}
           <div className="mt-6">
             <PTextArea label="Description" name="description" />
           </div>
@@ -153,7 +168,7 @@ const CreateProductPage = () => {
                 isPending ? "opacity-50 cursor-not-allowed" : ""
               }`}
               type="submit"
-              disabled={isPending} // Disable button when submitting
+              disabled={isPending}
             >
               {isPending ? "Creating..." : "Create Product"}
             </Button>

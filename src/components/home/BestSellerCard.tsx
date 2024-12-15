@@ -3,30 +3,31 @@ import { FaMapMarkerAlt, FaStar } from "react-icons/fa";
 
 type TShop = {
   id: string;
+  profile_picture: string;
   name: string;
   location: string;
-  bannerImage: string;
-  logo: string;
-  rating: number;
-  topCategories: string[];
+  status: string;
+  created_at: Date;
+  cover_photo: string;
 };
 
 const BestSellerShopCard = ({ shop }: { shop: TShop }) => {
   return (
-    <div className="border rounded-lg overflow-hidden group  transition-all duration-300">
+    <div className="border rounded-lg overflow-hidden group transition-all duration-300">
       {/* Banner Image */}
       <div className="relative">
         <Image
-          src={shop.bannerImage}
+          src={shop.cover_photo || "/default-banner.jpg"}
           alt={`${shop.name} Banner`}
           className="w-full h-40 object-cover"
           width={400}
           height={160}
+          loading="lazy"
         />
         {/* Shop Logo */}
         <div className="absolute -bottom-6 left-4 w-16 h-16 rounded-full overflow-hidden border-4 border-white shadow-md">
           <Image
-            src={shop.logo}
+            src={shop.profile_picture || "/default-logo.png"}
             alt={`${shop.name} Logo`}
             className="w-full h-full object-cover"
             width={64}
@@ -43,21 +44,22 @@ const BestSellerShopCard = ({ shop }: { shop: TShop }) => {
         </div>
         <div className="flex items-center space-x-1 text-yellow-400 mt-2">
           <FaStar />
-          <p className="text-gray-700">{shop.rating.toFixed(1)}</p>
-        </div>
-        <div className="mt-3">
-          <h4 className="font-medium text-sm text-gray-500">Top Categories:</h4>
-          <ul className="list-disc list-inside text-gray-700 text-sm">
-            {shop.topCategories.map((category, idx) => (
-              <li key={idx}>{category}</li>
-            ))}
-          </ul>
         </div>
       </div>
 
       <div className="px-4 py-3 flex items-center justify-between">
-        <button className="button-primary">Follow Store</button>
-        <button className="button-secondary">Visit Store</button>
+        <button
+          className="button-primary"
+          aria-label={`Follow ${shop.name} Store`}
+        >
+          Follow Store
+        </button>
+        <button
+          className="button-secondary"
+          aria-label={`Visit ${shop.name} Store`}
+        >
+          Visit Store
+        </button>
       </div>
     </div>
   );

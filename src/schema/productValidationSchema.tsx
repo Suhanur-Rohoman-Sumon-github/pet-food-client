@@ -29,11 +29,13 @@ const productValidationSchema = z.object({
   category_id: z
     .string()
     .min(1, "Category ID is required")
-    .regex(/^[a-zA-Z0-9_-]+$/, "Category ID must be alphanumeric"),
+    .regex(/^[a-zA-Z0-9_-]+$/, "Category ID must be alphanumeric")
+    .optional(),
   shop_id: z
     .string()
     .min(1, "Shop ID is required")
-    .regex(/^[a-zA-Z0-9_-]+$/, "Shop ID must be alphanumeric"),
+    .regex(/^[a-zA-Z0-9_-]+$/, "Shop ID must be alphanumeric")
+    .optional(),
   description: z
     .string()
     .min(10, "Description must be at least 10 characters long")

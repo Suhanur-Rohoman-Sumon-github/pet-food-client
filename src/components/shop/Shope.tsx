@@ -1,5 +1,9 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import BestSellerShopCard from "../home/BestSellerCard";
+import { useGetAllShopsQuery } from "@/hook/shop.hook";
+import CustomPagination from "../products/CustomPgination";
+import { shop } from "@/types";
 
 const shops = [
   {
@@ -65,72 +69,110 @@ const shops = [
 ];
 
 const ShopPage = () => {
-  return (
-    <div className="flex  ">
-      {/* Left Sidebar for Filtering */}
-      <aside className="w-1/4 bg-white shadow-md rounded-lg p-4 space-y-6">
-        <div className="space-y-4">
-          <h3 className="text-lg font-bold">Filters</h3>
-          {/* Search Bar */}
-          <input
-            type="text"
-            placeholder="Search Shops"
-            className="w-full p-2 border rounded-lg"
-          />
-        </div>
-        {/* Categories */}
-        <div className="space-y-4">
-          <h4 className="font-medium">Categories</h4>
-          <ul className="space-y-2">
-            <li>
-              <input type="checkbox" id="electronics" />
-              <label htmlFor="electronics" className="ml-2">
-                Electronics
-              </label>
-            </li>
-            <li>
-              <input type="checkbox" id="fashion" />
-              <label htmlFor="fashion" className="ml-2">
-                Fashion
-              </label>
-            </li>
-            <li>
-              <input type="checkbox" id="home-decor" />
-              <label htmlFor="home-decor" className="ml-2">
-                Home Decor
-              </label>
-            </li>
-          </ul>
-        </div>
-        {/* Ratings */}
-        <div className="space-y-4">
-          <h4 className="font-medium">Ratings</h4>
-          <input type="range" min="1" max="5" step="0.5" className="w-full" />
-        </div>
-        {/* Price Range */}
-        <div className="space-y-4">
-          <h4 className="font-medium">Price Range</h4>
-          <input type="range" min="0" max="1000" step="10" className="w-full" />
-        </div>
-        {/* Sort By */}
-        <div className="space-y-4">
-          <h4 className="font-medium">Sort By</h4>
-          <select className="w-full p-2 border rounded-lg">
-            <option value="popular">Most Popular</option>
-            <option value="rating">Highest Rating</option>
-            <option value="newest">Newest</option>
-          </select>
-        </div>
-      </aside>
+  const [selectedCategory, setSelectedCategory] = useState<string | "">("");
+  const [minPrice, setMinPrice] = useState<number | "">("");
+  const [maxPrice, setMaxPrice] = useState<number | "">("");
+  const [selectedRating, setSelectedRating] = useState<number | "">("");
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [sortOption, setSortOption] = useState<string | "">("Best Match");
+  const [searchTerms, setSearchTerms] = useState<string | "">();
+  const itemsPerPage = 12;
 
-      {/* Shop Cards Section */}
-      <main className="w-3/4">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-8">
-          {shops.map((shop) => (
-            <BestSellerShopCard key={shop.id} shop={shop} />
-          ))}
-        </div>
-      </main>
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
+  const { data: allShops } = useGetAllShopsQuery({
+    page: currentPage,
+    limit: itemsPerPage,
+    category: selectedCategory,
+    location: searchTerms,
+    minRating: selectedRating || "",
+    maxRating: selectedRating || "",
+    sort: sortOption || "",
+  });
+  
+  const totalPages = Math.ceil((allShops?.meta.total || 0) / itemsPerPage);
+  return (
+    <div>
+      <div className="flex  ">
+        {/* Left Sidebar for Filtering */}
+        <aside className="w-1/4 bg-white shadow-md rounded-lg p-4 space-y-6">
+          <div className="space-y-4">
+            <h3 className="text-lg font-bold">Filters</h3>
+            {/* Search Bar */}
+            <input
+              type="text"
+              placeholder="Search Shops"
+              className="w-full p-2 border rounded-lg"
+            />
+          </div>
+          {/* Categories */}
+          <div className="space-y-4">
+            <h4 className="font-medium">Categories</h4>
+            <ul className="space-y-2">
+              <li>
+                <input type="checkbox" id="electronics" />
+                <label htmlFor="electronics" className="ml-2">
+                  Electronics
+                </label>
+              </li>
+              <li>
+                <input type="checkbox" id="fashion" />
+                <label htmlFor="fashion" className="ml-2">
+                  Fashion
+                </label>
+              </li>
+              <li>
+                <input type="checkbox" id="home-decor" />
+                <label htmlFor="home-decor" className="ml-2">
+                  Home Decor
+                </label>
+              </li>
+            </ul>
+          </div>
+          {/* Ratings */}
+          <div className="space-y-4">
+            <h4 className="font-medium">Ratings</h4>
+            <input type="range" min="1" max="5" step="0.5" className="w-full" />
+          </div>
+          {/* Price Range */}
+          <div className="space-y-4">
+            <h4 className="font-medium">Price Range</h4>
+            <input
+              type="range"
+              min="0"
+              max="1000"
+              step="10"
+              className="w-full"
+            />
+          </div>
+          {/* Sort By */}
+          <div className="space-y-4">
+            <h4 className="font-medium">Sort By</h4>
+            <select className="w-full p-2 border rounded-lg">
+              <option value="popular">Most Popular</option>
+              <option value="rating">Highest Rating</option>
+              <option value="newest">Newest</option>
+            </select>
+          </div>
+        </aside>
+
+        {/* Shop Cards Section */}
+        <main className="w-3/4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-8">
+            {allShops?.data?.map((shop:shop) => (
+              <BestSellerShopCard key={shop.id} shop={shop} />
+            ))}
+          </div>
+        </main>
+      </div>
+      <div className="mt-6">
+        <CustomPagination
+          totalPages={totalPages}
+          currentPage={currentPage}
+          onPageChange={handlePageChange}
+        />
+      </div>
     </div>
   );
 };

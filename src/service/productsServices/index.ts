@@ -45,6 +45,10 @@ export const getRelatedProducts = async (categoryId:string) => {
   const { data } = await axiosInstance.get(`/products/related-products/${categoryId}`);
   return data.data; 
 };
+export const getCateGory = async () => {
+  const { data } = await axiosInstance.get(`/products/categories/category`);
+  return data.data; 
+};
 
 
 export const createProduct = async (productData: any) => {

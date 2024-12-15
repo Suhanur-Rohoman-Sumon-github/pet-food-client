@@ -33,7 +33,7 @@ export type shop ={
   location:string
   status:string
   created_at:Date
-  coverPhoto:string
+  cover_photo:string
 }
 
 

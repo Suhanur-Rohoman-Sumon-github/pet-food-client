@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { getALlProducts, getRelatedProducts, getSIngleProducts } from "@/service/productsServices";
+import { getALlProducts, getCateGory, getRelatedProducts, getSIngleProducts } from "@/service/productsServices";
 import { useQuery } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { useMutation } from "@tanstack/react-query";
@@ -62,12 +62,20 @@ export const useGetRelatedProductsQuery = (categoryID: string) => {
 
   return { data, refetch, isLoading, isError };
 };
+export const useGetCategoryQuery = () => {
+    
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { data, refetch, isLoading, isError } = useQuery<any, Error>({
+       queryKey: ["get-related-products"],
+    queryFn: async () => {
+      const data = await getCateGory();
 
+      return data;
+    },
+  });
 
-
-
-
-
+  return { data, refetch, isLoading, isError };
+};
 export const useCreateProductMutation = () => {
   return useMutation<any, Error, FieldValues>({
     mutationKey: ["create-product"],
