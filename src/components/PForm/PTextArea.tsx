@@ -28,6 +28,7 @@ export default function PTextArea({
   }, [descriptions, name, setValue]);
 
   const currentValue = useWatch({ name });
+  console.log(currentValue);
 
   return (
     <div className="mb-4">
@@ -43,6 +44,7 @@ export default function PTextArea({
 
       {/* Textarea */}
       <Textarea
+        rows={8}
         id={name}
         {...register(name)}
         value={currentValue || descriptions || ""}

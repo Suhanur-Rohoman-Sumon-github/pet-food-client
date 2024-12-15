@@ -8,7 +8,7 @@ import PSelect from "@/components/PForm/PSelect";
 import PTextArea from "@/components/PForm/PTextArea";
 import Image from "next/image";
 import { AiOutlineClose, AiOutlineUpload } from "react-icons/ai";
-import { FieldValues } from "react-hook-form";
+import { FieldValues, useForm } from "react-hook-form";
 import {
   useCreateProductMutation,
   useGetCategoryQuery,
@@ -18,11 +18,18 @@ import { useUser } from "@/context/userProvider";
 import productValidationSchema from "@/schema/productValidationSchema";
 import { shop } from "@/types";
 import Loading from "@/components/ui/Loading";
+import generateDescription from "@/service/GenareteDescriptionsWitheAi";
+import { Button } from "@/components/ui/button";
+import { TbBrandOpenai } from "react-icons/tb";
 
 const CreateProductPage = () => {
+  const methods = useForm();
   const { user } = useUser();
   const [imageFiles, setImageFiles] = useState<File[]>([]);
   const [imagePreview, setImagePreview] = useState<string[]>([]);
+  const [description, setDescription] = useState<string>("");
+  const [showPicker, setShowPicker] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState(false);
   const { mutate: handleCreateProduct, isPending } = useCreateProductMutation();
   const { data: categories } = useGetCategoryQuery();
   const { data: shopData } = useGetMyShopsQuery(user?.id as string);
@@ -79,6 +86,24 @@ const CreateProductPage = () => {
     handleCreateProduct(formData);
   };
 
+  const handleDescriptions = async () => {
+    setIsLoading(true);
+    try {
+      const response = await generateDescription(
+        imagePreview[0],
+        `Analyze the uploaded pet food image and generate an engaging product description, including: key ingredients, nutritional benefits, target pet type, flavor, and why pet owners would love it. 🐾✨`
+      );
+
+      setDescription(response);
+      console.log(response);
+
+      methods.setValue("content", response);
+      setIsLoading(false);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div>
       {isPending && <Loading />}
@@ -130,6 +155,14 @@ const CreateProductPage = () => {
             )}
           </div>
 
+          <button
+            className="button-secondary my-4 text-center"
+            onClick={() => handleDescriptions()}
+          >
+            <TbBrandOpenai />
+            {isLoading ? "generating" : "generate description withe ai"}
+          </button>
+
           <PForm
             resolver={zodResolver(productValidationSchema)}
             onSubmit={handleSubmit}
@@ -160,7 +193,11 @@ const CreateProductPage = () => {
 
             {/* Description */}
             <div className="mt-6">
-              <PTextArea label="Description" name="description" />
+              <PTextArea
+                descriptions={description}
+                label="Description"
+                name="description"
+              />
             </div>
 
             {/* Submit Button */}
