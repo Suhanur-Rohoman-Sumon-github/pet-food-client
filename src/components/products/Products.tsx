@@ -28,7 +28,7 @@ import HorazentalCard from "./ProductHorizantalVewCard";
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
 import CustomPagination from "./CustomPgination";
-
+import ProductCardSkeleton from "../skeleton/ProductSkeleton";
 
 const categories = [
   { name: "Dog Food", slug: "dog-food", icon: <FaDog /> },
@@ -43,7 +43,7 @@ const categories = [
 ];
 
 const Products = () => {
-  const searchParams = useSearchParams(); 
+  const searchParams = useSearchParams();
   const searchTerm = searchParams.get("searchTerm") || "";
 
   const [selectedCategory, setSelectedCategory] = useState<string | "">("");
@@ -245,7 +245,14 @@ const Products = () => {
           </div>
         </div>
 
-        {isLoading && <p>Loading products...</p>}
+        {isLoading && (
+          <div className="grid mt-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
+            <ProductCardSkeleton />
+            <ProductCardSkeleton />
+            <ProductCardSkeleton />
+            <ProductCardSkeleton />
+          </div>
+        )}
         {isError && <p className="text-red-600">Failed to fetch products</p>}
 
         {data && data?.data.length > 0 ? (
@@ -265,7 +272,7 @@ const Products = () => {
             )}
           </div>
         ) : (
-          <p>No products found</p>
+          ""
         )}
         <div className="mt-6">
           <CustomPagination

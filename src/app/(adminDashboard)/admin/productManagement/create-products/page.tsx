@@ -95,7 +95,7 @@ const CreateProductPage = () => {
       );
 
       setDescription(response);
-      console.log(response);
+      
 
       methods.setValue("content", response);
       setIsLoading(false);

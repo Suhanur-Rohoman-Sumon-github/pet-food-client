@@ -16,7 +16,7 @@ const CreateShopPage = () => {
   const { mutate: createShop } = useCreateShopMutation();
 
   const handleShopCreation = async (data: any) => {
-    console.log(data);
+    
     data.vendorId = user?.id;
     createShop(data);
   };

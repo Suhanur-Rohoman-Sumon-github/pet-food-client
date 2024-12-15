@@ -33,7 +33,9 @@ const MyCart = () => {
               {/* Product Content */}
               <div className="flex-1">
                 <h3 className="font-semibold text-lg">{item.name}</h3>
-                <p className="text-gray-500">{item.description}</p>
+                <p className="text-gray-500">
+                  {item.description.slice(0, 500)}
+                </p>
                 <p className="font-bold mt-2">${item.price}</p>
               </div>
             </div>

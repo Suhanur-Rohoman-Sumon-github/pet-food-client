@@ -38,8 +38,7 @@ const productValidationSchema = z.object({
     .optional(),
   description: z
     .string()
-    .min(10, "Description must be at least 10 characters long")
-    .max(1000, "Description must be less than 1000 characters"),
+    .min(10, "Description must be at least 10 characters long"),
 });
 
 export default productValidationSchema;

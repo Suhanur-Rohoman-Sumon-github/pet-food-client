@@ -33,7 +33,7 @@ const UsersTable = () => {
     page: currentPage,
     limit: itemsPerPage,
   });
-  console.log(data);
+  
   const totalPages = Math.ceil((data?.meta.total || 0) / itemsPerPage);
   return (
     <div className="container mx-auto py-6">

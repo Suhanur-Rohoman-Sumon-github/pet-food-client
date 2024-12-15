@@ -28,7 +28,7 @@ export default function PTextArea({
   }, [descriptions, name, setValue]);
 
   const currentValue = useWatch({ name });
-  console.log(currentValue);
+  
 
   return (
     <div className="mb-4">

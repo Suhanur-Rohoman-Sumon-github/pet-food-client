@@ -19,8 +19,8 @@ export const registerUser = async (userData: FieldValues) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     if (axios.isAxiosError(error)) {
-      console.error('Axios error:', error.response?.data);}
-    console.log(error);
+      throw new Error('Axios error:', error.response?.data);}
+  
   }
 };
 
@@ -38,7 +38,7 @@ export const loginUser = async (userData: FieldValues) => {
     return data;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
-    console.log(error.response?.data.message);
+    
     if (axios.isAxiosError(error)) {
       throw new Error(error.response?.data.message)}
   }
@@ -65,7 +65,7 @@ export const getCurrentUser = async () => {
       status: string;
       profilePicture: string;
     };
-    console.log(decodedToken);
+  
 
     return {
       id: decodedToken.id,

@@ -16,13 +16,15 @@ export const useGetAllProductsQuery = (queryParams: {
   sort?: string | "";
   searchTerm?:string|""
 }) => {
+
+  
   
   const { data, refetch, isLoading, isError } = useQuery<any, Error>({
     
     queryKey: ["get-products", queryParams],
     queryFn: async () => {
       const data = await getALlProducts(queryParams);
-      console.log(data);
+     
       return data;
 
     },

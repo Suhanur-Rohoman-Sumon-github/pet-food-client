@@ -32,7 +32,7 @@ const CreateCategoryPrice = () => {
           onSubmit={handleShopCreation}
         >
           <div className="grid grid-cols-1 md:grid-cols-1 gap-6">
-            <PInput label="Shop Name" name="name" type="text" />
+            <PInput label="Category name" name="name" type="text" />
           </div>
 
           {/* Submit Button */}
@@ -43,7 +43,7 @@ const CreateCategoryPrice = () => {
               type="submit"
               disabled={isSubmitting}
             >
-              {isSubmitting ? "Creating..." : "Create Shop"}
+              {isSubmitting ? "Creating..." : "Create category"}
             </button>
           </div>
         </PForm>

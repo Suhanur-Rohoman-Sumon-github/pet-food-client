@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { FaMapMarkerAlt, FaStar } from "react-icons/fa";
 
 type TShop = {
@@ -54,12 +55,15 @@ const BestSellerShopCard = ({ shop }: { shop: TShop }) => {
         >
           Follow Store
         </button>
-        <button
-          className="button-secondary"
-          aria-label={`Visit ${shop.name} Store`}
-        >
-          Visit Store
-        </button>
+        <Link href={`shop/${shop.id}`}>
+          {" "}
+          <button
+            className="button-secondary"
+            aria-label={`Visit ${shop.name} Store`}
+          >
+            Visit Store
+          </button>
+        </Link>
       </div>
     </div>
   );

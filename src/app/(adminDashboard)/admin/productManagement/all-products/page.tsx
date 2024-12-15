@@ -40,7 +40,7 @@ const AllProducts = () => {
     maxPrice,
   });
 
-  console.log(data);
+  
 
   const totalPages = Math.ceil((data?.meta.total || 0) / itemsPerPage);
 

@@ -48,24 +48,28 @@ export const getAllShops = async (queryParams: {
 
 // Fetch a single shop by its ID
 export const getSingleShop = async (shopId: string) => {
+ 
   try {
-    const { data } = await axiosInstance.get(`/shops/${shopId}`);
+    const { data } = await axiosInstance.get(`/shops/shop/${shopId}`);
+   
     return data.data;
   } catch (error: any) {
      if (axios.isAxiosError(error)) {
       throw new Error(error.response?.data.message)}
+      
   }
 };
 
 // Create a new shop
 export const createShop = async (shopData: any) => {
-   console.log("Form data being sent:", shopData);
+  
   try {
     const { data } = await axiosInstance.post("/shops", shopData);
     return data.data;
   } catch (error: any) {
      if (axios.isAxiosError(error)) {
       throw new Error(error.response?.data.message)}
+      console.log(error);
   }
     
 };
