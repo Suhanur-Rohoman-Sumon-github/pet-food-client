@@ -2,7 +2,6 @@ import React from "react";
 import ProductCard, { TProduct } from "../products/ProductsCard";
 
 const BestSellerSection = () => {
-  // Dummy data for products
   const dummyProducts: TProduct[] = [
     {
       id: "1",
@@ -19,7 +18,7 @@ const BestSellerSection = () => {
       rating: 4.5,
       stock_quantity: 0,
       created_at: undefined,
-      shop_id: ""
+      shop_id: "",
     },
     {
       id: "2",
@@ -36,7 +35,7 @@ const BestSellerSection = () => {
       rating: 4.8,
       stock_quantity: 0,
       created_at: undefined,
-      shop_id: ""
+      shop_id: "",
     },
     {
       id: "3",
@@ -53,7 +52,7 @@ const BestSellerSection = () => {
       rating: 4.3,
       stock_quantity: 0,
       created_at: undefined,
-      shop_id: ""
+      shop_id: "",
     },
     {
       id: "4",
@@ -70,7 +69,7 @@ const BestSellerSection = () => {
       rating: 4.7,
       stock_quantity: 0,
       created_at: undefined,
-      shop_id: ""
+      shop_id: "",
     },
     {
       id: "8",
@@ -87,7 +86,7 @@ const BestSellerSection = () => {
       rating: 4.7,
       stock_quantity: 0,
       created_at: undefined,
-      shop_id: ""
+      shop_id: "",
     },
     {
       id: "9",
@@ -104,7 +103,7 @@ const BestSellerSection = () => {
       rating: 4.7,
       stock_quantity: 0,
       created_at: undefined,
-      shop_id: ""
+      shop_id: "",
     },
     {
       id: "10",
@@ -121,7 +120,7 @@ const BestSellerSection = () => {
       rating: 4.7,
       stock_quantity: 0,
       created_at: undefined,
-      shop_id: ""
+      shop_id: "",
     },
   ];
 

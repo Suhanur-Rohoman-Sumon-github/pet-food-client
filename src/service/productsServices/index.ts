@@ -46,8 +46,14 @@ export const getRelatedProducts = async (categoryId:string) => {
   return data.data; 
 };
 export const getCateGory = async () => {
-  const { data } = await axiosInstance.get(`/products/categories/category`);
+ try {
+   const { data } = await axiosInstance.get(`/products/categories/category`);
   return data.data; 
+ } catch (error) {
+   if (axios.isAxiosError(error)) {
+    console.log(error.response);
+      throw new Error(error.response?.data.message)}
+ }
 };
 export const createCategory = async (categoryData:any) => {
   const { data } = await axiosInstance.post(`/products/category`,categoryData);
@@ -58,8 +64,14 @@ export const addReview = async (reviewData:any ,productId:string ) => {
   return data.data; 
 };
 export const deleteCategory = async (categoryId:any  ) => {
+ try {
   const { data } = await axiosInstance.delete(`/products/categories/category/${categoryId}`);
   return data.data; 
+ } catch (error) {
+  if (axios.isAxiosError(error)) {
+    console.log(error.response);
+      throw new Error(error.response?.data.message)}
+ }
 };
 
 
@@ -72,6 +84,7 @@ export const createProduct = async (productData: any) => {
   return data.data;
   } catch (error: any) {
     if (axios.isAxiosError(error)) {
+      console.log(error.response?.data);
       throw new Error(error.response?.data.message)}
   }
 };

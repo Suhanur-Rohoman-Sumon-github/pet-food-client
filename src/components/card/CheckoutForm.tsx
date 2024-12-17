@@ -89,7 +89,7 @@ const CheckoutForm = ({ price, MyCart, combinedAddress }: IProps) => {
       };
 
       addOrders(orderData);
-      router.push(`/my-orders`);
+      router.push(`/orders`);
     }
   };
 
