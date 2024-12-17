@@ -122,7 +122,7 @@ const ProductCard = ({ product }: { product: TProduct }) => {
         </button>
       </div>
 
-      <div>
+      <div >
         <Link href={`/products/${product.id}`}>
           <div>
             <div className="relative w-full h-64 overflow-hidden rounded-lg">

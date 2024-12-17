@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect } from "react";
 import LightGelary from "./LightGelary";
 import { MdShoppingCart } from "react-icons/md";
 import { FaLocationDot } from "react-icons/fa6";
@@ -9,6 +9,7 @@ import { IoMdHome } from "react-icons/io";
 import { GrFavorite } from "react-icons/gr";
 import { FaCheck } from "react-icons/fa";
 import {
+  useAddRecentProductMutations,
   useGetRelatedProductsQuery,
   useGetSingleProductQuery,
 } from "@/hook/products.hook";
@@ -20,17 +21,30 @@ import { useRouter } from "next/navigation";
 import SingleProductsSkeleton from "../skeleton/SingleProductSkeleton";
 
 const SingleProducts = ({ productId }: { productId: string }) => {
+  console.log("Product ID:", productId);
   const { user } = useUser();
   const router = useRouter();
   const { data: singleProducts, isLoading } = useGetSingleProductQuery(
     productId ? productId : ""
   );
+
+  const { mutate: recentProducts } = useAddRecentProductMutations(
+    user?.id ? user?.id : "",
+    productId
+  );
+
+  useEffect(() => {
+    if (productId) {
+      recentProducts();
+    }
+  }, [productId]);
   const { data } = useGetRelatedProductsQuery(singleProducts?.category_id);
 
   const { mutate: addToCart } = useAddToCartMutation(
     user?.id ? user?.id : "",
     productId
   );
+
   const { mutate: addToWishList } = useAddWishListMutation(
     user?.id ? user?.id : "",
     productId

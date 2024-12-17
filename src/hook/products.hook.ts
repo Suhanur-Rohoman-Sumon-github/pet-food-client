@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { createCategory, deleteCategory, getALlProducts, getCateGory, getRelatedProducts, getSIngleProducts } from "@/service/productsServices";
+import { addRecentProduct, createCategory, deleteCategory, getALlProducts, getCateGory, getRecentPRoduct, getRelatedProducts, getSIngleProducts } from "@/service/productsServices";
 import { useQuery } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { useMutation } from "@tanstack/react-query";
@@ -78,6 +78,20 @@ export const useGetCategoryQuery = () => {
 
   return { data, refetch, isLoading, isError };
 };
+export const useGetRecentProductsQuery = (userId:string) => {
+    
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { data, refetch, isLoading, isError } = useQuery<any, Error>({
+       queryKey: ["get-recent-products"],
+    queryFn: async () => {
+      const data = await getRecentPRoduct(userId);
+
+      return data;
+    },
+  });
+
+  return { data, refetch, isLoading, isError };
+};
 export const useCreateProductMutation = () => {
   return useMutation<any, Error, FieldValues>({
     mutationKey: ["create-product"],
@@ -114,6 +128,20 @@ export const useDeleteCategoryMutations = () => {
     },
     onSuccess: () => {
       toast.success("Category  deleted successfully!");
+    },
+    onError: (error) => {
+      toast.error(error.message || "Failed to create category.");
+    },
+  });
+};
+export const useAddRecentProductMutations = (productId:string,userId:string) => {
+  return useMutation<any, Error>({
+    mutationKey: ["add-recent-products"],
+    mutationFn: async () => {
+      await addRecentProduct(productId,userId); 
+    },
+    onSuccess: () => {
+    
     },
     onError: (error) => {
       toast.error(error.message || "Failed to create category.");

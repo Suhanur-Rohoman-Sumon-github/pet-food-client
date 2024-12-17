@@ -73,6 +73,28 @@ export const deleteCategory = async (categoryId:any  ) => {
       throw new Error(error.response?.data.message)}
  }
 };
+export const addRecentProduct = async (productId:string ,userId : string  ) => {
+  console.log(`Making request to /products/add-recent-product/${productId}/${userId}`);
+ try {
+  const { data } = await axiosInstance.post(`/products/add-products/add-recent-product/${productId}/${userId}`);
+  return data.data; 
+ } catch (error) {
+  if (axios.isAxiosError(error)) {
+    console.log(error?.response?.data);
+      throw new Error(error.response?.data.message)}
+ }
+};
+export const getRecentPRoduct = async (userId : string  ) => {
+  
+ try {
+  const { data } = await axiosInstance.get(`/products/get-product/get-recent-product/${userId}`);
+  return data.data; 
+ } catch (error) {
+  if (axios.isAxiosError(error)) {
+    console.log(error?.response?.data);
+      throw new Error(error.response?.data.message)}
+ }
+};
 
 
 export const createProduct = async (productData: any) => {

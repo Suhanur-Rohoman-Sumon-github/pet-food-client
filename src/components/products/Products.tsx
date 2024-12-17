@@ -114,9 +114,7 @@ const Products = () => {
 
   return (
     <div className="flex min-h-screen bg-gray-50">
-      {/* Sidebar */}
       <aside className="p-4 w-64 bg-white shadow-md border-r border-gray-200">
-        {/* Category Filter */}
         <div className="mb-6">
           <h3 className="text-lg font-medium mb-2 text-gray-700">Category</h3>
           <ul className="space-y-2">
@@ -137,9 +135,6 @@ const Products = () => {
           </ul>
         </div>
 
-        {/* Price Filter */}
-
-        {/* Rating Filter */}
         <div className="mb-6">
           <h3 className="text-lg font-medium mb-2 text-gray-700">Ratings</h3>
           <ul className="space-y-2">
@@ -158,9 +153,9 @@ const Products = () => {
         </div>
       </aside>
 
-      {/* Product Display */}
+      
       <main className="flex-1 p-6">
-        {/* Filter Summary */}
+        
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center space-x-4">
             {selectedCategory && (
@@ -214,7 +209,7 @@ const Products = () => {
             )}
           </div>
 
-          {/* Sort Options */}
+        
           <div className="flex items-center space-x-4">
             <div className="flex items-center gap-2">
               <p className="text-xs text-[#f85606]">Sort by:</p>
