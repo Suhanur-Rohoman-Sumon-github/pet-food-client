@@ -17,6 +17,9 @@ const BestSellerSection = () => {
       details: "High-quality food for your canine friends.",
       stock: 10,
       rating: 4.5,
+      stock_quantity: 0,
+      created_at: undefined,
+      shop_id: ""
     },
     {
       id: "2",
@@ -31,6 +34,9 @@ const BestSellerSection = () => {
       details: "A fun and sturdy tree for your cats to climb and rest.",
       stock: 5,
       rating: 4.8,
+      stock_quantity: 0,
+      created_at: undefined,
+      shop_id: ""
     },
     {
       id: "3",
@@ -45,6 +51,9 @@ const BestSellerSection = () => {
       details: "A nutritious seed mix for all types of birds.",
       stock: 20,
       rating: 4.3,
+      stock_quantity: 0,
+      created_at: undefined,
+      shop_id: ""
     },
     {
       id: "4",
@@ -59,6 +68,9 @@ const BestSellerSection = () => {
       details: "A comfortable and safe habitat for reptiles.",
       stock: 2,
       rating: 4.7,
+      stock_quantity: 0,
+      created_at: undefined,
+      shop_id: ""
     },
     {
       id: "8",
@@ -73,6 +85,9 @@ const BestSellerSection = () => {
       details: "A comfortable and safe habitat for reptiles.",
       stock: 2,
       rating: 4.7,
+      stock_quantity: 0,
+      created_at: undefined,
+      shop_id: ""
     },
     {
       id: "9",
@@ -87,6 +102,9 @@ const BestSellerSection = () => {
       details: "A comfortable and safe habitat for reptiles.",
       stock: 2,
       rating: 4.7,
+      stock_quantity: 0,
+      created_at: undefined,
+      shop_id: ""
     },
     {
       id: "10",
@@ -101,6 +119,9 @@ const BestSellerSection = () => {
       details: "A comfortable and safe habitat for reptiles.",
       stock: 2,
       rating: 4.7,
+      stock_quantity: 0,
+      created_at: undefined,
+      shop_id: ""
     },
   ];
 

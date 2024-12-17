@@ -25,7 +25,7 @@ export type TProduct = {
   stock: number;
   rating: number;
   stock_quantity: number;
-  created_at: Date;
+  created_at?: Date;
   shop_id: string;
 };
 
