@@ -3,7 +3,6 @@ import React from "react";
 import ProductCard, { TProduct } from "../products/ProductsCard";
 import { useGetRecentProductsQuery } from "@/hook/products.hook";
 import { useUser } from "@/context/userProvider";
-import { Product } from "@/types";
 
 const BestSellerSection = () => {
   const { user } = useUser();
