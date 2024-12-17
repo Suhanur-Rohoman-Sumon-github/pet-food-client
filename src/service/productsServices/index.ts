@@ -53,6 +53,10 @@ export const createCategory = async (categoryData:any) => {
   const { data } = await axiosInstance.post(`/products/category`,categoryData);
   return data.data; 
 };
+export const addReview = async (reviewData:any ,productId:string ) => {
+  const { data } = await axiosInstance.post(`/products/add-review/${productId}`,reviewData);
+  return data.data; 
+};
 
 
 export const createProduct = async (productData: any) => {

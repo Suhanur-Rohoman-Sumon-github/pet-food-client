@@ -11,13 +11,13 @@ import {
 } from "../ui/alert-dialog";
 
 interface AlertProps {
-  isOpen: boolean; // Control dialog visibility externally
-  onClose: () => void; // Close action
-  onConfirm: () => void; // Confirm action
-  title: string; // Dynamic title
-  description: string; // Dynamic description
-  confirmText?: string; // Optional: Customize confirm button text
-  cancelText?: string; // Optional: Customize cancel button text
+  isOpen: boolean; 
+  onClose: () => void; 
+  onConfirm: () => void; 
+  title: string; 
+  description: string; 
+  confirmText?: string;
+  cancelText?: string;
 }
 
 const Alert: React.FC<AlertProps> = ({

@@ -4,14 +4,12 @@ import React, { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import PForm from "@/components/PForm/PForm";
 import PInput from "@/components/PForm/PInput";
-import { useRouter } from "next/navigation";
 import shopValidationSchema from "@/schema/shopValidationSchema";
 import { useCreateShopMutation } from "@/hook/shop.hook";
 import { useUser } from "@/context/userProvider";
 import { useCreateCategoryMutations } from "@/hook/products.hook";
 
 const CreateCategoryPrice = () => {
-  const router = useRouter();
   const { user } = useUser();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { mutate: createCategory } = useCreateCategoryMutations();

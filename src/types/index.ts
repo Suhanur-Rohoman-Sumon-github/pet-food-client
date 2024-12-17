@@ -39,8 +39,9 @@ export type shop ={
 
 
 export type TNewProduct = {
-  replaceCartWithNewItem: boolean;
-  newProductId: string;
+  replaceCartWithNewItem?: boolean;
+  newProductId?: string | null;
+  clearCartOnPurchase?:boolean
 };
 
 
@@ -69,4 +70,25 @@ export type VendorPayload = {
   password: string;
   businessName: string;
   contactNo: string;
+};
+
+export type OrderData ={
+  id?:string
+  userId: string;
+  products: { productId: string; quantity: number }[];
+  totalAmount: number;
+  shippingAddress: string;
+  contactNumber: string;
+  created_At?: Date
+  paymentStatus?:string
+  orderStatus?:string
+}
+
+export type ReviewData = {
+  id: string | undefined;
+  userName: string | undefined;
+  userProfilePicture: string | undefined;
+  comment: string;
+  ratings: number;
+  timestamp: number;
 };

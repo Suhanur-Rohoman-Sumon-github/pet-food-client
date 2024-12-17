@@ -5,12 +5,12 @@ import PForm from "@/components/PForm/PForm";
 import PInput from "@/components/PForm/PInput";
 import adminValidationSchema from "@/schema/adminValidationSchema";
 import { Button } from "@/components/ui/button";
-import { useRouter } from "next/navigation";
+
 import { useCreateVendorMutation } from "@/hook/user.hook";
 import vendorValidationSchema from "@/schema/vendorValidationSchema";
 
 const CreateVendorPage = () => {
-  const router = useRouter();
+  
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { mutate: createVendor, isPending } = useCreateVendorMutation();
 

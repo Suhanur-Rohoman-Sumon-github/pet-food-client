@@ -60,24 +60,24 @@ export const useAddToCartMutation = (userID: string,productId: string) => {
   });
 };
 
-export const useRemoveCardMutation = (userID: string,productId: string,newProducts:TNewProduct) => {
-  console.log(newProducts);
+export const useRemoveCardMutation = (userID: string,productId: string ,newProducts:TNewProduct) => {
+ 
   const queryClient = useQueryClient();
 
-  return useMutation<any, Error>({
-    mutationKey: ["add to cart"],
-    mutationFn: async () => {
-      await removeFromCard(userID,productId,newProducts);
-    },
-    onSuccess: () => {
-      toast.success("product added successfully");
-     
-      queryClient.refetchQueries({
-        queryKey: ["get-card"],
-      });
-    },
-    onError: (error) => {
-      toast.error(error.message);
-    },
-  });
+return useMutation<any, Error>({
+  mutationKey: ["remove from cart"],
+  mutationFn: async () => {
+    await removeFromCard(userID, productId, newProducts);
+  },
+  onSuccess: () => {
+    toast.success("Product removed successfully");
+    queryClient.refetchQueries({
+      queryKey: ["get-card"], 
+    });
+  },
+  onError: (error) => {
+    toast.error(error.message);
+  },
+});
+
 };

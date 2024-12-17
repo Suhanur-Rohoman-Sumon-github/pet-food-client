@@ -4,13 +4,22 @@ import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import React, { useState, useEffect } from "react";
 import { toast } from "sonner";
 import { Button } from "../ui/button";
+import { useRemoveCardMutation } from "@/hook/card.hook";
+import { useCreateOrderMutation } from "@/hook/order.hook";
+import { useRouter } from "next/navigation";
 
 interface IProps {
   price: number;
+  MyCart: any;
+  combinedAddress?: string;
 }
 
-const CheckoutForm = ({ price }: IProps) => {
+const CheckoutForm = ({ price, MyCart, combinedAddress }: IProps) => {
+  console.log(MyCart);
   const { user } = useUser();
+  const router = useRouter();
+
+  const { mutate: addOrders } = useCreateOrderMutation();
   const [clientSecret, setClientSecret] = useState("");
 
   const {
@@ -72,6 +81,16 @@ const CheckoutForm = ({ price }: IProps) => {
 
     if (paymentIntent?.status === "succeeded") {
       toast.success("Your payment was successful!", { id: tostId });
+      const orderData = {
+        userId: user?.id as string,
+        products: MyCart.products,
+        totalAmount: MyCart?.totalPrice,
+        shippingAddress: combinedAddress as string,
+        contactNumber: "+1-555-555-5555",
+      };
+
+      addOrders(orderData);
+      router.push(`/my-orders`);
     }
   };
 

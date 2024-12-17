@@ -22,20 +22,20 @@ const CheckoutPage = () => {
   const [isPendingUser, setIsPendingUser] = useState(false);
   const [isUserInfoComplete, setIsUserInfoComplete] = useState(false);
   const [isPendingPayment, setIsPendingPayment] = useState(false);
+  const [address, setAdress] = useState("");
 
   const handleUserInfoSubmit = async (data: any) => {
     setIsPendingUser(true);
     console.log("User Information:", data);
-
-    // Save user information (e.g., to the database or state)
-    setIsUserInfoComplete(true); // Mark the user info as complete
+    const combinedAddress = `${data.address}, ${data.city}, ${data.postal_code}, ${data.country}`;
+    setAdress(combinedAddress);
+    setIsUserInfoComplete(true);
     setIsPendingUser(false);
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center py-6">
       <div className="w-full max-w-5xl bg-white p-8 rounded-lg shadow-lg flex gap-8">
-        {/* Left Side: User Information Form */}
         <div className="w-1/2 pr-8">
           <h2 className="text-3xl font-semibold text-gray-700 mb-6">
             User Information
@@ -84,7 +84,11 @@ const CheckoutPage = () => {
             ) : (
               <>
                 <Elements stripe={stripePromise}>
-                  <CheckoutForm price={100} />
+                  <CheckoutForm
+                    price={Number(MyCart?.totalPrice)}
+                    MyCart={MyCart}
+                    combinedAddress={address}
+                  />
                 </Elements>
                 <div className="text-sm text-gray-500 mt-4">
                   <p>Your payment will be processed securely.</p>

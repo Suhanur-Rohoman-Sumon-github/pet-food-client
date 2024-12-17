@@ -20,8 +20,7 @@ const Register = () => {
   const onSubmit = async (data: FieldValues) => {
     const userInfo = {
       ...data,
-      memberId: data.memberId,
-      role: "ADMIN",
+      role:"USER"
     };
 
     await handleUserRegistration(userInfo);
@@ -99,41 +98,6 @@ const Register = () => {
                 </p>
               )}
             </div>
-
-            {/* Username Field */}
-            <div className="mb-4">
-              <label className="block text-gray-600 mb-2" htmlFor="username">
-                Username
-              </label>
-              <input
-                type="text"
-                id="username"
-                placeholder="Enter your username"
-                className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
-                {...register("username", { required: "Username is required" })}
-              />
-              {errors.username && (
-                <p className="text-red-500 text-sm mt-1">
-                  {errors.username.message as string}
-                </p>
-              )}
-            </div>
-
-            {/* Member ID Field */}
-            <div className="mb-4">
-              <label className="block text-gray-600 mb-2" htmlFor="memberId">
-                Member ID (optional)
-              </label>
-              <input
-                type="text"
-                id="memberId"
-                placeholder="Enter member ID (optional)"
-                className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
-                {...register("memberId")}
-              />
-            </div>
-
-            {/* Role Field */}
 
             {/* Submit Button */}
             <button type="submit" className="button-primary w-full">

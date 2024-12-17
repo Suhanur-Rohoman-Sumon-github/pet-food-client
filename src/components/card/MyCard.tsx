@@ -5,6 +5,7 @@ import { useGetMyCardQuery } from "@/hook/card.hook";
 import { useUser } from "@/context/userProvider";
 import { item } from "@/types";
 import EmtyCartDegain from "./EmtyCartDegain";
+import Link from "next/link";
 
 const MyCart = () => {
   const { user } = useUser();
@@ -84,9 +85,15 @@ const MyCart = () => {
             </div>
 
             {/* Checkout Button */}
-            <button onClick={handleCheckout} className="button-primary w-full">
-              Proceed to Checkout
-            </button>
+            <Link href={"/checkout"}>
+              {" "}
+              <button
+                onClick={handleCheckout}
+                className="button-primary w-full"
+              >
+                Proceed to Checkout
+              </button>
+            </Link>
           </div>
         </div>
       </div>

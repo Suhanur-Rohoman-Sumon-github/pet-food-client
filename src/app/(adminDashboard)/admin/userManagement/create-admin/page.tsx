@@ -4,13 +4,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import PForm from "@/components/PForm/PForm";
 import PInput from "@/components/PForm/PInput";
 import adminValidationSchema from "@/schema/adminValidationSchema";
-import { Button } from "@/components/ui/button";
-import { useRouter } from "next/navigation";
 import { useCreateAdminMutation } from "@/hook/user.hook";
 import Loading from "@/components/ui/Loading";
 
 const CreateAdminPage = () => {
-  const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { mutate: crateAdmin, isPending } = useCreateAdminMutation();
 

@@ -16,7 +16,7 @@ export const useUserRegistrationsMutation = () => {
       toast.success("user  created successfully please login now");
     },
     onError: (error) => {
-      toast.error(error.message);
+      toast.error(error.message)
     },
   });
 };
