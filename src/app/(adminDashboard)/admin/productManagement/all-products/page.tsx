@@ -71,7 +71,9 @@ const AllProducts = () => {
               <TableCell>{product.price}</TableCell>
               <TableCell>{product.stock_quantity}</TableCell>
               <TableCell>
-                {new Date(product.created_at).toLocaleDateString()}
+                {product.created_at
+                  ? new Date(product.created_at).toLocaleDateString()
+                  : "N/A"}
               </TableCell>
               <TableCell>
                 <DropdownMenu>
