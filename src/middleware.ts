@@ -4,31 +4,50 @@ import { getCurrentUser } from "./service/authServices";
 
 const authRoutes = ["/login", "/register"];
 
-const protectedRoutes = [
-  "/cart",
-  "/wishList",
-  "/vendor",
-  "/admin" 
-];
+const protectedRoutes = {
+  user: ["/cart", "/wishList"],
+  vendor: ["/vendor"],
+  admin: ["/admin"],
+};
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const user = await getCurrentUser();
 
-  // Redirect unauthenticated users from protected routes
-  if (!user && protectedRoutes.some((route) => pathname.startsWith(route))) {
-    return NextResponse.redirect(
-      new URL(`/login?redirect=${pathname}`, request.url)
-    );
+  
+  if (!user) {
+    const isProtected = Object.values(protectedRoutes).flat().some((route) => pathname.startsWith(route));
+    if (isProtected) {
+      return NextResponse.redirect(new URL(`/login?redirect=${pathname}`, request.url));
+    }
   }
 
-  // Redirect authenticated users away from login/register routes
+  
   if (user && authRoutes.includes(pathname)) {
     return NextResponse.redirect(new URL("/", request.url));
   }
 
-  // Ensure only specific roles (e.g., vendors) can access the /vendor route
+  
+  const userRole = user?.role; // Assumes user object has 'role' field: 'user', 'vendor', or 'admin'
+
+  
+  if (pathname.startsWith("/admin") && userRole !== "ADMIN") {
+    return NextResponse.redirect(new URL("/", request.url));
+  }
+
+  
+  if (pathname.startsWith("/vendor") && !["VENDOR", "ADMIN"].includes(userRole as string)) {
+    return NextResponse.redirect(new URL("/", request.url));
+  }
+
  
+  if (
+    protectedRoutes.vendor.some((route) => pathname.startsWith(route)) &&
+    userRole !== "VENDOR" &&
+    userRole !== "ADMIN"
+  ) {
+    return NextResponse.redirect(new URL("/", request.url));
+  }
 
   return NextResponse.next();
 }
@@ -39,7 +58,7 @@ export const config = {
     "/wishList",
     "/login",
     "/register",
-    "/vendor/:path*", // Protect all /vendor routes
-    "/admin/:path*", // Protect all /vendor routes
+    "/vendor/:path*", 
+    "/admin/:path*",
   ],
 };
