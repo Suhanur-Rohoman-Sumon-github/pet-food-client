@@ -78,6 +78,15 @@ export function AdminSidebar() {
               <span>Create Vendor</span>
             </Link>
           </SidebarMenuItem>
+          <SidebarMenuItem>
+            <Link
+              href="/admin/userManagement/all-shop"
+              className="flex items-center gap-3 px-5 py-3 hover:bg-gray-100 rounded-md transition"
+            >
+              <FaUser className="text-yellow-500" size={18} />
+              <span>All Shops</span>
+            </Link>
+          </SidebarMenuItem>
         </SidebarGroup>
 
         {/* Product Management Section */}
@@ -119,6 +128,15 @@ export function AdminSidebar() {
             >
               <MdCategory className="text-orange-500" size={18} />
               <span>Create category</span>
+            </Link>
+          </SidebarMenuItem>
+          <SidebarMenuItem>
+            <Link
+              href="/admin/productManagement/category"
+              className="flex items-center gap-3 px-5 py-3 hover:bg-gray-100 rounded-md transition"
+            >
+              <MdCategory className="text-orange-500" size={18} />
+              <span>All category</span>
             </Link>
           </SidebarMenuItem>
         </SidebarGroup>

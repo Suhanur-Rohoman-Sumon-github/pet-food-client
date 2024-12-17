@@ -92,3 +92,11 @@ export type ReviewData = {
   ratings: number;
   timestamp: number;
 };
+
+export type Category = {
+  id: string;
+  name: string;
+  isDeleted: boolean;
+  created_at: string; 
+  updated_at: string;
+};

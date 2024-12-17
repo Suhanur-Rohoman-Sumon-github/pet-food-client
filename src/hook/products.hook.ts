@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { createCategory, getALlProducts, getCateGory, getRelatedProducts, getSIngleProducts } from "@/service/productsServices";
+import { createCategory, deleteCategory, getALlProducts, getCateGory, getRelatedProducts, getSIngleProducts } from "@/service/productsServices";
 import { useQuery } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { useMutation } from "@tanstack/react-query";
@@ -100,6 +100,20 @@ export const useCreateCategoryMutations = () => {
     },
     onSuccess: () => {
       toast.success("Category  created successfully!");
+    },
+    onError: (error) => {
+      toast.error(error.message || "Failed to create category.");
+    },
+  });
+};
+export const useDeleteCategoryMutations = () => {
+  return useMutation<any, Error, string>({
+    mutationKey: ["delete-category"],
+    mutationFn: async (categoryId) => {
+      await deleteCategory(categoryId); 
+    },
+    onSuccess: () => {
+      toast.success("Category  deleted successfully!");
     },
     onError: (error) => {
       toast.error(error.message || "Failed to create category.");

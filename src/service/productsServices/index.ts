@@ -57,6 +57,10 @@ export const addReview = async (reviewData:any ,productId:string ) => {
   const { data } = await axiosInstance.post(`/products/add-review/${productId}`,reviewData);
   return data.data; 
 };
+export const deleteCategory = async (categoryId:any  ) => {
+  const { data } = await axiosInstance.delete(`/products/categories/category/${categoryId}`);
+  return data.data; 
+};
 
 
 export const createProduct = async (productData: any) => {

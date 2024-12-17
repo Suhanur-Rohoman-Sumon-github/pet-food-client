@@ -3,7 +3,7 @@
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { FieldValues } from "react-hook-form";
-import { addFollower, createShop, getAllShops, getMyShops, getSingleShop } from "@/service/shopsServices";
+import { addFollower, createShop, deleteShop, getAllShops, getMyShops, getSingleShop } from "@/service/shopsServices";
 
 // Hook for fetching all shops with query parameters
 export const useGetAllShopsQuery = (queryParams: {
@@ -78,6 +78,20 @@ export const useAddFollowerMutations = (userId: string ,shopId:string) => {
     },
     onSuccess: () => {
       toast.success("Shop created successfully!");
+    },
+    onError: (error) => {
+      toast.error(error.message || "Failed to create shop.");
+    },
+  });
+};
+export const useDeleteShopMutations = () => {
+  return useMutation<any, Error,string>({
+    mutationKey: ["delete-shop"],
+    mutationFn: async (shopId) => {
+      await deleteShop(shopId);
+    },
+    onSuccess: () => {
+      toast.success("Shop deleted successfully!");
     },
     onError: (error) => {
       toast.error(error.message || "Failed to create shop.");
