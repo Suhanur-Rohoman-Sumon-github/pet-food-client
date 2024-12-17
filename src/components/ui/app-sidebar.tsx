@@ -14,7 +14,6 @@ import {
   FaPlus,
   FaEdit,
   FaCog,
-  FaSignOutAlt,
 } from "react-icons/fa";
 import { SiGoogleanalytics } from "react-icons/si";
 

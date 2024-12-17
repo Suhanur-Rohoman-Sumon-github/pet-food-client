@@ -13,7 +13,7 @@ interface IProps extends IFormConfig {
 }
 
 const PForm = ({ children, onSubmit, defaultValues, resolver }: IProps) => {
-  let formConfig: IFormConfig = {};
+  const formConfig: IFormConfig = {};
 
   if (!!defaultValues) {
     formConfig["defaultValues"] = defaultValues;
