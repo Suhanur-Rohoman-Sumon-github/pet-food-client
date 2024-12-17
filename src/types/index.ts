@@ -12,8 +12,9 @@ export interface IUser {
   email: string;
   status: string;
   profilePicture: string;
-  avatar:string
+  avatar?:string
   created_at? :Date
+  
 }
 
 export interface IInput {
