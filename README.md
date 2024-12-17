@@ -29,3 +29,9 @@ This is a **multi-vendor pet food e-commerce website** built with [Next.js](http
 - **ORM**: Prisma
 - **Styling**: Tailwind CSS
 - **Hosting**: [Vercel](
+
+## credentials
+
+- **user** :user@gmail.com 123456
+- **admin** :admin@gmail.com 123456
+- **vendor** :vendor@gmail.com 123456
