@@ -7,13 +7,13 @@ import { FaMapMarkerAlt, FaStar } from "react-icons/fa";
 
 type TShop = {
   id: string;
-  profile_picture: string;
-  name: string;
-  location: string;
-  status: string;
-  created_at: Date;
-  cover_photo: string;
-  follower: string[]; // Add followers array
+  profile_picture?: string;
+  name?: string;
+  location?: string;
+  status?: string;
+  created_at?: Date;
+  cover_photo?: string;
+  follower?: string[];
 };
 
 const BestSellerShopCard = ({ shop }: { shop: TShop }) => {
