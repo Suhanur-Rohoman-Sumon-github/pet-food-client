@@ -8,15 +8,14 @@ import PInput from "@/components/PForm/PInput";
 import shopValidationSchema from "@/schema/shopValidationSchema";
 import { useCreateShopMutation } from "@/hook/shop.hook";
 import { useUser } from "@/context/userProvider";
+import { shop } from "@/types";
 
 const CreateShopPage = () => {
-  
   const { user } = useUser();
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitting] = useState(false);
   const { mutate: createShop } = useCreateShopMutation();
 
-  const handleShopCreation = async (data: any) => {
-    
+  const handleShopCreation = async (data: shop) => {
     data.vendorId = user?.id;
     createShop(data);
   };

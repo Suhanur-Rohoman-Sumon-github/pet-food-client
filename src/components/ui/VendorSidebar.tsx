@@ -7,19 +7,10 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import Link from "next/link";
-import {
-  FaUser,
-  FaUsers,
-  FaProductHunt,
-  FaPlus,
-  FaEdit,
-  FaCog,
-  FaSignOutAlt,
-} from "react-icons/fa";
+import { FaProductHunt, FaPlus, FaEdit, FaCog } from "react-icons/fa";
 import { SiGoogleanalytics } from "react-icons/si";
 import { TbShoppingCartDiscount } from "react-icons/tb";
 
-import { Avatar, AvatarFallback, AvatarImage } from "./avatar";
 import { FaArrowLeft } from "react-icons/fa6";
 import { CiShop } from "react-icons/ci";
 

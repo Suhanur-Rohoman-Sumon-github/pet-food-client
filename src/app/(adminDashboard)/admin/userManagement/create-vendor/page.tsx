@@ -3,18 +3,16 @@ import React, { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import PForm from "@/components/PForm/PForm";
 import PInput from "@/components/PForm/PInput";
-import adminValidationSchema from "@/schema/adminValidationSchema";
-import { Button } from "@/components/ui/button";
 
 import { useCreateVendorMutation } from "@/hook/user.hook";
 import vendorValidationSchema from "@/schema/vendorValidationSchema";
+import { VendorPayload } from "@/types";
 
 const CreateVendorPage = () => {
-  
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const { mutate: createVendor, isPending } = useCreateVendorMutation();
+  const [isSubmitting] = useState(false);
+  const { mutate: createVendor } = useCreateVendorMutation();
 
-  const handleVendorCreation = async (data: any) => {
+  const handleVendorCreation = async (data: VendorPayload) => {
     const VendorData = {
       ...data,
     };

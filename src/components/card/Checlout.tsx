@@ -21,7 +21,6 @@ const CheckoutPage = () => {
   console.log(MyCart);
   const [isPendingUser, setIsPendingUser] = useState(false);
   const [isUserInfoComplete, setIsUserInfoComplete] = useState(false);
-  const [isPendingPayment, setIsPendingPayment] = useState(false);
   const [address, setAdress] = useState("");
 
   const handleUserInfoSubmit = async (data: any) => {

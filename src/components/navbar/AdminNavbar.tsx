@@ -16,7 +16,7 @@ import { logout } from "@/service/authServices";
 import { usePathname } from "next/navigation";
 
 const AdminNavbar = () => {
-  const { setIsLoading: userLoading, setUser, user } = useUser();
+  const { user } = useUser();
 
   const handleLogout = () => {
     logout();

@@ -16,7 +16,7 @@ const Login = () => {
     formState: { errors },
   } = useForm();
   const [showPassword, setShowPassword] = useState(false);
-  const { mutate: login, isSuccess, isError } = useUserLoginMutations();
+  const { mutate: login, isSuccess } = useUserLoginMutations();
   const router = useRouter();
   const searchParams = useSearchParams();
 

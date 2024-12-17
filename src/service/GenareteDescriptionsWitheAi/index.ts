@@ -8,8 +8,6 @@ const generateDescription = async (imageURL: string, prompt: string) => {
     .then((res) => res.arrayBuffer())
     .then((arrayBuffer) => Base64.fromByteArray(new Uint8Array(arrayBuffer)));
 
- 
-
   const contents = [
     {
       role: "user",
@@ -25,7 +23,7 @@ const generateDescription = async (imageURL: string, prompt: string) => {
   const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY as string);
   const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
-  //@ts-ignore
+  // @ts-expect-error: To handle potential typing issues with the result stream
   const result = await model.generateContentStream({ contents });
 
   let responseString = "";

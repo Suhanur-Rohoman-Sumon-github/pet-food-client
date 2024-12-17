@@ -8,7 +8,11 @@ import { FaExchangeAlt, FaHeart, FaShoppingCart } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 import Alert from "../alert/Alert";
 import { useState } from "react";
-import { useAddToCartMutation, useGetMyCardQuery, useRemoveCardMutation } from "@/hook/card.hook";
+import {
+  useAddToCartMutation,
+  useGetMyCardQuery,
+  useRemoveCardMutation,
+} from "@/hook/card.hook";
 
 export type TProduct = {
   id: string;
@@ -30,6 +34,7 @@ const ProductCard = ({ product }: { product: TProduct }) => {
   const [actionType, setActionType] = useState("");
   const { user } = useUser();
   const { data: MyCart } = useGetMyCardQuery(user?.id ? user?.id : "");
+  console.log(actionType);
 
   const { mutate: addToCart } = useAddToCartMutation(
     user?.id ? user?.id : "",

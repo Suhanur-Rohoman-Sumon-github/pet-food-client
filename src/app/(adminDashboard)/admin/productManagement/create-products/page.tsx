@@ -16,10 +16,9 @@ import {
 import { useGetMyShopsQuery } from "@/hook/shop.hook";
 import { useUser } from "@/context/userProvider";
 import productValidationSchema from "@/schema/productValidationSchema";
-import { shop } from "@/types";
+import { Category, shop } from "@/types";
 import Loading from "@/components/ui/Loading";
 import generateDescription from "@/service/GenareteDescriptionsWitheAi";
-import { Button } from "@/components/ui/button";
 import { TbBrandOpenai } from "react-icons/tb";
 
 const CreateProductPage = () => {
@@ -28,7 +27,6 @@ const CreateProductPage = () => {
   const [imageFiles, setImageFiles] = useState<File[]>([]);
   const [imagePreview, setImagePreview] = useState<string[]>([]);
   const [description, setDescription] = useState<string>("");
-  const [showPicker, setShowPicker] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState(false);
   const { mutate: handleCreateProduct, isPending } = useCreateProductMutation();
   const { data: categories } = useGetCategoryQuery();
@@ -36,7 +34,7 @@ const CreateProductPage = () => {
 
   // Transform category data for options
   const categoriesOptions =
-    categories?.map((category: any) => ({
+    categories?.map((category: Category) => ({
       key: category.id,
       label: category.name,
     })) || [];
@@ -95,7 +93,6 @@ const CreateProductPage = () => {
       );
 
       setDescription(response);
-      
 
       methods.setValue("content", response);
       setIsLoading(false);

@@ -1,11 +1,12 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { useDeleteShopMutations, useGetAllShopsQuery } from "@/hook/shop.hook";
+import { shop } from "@/types";
 import React from "react";
 
-const page = () => {
+const AllShops = () => {
   const { mutate: deleteShop } = useDeleteShopMutations();
-  const { data, isLoading, isError, refetch } = useGetAllShopsQuery({
+  const { data, isLoading, isError } = useGetAllShopsQuery({
     page: 1,
     limit: 10,
     category: "",
@@ -36,7 +37,7 @@ const page = () => {
             </tr>
           </thead>
           <tbody>
-            {data?.data?.map((shop: any) => (
+            {data?.data?.map((shop: shop) => (
               <tr key={shop.id}>
                 <td className="border p-2">{shop.name}</td>
 
@@ -59,4 +60,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default AllShops;

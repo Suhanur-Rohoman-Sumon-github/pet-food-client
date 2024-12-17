@@ -35,6 +35,7 @@ export type shop ={
   created_at:Date
   cover_photo:string
   follower:string[]
+  vendorId?:string
 }
 
 
@@ -61,6 +62,7 @@ export type AdminPayload = {
   location: string;
   designation: string;
   contactNo: string;
+  role?:"ADMIN"
 };
 
 
@@ -70,6 +72,7 @@ export type VendorPayload = {
   password: string;
   businessName: string;
   contactNo: string;
+  role?:"VENDOR"
 };
 
 export type OrderData ={
@@ -100,3 +103,13 @@ export type Category = {
   created_at: string; 
   updated_at: string;
 };
+
+
+export type Product = {
+  Id: string;
+  quantity: number;
+  id: string;
+  name: string;
+};
+
+

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
 
@@ -14,7 +15,7 @@ export const useCretePaymentIntentMutations = () => {
 
       return await createPaymentsIntent(price);
     },
-    onSuccess: (data) => {},
+    
     onError: (error) => {
       toast.error(error.message);
       console.error("Error creating payment intent:", error);
@@ -27,7 +28,7 @@ export const useUpdateUserPlaneMutations = (userId: string) => {
     mutationFn: async () => {
       return await updateUserPlane(userId);
     },
-    onSuccess: (data) => {},
+    
     onError: (error) => {
       toast.error(error.message);
       console.error("Error creating payment intent:", error);

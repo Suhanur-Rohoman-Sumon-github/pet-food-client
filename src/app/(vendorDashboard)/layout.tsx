@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Providers } from "../providers";
 import "../../styels/global.css";
-import { AdminSidebar } from "@/components/ui/app-sidebar";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { VendorSidebar } from "@/components/ui/VendorSidebar";
 import AdminNavbar from "@/components/navbar/AdminNavbar";

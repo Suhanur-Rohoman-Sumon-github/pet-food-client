@@ -5,16 +5,14 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import PForm from "@/components/PForm/PForm";
 import PInput from "@/components/PForm/PInput";
 import shopValidationSchema from "@/schema/shopValidationSchema";
-import { useCreateShopMutation } from "@/hook/shop.hook";
-import { useUser } from "@/context/userProvider";
 import { useCreateCategoryMutations } from "@/hook/products.hook";
+import { Category } from "@/types";
 
 const CreateCategoryPrice = () => {
-  const { user } = useUser();
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitting] = useState(false);
   const { mutate: createCategory } = useCreateCategoryMutations();
 
-  const handleShopCreation = async (data: any) => {
+  const handleShopCreation = async (data: Category) => {
     createCategory(data);
   };
 

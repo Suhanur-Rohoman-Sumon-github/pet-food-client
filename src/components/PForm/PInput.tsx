@@ -14,8 +14,6 @@ interface IProps {
 }
 
 const PInput = ({
-  variant = "bordered",
-  size = "md",
   required = false,
   type = "text",
   label,

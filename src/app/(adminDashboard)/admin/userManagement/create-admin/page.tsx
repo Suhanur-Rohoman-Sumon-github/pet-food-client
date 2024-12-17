@@ -6,12 +6,13 @@ import PInput from "@/components/PForm/PInput";
 import adminValidationSchema from "@/schema/adminValidationSchema";
 import { useCreateAdminMutation } from "@/hook/user.hook";
 import Loading from "@/components/ui/Loading";
+import { AdminPayload } from "@/types";
 
 const CreateAdminPage = () => {
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitting] = useState(false);
   const { mutate: crateAdmin, isPending } = useCreateAdminMutation();
 
-  const handleAdminCreation = async (data: any) => {
+  const handleAdminCreation = async (data: AdminPayload) => {
     const adminData = {
       ...data,
     };

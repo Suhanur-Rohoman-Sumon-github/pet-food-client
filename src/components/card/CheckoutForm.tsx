@@ -1,10 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useUser } from "@/context/userProvider";
 import { useCretePaymentIntentMutations } from "@/hook/payment.hook";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import React, { useState, useEffect } from "react";
 import { toast } from "sonner";
-import { Button } from "../ui/button";
-import { useRemoveCardMutation } from "@/hook/card.hook";
 import { useCreateOrderMutation } from "@/hook/order.hook";
 import { useRouter } from "next/navigation";
 

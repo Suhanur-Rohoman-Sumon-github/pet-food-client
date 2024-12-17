@@ -69,13 +69,12 @@ const shops = [
 ];
 
 const ShopPage = () => {
-  const [selectedCategory, setSelectedCategory] = useState<string | "">("");
-  const [minPrice, setMinPrice] = useState<number | "">("");
-  const [maxPrice, setMaxPrice] = useState<number | "">("");
-  const [selectedRating, setSelectedRating] = useState<number | "">("");
+  const [selectedCategory] = useState<string | "">("");
+
+  const [selectedRating] = useState<number | "">("");
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [sortOption, setSortOption] = useState<string | "">("Best Match");
-  const [searchTerms, setSearchTerms] = useState<string | "">();
+  const [sortOption] = useState<string | "">("Best Match");
+  const [searchTerms] = useState<string | "">();
   const itemsPerPage = 12;
 
   const handlePageChange = (page: number) => {

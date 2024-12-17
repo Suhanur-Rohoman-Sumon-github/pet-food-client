@@ -1,4 +1,4 @@
-import axiosInstance from "@/lib/AxiosInostance";
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from "axios";
 
 
@@ -15,14 +15,13 @@ export const addToCard = async (userID :string,productId: string) => {
   return data; 
 };
 
-// Remove a product from the card
-// Remove a product from the card
+
 export const removeFromCard = async (userID: string, productId: string, newProducts: any) => {
   try {
     const { data } = await axios.delete(
       `http://localhost:5000/api/v1/products/remove/${userID}/${productId}`, 
       {
-        data: newProducts, // This sends the data in the body
+        data: newProducts, 
       }
     );
     return data;

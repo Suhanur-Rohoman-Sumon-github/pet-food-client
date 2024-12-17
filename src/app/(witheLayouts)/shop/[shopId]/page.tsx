@@ -29,7 +29,7 @@ const SingleShopPage = () => {
       {/* Banner Section */}
       <div className="relative mb-8">
         <Image
-          src={shop?.cover_photo || "/default-banner.jpg"} // Fallback if no banner image
+          src={shop?.cover_photo} // Fallback if no banner image
           alt="Shop Banner"
           width={1600}
           height={400}
@@ -41,7 +41,7 @@ const SingleShopPage = () => {
       <div className="mt-[-70px] flex justify-center items-center">
         <div className="relative">
           <Image
-            src={shop?.profile_picture || "/default-avatar.png"} // Fallback if no profile picture
+            src={shop?.profile_picture} // Fallback if no profile picture
             alt={`${shop?.shopName}'s profile`}
             width={150}
             height={150}

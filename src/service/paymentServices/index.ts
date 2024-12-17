@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import axiosInstance from "@/lib/AxiosInostance";
 import axios from "axios";
 
-// Create Payments Intent function
+
 export const createPaymentsIntent = async (price: number) => {
   try {
     const { data } = await axios.post(

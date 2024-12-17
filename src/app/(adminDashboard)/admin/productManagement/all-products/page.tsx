@@ -4,11 +4,9 @@ import {
   Table,
   TableBody,
   TableCell,
-  TableHead,
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import { DropdownMenu } from "@radix-ui/react-dropdown-menu";
 import {
   DropdownMenuContent,
@@ -22,16 +20,16 @@ import { TProduct } from "@/components/products/ProductsCard";
 const AllProducts = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [searchTerm, setSearchTerm] = useState<string>("");
-  const [category, setCategory] = useState<string>("");
-  const [minPrice, setMinPrice] = useState<number | "">("");
-  const [maxPrice, setMaxPrice] = useState<number | "">("");
+  const [category] = useState<string>("");
+  const [minPrice] = useState<number | "">("");
+  const [maxPrice] = useState<number | "">("");
   const itemsPerPage = 10;
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
   };
 
-  const { data, isLoading, isError } = useGetAllProductsQuery({
+  const { data } = useGetAllProductsQuery({
     page: currentPage,
     limit: itemsPerPage,
     searchTerm,
@@ -39,8 +37,6 @@ const AllProducts = () => {
     minPrice,
     maxPrice,
   });
-
-  
 
   const totalPages = Math.ceil((data?.meta.total || 0) / itemsPerPage);
 

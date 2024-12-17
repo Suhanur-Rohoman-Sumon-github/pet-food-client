@@ -18,7 +18,6 @@ import {
 } from "react-icons/fa";
 import { SiGoogleanalytics } from "react-icons/si";
 
-import { Avatar, AvatarFallback, AvatarImage } from "./avatar";
 import { FaArrowLeft } from "react-icons/fa6";
 import { MdCategory } from "react-icons/md";
 

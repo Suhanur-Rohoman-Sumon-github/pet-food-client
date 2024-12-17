@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import { useUser } from "@/context/userProvider";
 import { useGetMyOrderQuery } from "@/hook/order.hook";
