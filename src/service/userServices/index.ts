@@ -86,11 +86,23 @@ export const updateUser = async (userId: string, payload: { [key: string]: any }
       throw new Error(error.response?.data.message)}
   }
 };
+export const makeUserBlocked = async (userId: string ) => {
+  try {
+    const { data } = await axiosInstance.patch(`/user/block-user/${userId}`);
+    return data;
+  } catch (error: any) {
+     if (axios.isAxiosError(error)) {
+      console.log(error.response?.data);
+      throw new Error(error.response?.data.message)}
+      
+  }
+};
+
 
 // Delete User
 export const deleteUser = async (userId: string) => {
   try {
-    const { data } = await axiosInstance.delete(`/users/${userId}`);
+    const { data } = await axiosInstance.delete(`/user/delete-user/${userId}`);
     return data;
   } catch (error: any) {
     throw new Error(error.message);

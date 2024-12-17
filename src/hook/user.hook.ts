@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { getAllUsers, getSingleUser } from "@/service/userServices";
+import { deleteUser, getAllUsers, getSingleUser, makeUserBlocked } from "@/service/userServices";
 import { useQuery } from "@tanstack/react-query";
 import { useMutation } from "@tanstack/react-query";
 import { createAdmin, createVendor } from "@/service/userServices";
@@ -105,6 +105,34 @@ export const useCreateVendorMutation = () => {
     },
     onSuccess: () => {
       toast.success("Vendor created successfully!");
+    },
+    onError: (error) => {
+      toast.error(error.message || "Failed to create vendor.");
+    },
+  });
+};
+export const useUserBlockMutation = () => {
+  return useMutation<any, Error,string>({
+    mutationKey: ["make-user-blocked"],
+    mutationFn: async (userID) => {
+      await makeUserBlocked(userID);
+    },
+    onSuccess: () => {
+      toast.success("user  blocked successfully!");
+    },
+    onError: (error) => {
+      toast.error(error.message || "Failed to create vendor.");
+    },
+  });
+};
+export const useDeleteUserMutations = () => {
+  return useMutation<any, Error,string>({
+    mutationKey: ["make-user-delete"],
+    mutationFn: async (userID) => {
+      await deleteUser(userID);
+    },
+    onSuccess: () => {
+      toast.success("user  deleted successfully!");
     },
     onError: (error) => {
       toast.error(error.message || "Failed to create vendor.");

@@ -17,12 +17,18 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Badge } from "@/components/ui/badge";
-import { useGetAllUsersQuery } from "@/hook/user.hook";
+import {
+  useDeleteUserMutations,
+  useGetAllUsersQuery,
+  useUserBlockMutation,
+} from "@/hook/user.hook";
 import CustomPagination from "@/components/products/CustomPgination";
 import { IUser } from "@/types";
 import { format } from "date-fns";
 
 const UsersTable = () => {
+  const { mutate: handleUserBlocked } = useUserBlockMutation();
+  const { mutate: handleDeleteUsers } = useDeleteUserMutations();
   const [currentPage, setCurrentPage] = useState<number>(1);
   const itemsPerPage = 8;
 
@@ -33,8 +39,15 @@ const UsersTable = () => {
     page: currentPage,
     limit: itemsPerPage,
   });
-  
+
   const totalPages = Math.ceil((data?.meta.total || 0) / itemsPerPage);
+
+  const handleUserBLocked = (id: string) => {
+    handleUserBlocked(id);
+  };
+  const handleDeleteUser = (id: string) => {
+    handleDeleteUsers(id);
+  };
   return (
     <div className="container mx-auto py-6">
       <h1 className="text-2xl font-bold mb-4">All Users</h1>
@@ -86,8 +99,14 @@ const UsersTable = () => {
                     </button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent>
-                    <DropdownMenuItem>Block</DropdownMenuItem>
-                    <DropdownMenuItem>Delete</DropdownMenuItem>
+                    <DropdownMenuItem
+                      onClick={() => handleUserBLocked(user.id)}
+                    >
+                      Block
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => handleDeleteUser(user.id)}>
+                      Delete
+                    </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
               </TableCell>
