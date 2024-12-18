@@ -85,7 +85,15 @@ const MiddleNav = () => {
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-48 bg-white text-black">
                 <DropdownMenuItem>
-                  <Link href="/account">My Account</Link>
+                  {user.role === "ADMIN" && (
+                    <Link href="/admin/admin-home">My Account</Link>
+                  )}
+                  {user.role === "VENDOR" && (
+                    <Link href="/vendor/vendor-home">My Account</Link>
+                  )}
+                  {user.role === "USER" && (
+                    <Link href="/account">My Account</Link>
+                  )}
                 </DropdownMenuItem>
                 <DropdownMenuItem>
                   <Link href="/profile">Profile</Link>
