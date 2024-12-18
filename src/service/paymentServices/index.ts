@@ -6,7 +6,7 @@ import axios from "axios";
 export const createPaymentsIntent = async (price: number) => {
   try {
     const { data } = await axios.post(
-      "http://localhost:5000/api/v1/payments",
+      "https://pat-haven.vercel.app/api/v1/payments",
       { price }, 
     );
 
