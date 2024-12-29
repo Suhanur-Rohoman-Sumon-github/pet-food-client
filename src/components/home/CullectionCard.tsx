@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 
 type TCollection = {
@@ -6,6 +7,7 @@ type TCollection = {
   heading: string;
   btnColor: string;
   btnText: string;
+  link: string;
 };
 
 const CollectionCard = ({
@@ -14,6 +16,7 @@ const CollectionCard = ({
   heading,
   btnColor,
   btnText,
+  link,
 }: TCollection) => {
   return (
     <div
@@ -25,9 +28,11 @@ const CollectionCard = ({
       <div className="relative z-10  text-white space-y-3 p-5">
         <h4 className="text-xs">{subheading}</h4>
         <h3 className="text-2xl font-semibold">{heading}</h3>
-        <button className={`px-4 py-2 text-sm font-medium ${btnColor}`}>
-          {btnText}
-        </button>
+        <Link href={link}>
+          <button className={`px-4 py-2 text-sm font-medium ${btnColor}`}>
+            {btnText}
+          </button>
+        </Link>
       </div>
     </div>
   );

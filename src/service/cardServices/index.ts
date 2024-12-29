@@ -27,11 +27,11 @@ export const removeFromCard = async (userID: string, productId: string, newProdu
     return data;
   } catch (error: any) {
      if (axios.isAxiosError(error)) {
-      console.log(error.response?.data);
+      
       throw new Error(error.response?.data.message)}
       
-    // Log the error
-    console.error('Error while removing product from card:', error);
+    
+    
 
   }
 };

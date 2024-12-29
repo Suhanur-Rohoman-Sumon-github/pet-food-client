@@ -14,7 +14,7 @@ const Page = () => {
 
   const handleDelete = (id: string) => {
     deleteCategory(id);
-    console.log("Deleted category with id:", id);
+    
   };
 
   return (

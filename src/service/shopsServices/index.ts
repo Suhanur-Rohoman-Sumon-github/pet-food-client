@@ -71,7 +71,7 @@ export const createShop = async (shopData: any) => {
   } catch (error: any) {
      if (axios.isAxiosError(error)) {
       throw new Error(error.response?.data.message)}
-      console.log(error);
+      
   }
     
 };
@@ -83,7 +83,7 @@ export const addFollower = async (userId: string ,shopId:string) => {
   } catch (error: any) {
      if (axios.isAxiosError(error)) {
       throw new Error(error.response?.data.message)}
-      console.log(error);
+      
   }
     
 };

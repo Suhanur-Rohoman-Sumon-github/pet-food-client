@@ -121,16 +121,6 @@ const BottomNav = () => {
             Home
           </Link>
           <Link
-            href="/shop"
-            className={`px-4 py-2 rounded ${
-              pathname === "/shop"
-                ? "bg-[#f85606] text-white"
-                : "hover:bg-gray-200"
-            }`}
-          >
-            Shops
-          </Link>
-          <Link
             className={`px-4 py-2 rounded ${
               pathname === "/products"
                 ? "bg-[#f85606] text-white"
@@ -139,6 +129,16 @@ const BottomNav = () => {
             href="/products"
           >
             Products
+          </Link>
+          <Link
+            href="/shop"
+            className={`px-4 py-2 rounded ${
+              pathname === "/shop"
+                ? "bg-[#f85606] text-white"
+                : "hover:bg-gray-200"
+            }`}
+          >
+            Shops
           </Link>
         </div>
       </div>

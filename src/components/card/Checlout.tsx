@@ -18,14 +18,14 @@ const stripePromise = loadStripe(
 const CheckoutPage = () => {
   const { user } = useUser();
   const { data: MyCart } = useGetMyCardQuery(user?.id ? user?.id : "");
-  console.log(MyCart);
+  
   const [isPendingUser, setIsPendingUser] = useState(false);
   const [isUserInfoComplete, setIsUserInfoComplete] = useState(false);
   const [address, setAdress] = useState("");
 
   const handleUserInfoSubmit = async (data: any) => {
     setIsPendingUser(true);
-    console.log("User Information:", data);
+    
     const combinedAddress = `${data.address}, ${data.city}, ${data.postal_code}, ${data.country}`;
     setAdress(combinedAddress);
     setIsUserInfoComplete(true);

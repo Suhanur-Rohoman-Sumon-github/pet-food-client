@@ -9,6 +9,7 @@ const CollectionSection = () => {
         heading="Canine Feast"
         subheading="Nourishment for Every Adventure"
         img="https://openfarmpet.com/cdn/shop/files/PDP-Benefits-Cat_10ddc8ca-0bb7-4801-8d3f-a3f9f91ec9df.png?v=1717685866&width=897"
+        link="/products?category=dog-food"
       />
       <CollectionCard
         heading="Purrfect Feast"
@@ -16,6 +17,7 @@ const CollectionSection = () => {
         btnColor="button-secondary "
         btnText="Buy Now"
         img="https://theme-biggmarket.myshopify.com/cdn/shop/files/subbanner2-02_43a956f6-9b19-4b43-9c03-788b6e197f31.jpg?v=1613706853"
+        link="/products?category=cat-food"
       />
       <CollectionCard
         heading="FeatherFuel"
@@ -23,6 +25,7 @@ const CollectionSection = () => {
         btnColor="button-primary  "
         btnText="Checkout Now"
         img="https://theme-biggmarket.myshopify.com/cdn/shop/files/subbanner2-03_7dac6912-6e47-40e9-b931-f37c8f9ccf3a.jpg?v=1613706853"
+        link="/products?category=bird-food"
       />
     </div>
   );

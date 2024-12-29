@@ -10,7 +10,9 @@ const BestSellerSection = () => {
     user?.id as string
   );
 
-  console.log(recentlyViewedProducts);
+  if (!user || recentlyViewedProducts?.length === 0) {
+    return null;
+  }
 
   return (
     <div className="my-10">

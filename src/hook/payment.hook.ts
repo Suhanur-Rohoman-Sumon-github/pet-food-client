@@ -18,7 +18,7 @@ export const useCretePaymentIntentMutations = () => {
     
     onError: (error) => {
       toast.error(error.message);
-      console.error("Error creating payment intent:", error);
+      
     },
   });
 };
@@ -31,7 +31,7 @@ export const useUpdateUserPlaneMutations = (userId: string) => {
     
     onError: (error) => {
       toast.error(error.message);
-      console.error("Error creating payment intent:", error);
+      
     },
   });
 };

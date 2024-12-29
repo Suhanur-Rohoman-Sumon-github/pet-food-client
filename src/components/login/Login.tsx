@@ -13,6 +13,7 @@ const Login = () => {
   const {
     register,
     handleSubmit,
+    setValue, // added to programmatically set form values
     formState: { errors },
   } = useForm();
   const [showPassword, setShowPassword] = useState(false);
@@ -20,19 +21,37 @@ const Login = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  // Fetch the redirect URL from the query params
   const redirectTo = searchParams.get("redirect") || "/";
 
   const onSubmit = (data: FieldValues) => {
-    login(data); // Triggers the login mutation
+    login(data);
   };
 
-  // Handle redirect on successful login
   useEffect(() => {
     if (isSuccess) {
-      router.push(redirectTo); // Redirect to the desired page
+      router.push(redirectTo);
     }
   }, [isSuccess, redirectTo, router]);
+
+  const dummyCredentials = {
+    user: {
+      email: "user@gmail.com",
+      password: "123456",
+    },
+    vendor: {
+      email: "vendor@gmail.com",
+      password: "123456",
+    },
+    admin: {
+      email: "admin@gmail.com",
+      password: "123456",
+    },
+  };
+
+  const handleCredentialFill = (type: keyof typeof dummyCredentials) => {
+    setValue("email", dummyCredentials[type].email);
+    setValue("password", dummyCredentials[type].password);
+  };
 
   return (
     <div>
@@ -59,6 +78,38 @@ const Login = () => {
             <h2 className="text-2xl font-semibold text-center mb-6 text-gray-800">
               Pet Haven Login
             </h2>
+
+            {/* Dummy Credentials Text */}
+            <div className="mb-6 text-center text-gray-600">
+              <p className="font-medium">
+                Use one of the following dummy credentials:
+              </p>
+            </div>
+
+            {/* Credential Buttons */}
+            <div className="mb-6 flex  gap-4">
+              <button
+                type="button"
+                onClick={() => handleCredentialFill("user")}
+                className="button-secondary"
+              >
+                User Credentials
+              </button>
+              <button
+                type="button"
+                onClick={() => handleCredentialFill("vendor")}
+                className="button-secondary"
+              >
+                Vendor Credentials
+              </button>
+              <button
+                type="button"
+                onClick={() => handleCredentialFill("admin")}
+                className="button-secondary"
+              >
+                Admin Credentials
+              </button>
+            </div>
 
             {/* Email Field */}
             <div className="mb-4">
@@ -105,7 +156,6 @@ const Login = () => {
               )}
             </div>
 
-            {/* Submit Button */}
             <button
               type="submit"
               className="button-primary w-full flex items-center"

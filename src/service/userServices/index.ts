@@ -92,7 +92,7 @@ export const makeUserBlocked = async (userId: string ) => {
     return data;
   } catch (error: any) {
      if (axios.isAxiosError(error)) {
-      console.log(error.response?.data);
+      
       throw new Error(error.response?.data.message)}
       
   }

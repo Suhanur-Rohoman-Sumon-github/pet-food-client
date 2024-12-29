@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { FaShoppingCart } from "react-icons/fa";
+import { GrView } from "react-icons/gr";
 
 type TSpecialProduct = {
   _id: string;
@@ -41,14 +42,16 @@ const SpecialProductCard = ({ product }: { product: TSpecialProduct }) => {
     return () => clearInterval(interval);
   }, []);
   return (
-    <div className="md:flex items-center border rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
-      {/* Image Section */}
-      <div
-        className="w-1/2 h-[280px] bg-cover bg-center"
-        style={{ backgroundImage: `url(${product.image})` }}
-      />
+    <div className="md:flex  my-8">
+      <div className="ml-0 md:ml-8 ">
+        <img
+          src={product.image}
+          alt={product.name}
+          className="w-full h-full object-cover"
+        />
+      </div>
 
-      <div className="md:w-1/2 p-6 relative flex flex-col justify-between">
+      <div className="relative flex flex-col justify-between ml-0 md:ml-24 mt-4 md:mt-0">
         <div>
           <h4 className="text-sm text-gray-500">{product.category}</h4>
           <h3 className="text-2xl font-semibold">{product.name}</h3>
@@ -57,17 +60,17 @@ const SpecialProductCard = ({ product }: { product: TSpecialProduct }) => {
             ${product.price.toFixed(2)}
           </p>
           <p className="text-lg font-semibold text-[#f85606] mt-1">
-            ${product.price.toFixed(2)}
+            ${(product.price - 5).toFixed(2)}
           </p>
-          <p className="mb-4 text-xl my-4">
+          <p className=" text-xl my-4">
             Time Remaining: <span className="text-[#f85606]">{timeLeft}</span>
           </p>
+          <button className="button-primary flex items-center w-full">
+            {" "}
+            <GrView />
+            view All
+          </button>
         </div>
-        <button className="button-primary flex items-center">
-          {" "}
-          <FaShoppingCart />
-          Add To Cart
-        </button>
       </div>
     </div>
   );

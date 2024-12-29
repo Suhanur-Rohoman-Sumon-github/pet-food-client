@@ -14,7 +14,7 @@ interface IProps {
 }
 
 const CheckoutForm = ({ price, MyCart, combinedAddress }: IProps) => {
-  console.log(MyCart);
+  
   const { user } = useUser();
   const router = useRouter();
 
@@ -64,7 +64,7 @@ const CheckoutForm = ({ price, MyCart, combinedAddress }: IProps) => {
     });
 
     if (error) {
-      console.error("[error]", error);
+      
 
       return;
     }

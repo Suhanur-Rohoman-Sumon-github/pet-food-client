@@ -19,7 +19,7 @@ export const registerUser = async (userData: FieldValues) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     if (axios.isAxiosError(error)) {
-      console.log(error.response);
+      
       throw new Error('Axios error:', error.response?.data);}
       
   }

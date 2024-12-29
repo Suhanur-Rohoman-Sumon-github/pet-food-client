@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import BestSellerShopCard from "./BestSellerCard";
 import { useGetAllShopsQuery } from "@/hook/shop.hook";
 import { shop } from "@/types";
+import Title from "../title/Title";
 
 const BestSellers = () => {
   const [selectedCategory] = useState<string | "">("");
@@ -26,10 +27,13 @@ const BestSellers = () => {
   const slicedShops = allShops?.data?.slice(0, 3);
 
   return (
-    <div className="my-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-      {slicedShops?.map((shop: shop) => (
-        <BestSellerShopCard key={shop.id} shop={shop} />
-      ))}
+    <div>
+      <Title title="Best" subTitle="Sellers" />
+      <div className="my-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 ">
+        {slicedShops?.map((shop: shop) => (
+          <BestSellerShopCard key={shop.id} shop={shop} />
+        ))}
+      </div>
     </div>
   );
 };

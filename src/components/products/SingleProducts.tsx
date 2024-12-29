@@ -21,7 +21,6 @@ import { useRouter } from "next/navigation";
 import SingleProductsSkeleton from "../skeleton/SingleProductSkeleton";
 
 const SingleProducts = ({ productId }: { productId: string }) => {
-  console.log("Product ID:", productId);
   const { user } = useUser();
   const router = useRouter();
   const { data: singleProducts, isLoading } = useGetSingleProductQuery(
@@ -33,11 +32,14 @@ const SingleProducts = ({ productId }: { productId: string }) => {
     productId
   );
 
-  useEffect(() => {
-    if (productId) {
-      recentProducts();
-    }
-  }, [productId]);
+  if (user?.id && productId) {
+    useEffect(() => {
+      if (productId) {
+        recentProducts();
+      }
+    }, [productId]);
+  }
+
   const { data } = useGetRelatedProductsQuery(singleProducts?.category_id);
 
   const { mutate: addToCart } = useAddToCartMutation(

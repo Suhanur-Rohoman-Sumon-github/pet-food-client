@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { addRecentProduct, createCategory, deleteCategory, getALlProducts, getCateGory, getRecentPRoduct, getRelatedProducts, getSIngleProducts } from "@/service/productsServices";
+import { addRecentProduct, createCategory, deleteCategory, getALlProducts, getCateGory, getMyFollowingShopProducts, getRecentPRoduct, getRelatedProducts, getSIngleProducts } from "@/service/productsServices";
 import { useQuery } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { useMutation } from "@tanstack/react-query";
@@ -85,6 +85,21 @@ export const useGetRecentProductsQuery = (userId:string) => {
        queryKey: ["get-recent-products"],
     queryFn: async () => {
       const data = await getRecentPRoduct(userId);
+
+      return data;
+    },
+  });
+
+  return { data, refetch, isLoading, isError };
+};
+export const useGetMyFollowingShopQuery = (userId:string) => {
+
+    
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { data, refetch, isLoading, isError } = useQuery<any, Error>({
+       queryKey: ["get-my-following-shop"],
+    queryFn: async () => {
+      const data = await getMyFollowingShopProducts(userId);
 
       return data;
     },
