@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import { useGetMyFollowingShopQuery } from "@/hook/products.hook";
-
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 import ProductCard from "../products/ProductsCard";
 import Title from "../title/Title";
 import { GrView } from "react-icons/gr";
