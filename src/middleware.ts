@@ -28,7 +28,7 @@ export async function middleware(request: NextRequest) {
   }
 
   
-  const userRole = user?.role; // Assumes user object has 'role' field: 'user', 'vendor', or 'admin'
+  const userRole = user?.role; 
 
   
   if (pathname.startsWith("/admin") && userRole !== "ADMIN") {

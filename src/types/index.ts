@@ -37,6 +37,9 @@ export type shop ={
   cover_photo:string
   follower:string[]
   vendorId?:string
+  ratings :number
+  products:Product[]
+  
 }
 
 

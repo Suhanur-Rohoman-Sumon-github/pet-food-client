@@ -17,16 +17,13 @@ import { CiShop } from "react-icons/ci";
 export function VendorSidebar() {
   return (
     <Sidebar className="w-64 bg-white text-gray-800 shadow-lg border-r border-gray-200">
-      {/* Sidebar Header */}
       <SidebarHeader>
         <h1 className="text-xl font-semibold text-center py-5 tracking-wide border-b border-gray-300">
-          Admin Panel
+          Vendor Dashboard
         </h1>
       </SidebarHeader>
 
-      {/* Sidebar Content */}
       <SidebarContent>
-        {/* Dashboard Link */}
         <SidebarMenuItem>
           <Link
             href="/vendor/vendor-home"
@@ -37,7 +34,6 @@ export function VendorSidebar() {
           </Link>
         </SidebarMenuItem>
 
-        {/* User Management Section */}
         <SidebarGroup>
           <h2 className="px-5 pt-6 pb-2 text-xs font-semibold text-gray-500 uppercase tracking-wider">
             Shop Management

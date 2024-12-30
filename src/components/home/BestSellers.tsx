@@ -4,6 +4,8 @@ import BestSellerShopCard from "./BestSellerCard";
 import { useGetAllShopsQuery } from "@/hook/shop.hook";
 import { shop } from "@/types";
 import Title from "../title/Title";
+import Link from "next/link";
+import { GrView } from "react-icons/gr";
 
 const BestSellers = () => {
   const [selectedCategory] = useState<string | "">("");
@@ -33,6 +35,15 @@ const BestSellers = () => {
         {slicedShops?.map((shop: shop) => (
           <BestSellerShopCard key={shop.id} shop={shop} />
         ))}
+      </div>
+      <div className="mb-32">
+        <Link href={`/shop`}>
+          <button className="button-primary flex items-center float-right mb-24 ">
+            {" "}
+            <GrView />
+            view All Shops
+          </button>
+        </Link>
       </div>
     </div>
   );

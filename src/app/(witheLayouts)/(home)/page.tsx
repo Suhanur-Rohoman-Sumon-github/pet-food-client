@@ -17,8 +17,8 @@ const page = () => {
       <CollectionSection />
       <AllProducts />
       <SpecialProducts />
-      <TestiMonials />
       <BestSellers />
+      <TestiMonials />
     </div>
   );
 };

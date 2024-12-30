@@ -12,7 +12,7 @@ const ShopPage = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [sortOption] = useState<string | "">("Best Match");
   const [searchTerms] = useState<string | "">();
-  const itemsPerPage = 12;
+  const itemsPerPage = 6;
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
@@ -27,7 +27,10 @@ const ShopPage = () => {
     sort: sortOption || "",
   });
 
+  console.log(allShops);
+
   const totalPages = Math.ceil((allShops?.meta.total || 0) / itemsPerPage);
+  console.log(totalPages);
   return (
     <div>
       <div className="flex  ">
@@ -44,7 +47,7 @@ const ShopPage = () => {
       </div>
       <div className="mt-6">
         <CustomPagination
-          totalPages={totalPages}
+          totalPages={allShops?.meta?.totalPages}
           currentPage={currentPage}
           onPageChange={handlePageChange}
         />

@@ -9,6 +9,7 @@ import ProductCard from "../products/ProductsCard";
 import Title from "../title/Title";
 import { GrView } from "react-icons/gr";
 import { useUser } from "@/context/userProvider";
+import Link from "next/link";
 
 const AllProducts = () => {
   const { user } = useUser();
@@ -22,11 +23,13 @@ const AllProducts = () => {
           <ProductCard key={product.id} product={product} />
         ))}
       </div>
-      <button className="button-primary flex items-center float-right mt-4 ">
-        {" "}
-        <GrView />
-        view All Products
-      </button>
+      <Link href={`/products`}>
+        <button className="button-primary flex items-center float-right mt-4 ">
+          {" "}
+          <GrView />
+          view All Products
+        </button>
+      </Link>
     </div>
   );
 };
