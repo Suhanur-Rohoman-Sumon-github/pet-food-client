@@ -63,8 +63,8 @@ const SingleShopPage = () => {
         <h1 className="text-3xl font-bold">{shop?.name}</h1>
         <p className="text-gray-600">{shop?.location}</p>
         <div className="flex justify-center items-center gap-4 mt-4">
-          <Badge className="">{`Followers: ${shop?.follower.length}`}</Badge>
-          <Badge className="button-secendorary">
+          <Badge className="bg-[#f85606] text-white text-sm px-2 py-1 rounded-full">{`Followers: ${shop?.follower.length}`}</Badge>
+          <Badge className="bg-[#f85606] text-white text-sm px-2 py-1 rounded-full">
             {`Products: ${shop?.products?.length}`}
           </Badge>
         </div>

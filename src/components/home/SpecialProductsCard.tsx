@@ -1,6 +1,5 @@
 "use client";
 import { useEffect, useState } from "react";
-import { FaShoppingCart } from "react-icons/fa";
 import { GrView } from "react-icons/gr";
 
 type TSpecialProduct = {

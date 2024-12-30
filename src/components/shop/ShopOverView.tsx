@@ -1,8 +1,6 @@
 import React from "react";
-import Image from "next/image";
 
 const ShopOverview = () => {
-  // Fake data for the shop
   const shop = {
     name: "Gadget Haven",
     description: "Your one-stop shop for the latest gadgets and accessories.",
@@ -11,7 +9,7 @@ const ShopOverview = () => {
     phoneNumber: "+1-800-555-1234",
     location: "San Francisco, CA, USA",
     establishedDate: "2015-08-20",
-    uniqueTags: ["Electronics", "Innovative", "High-Tech"],
+    uniqueTags: ["pat food", "dog good", "horse food"],
     rating: 4.8,
     coverPhoto: "https://via.placeholder.com/1600x400?text=Shop+Cover+Photo",
     profilePicture: "https://via.placeholder.com/150?text=Shop+Profile",
@@ -19,14 +17,6 @@ const ShopOverview = () => {
 
   return (
     <div className="container mx-auto p-6 bg-white rounded-lg shadow-md">
-      <div className="text-center mt-12">
-        <h1 className="text-3xl font-bold text-gray-800">{shop.name}</h1>
-        <p className="text-gray-500 text-lg">{shop.description}</p>
-        <p className="text-gray-600 mt-2">
-          Located at: <span className="font-medium">{shop.location}</span>
-        </p>
-      </div>
-
       {/* Additional Information */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
         <div className="bg-gray-100 p-4 rounded-lg shadow">
@@ -52,9 +42,9 @@ const ShopOverview = () => {
             {shop.uniqueTags.map((tag, index) => (
               <span
                 key={index}
-                className="bg-blue-100 text-blue-600 text-sm px-2 py-1 rounded-full"
+                className="text-[#f85606]  text-sm px-2 py-1 rounded-full"
               >
-                {tag}
+                {`#${tag}`}
               </span>
             ))}
           </div>

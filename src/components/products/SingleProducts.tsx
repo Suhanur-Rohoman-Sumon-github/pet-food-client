@@ -32,13 +32,11 @@ const SingleProducts = ({ productId }: { productId: string }) => {
     productId
   );
 
-  if (user?.id && productId) {
-    useEffect(() => {
-      if (productId) {
-        recentProducts();
-      }
-    }, [productId]);
-  }
+  useEffect(() => {
+    if (user?.id && productId) {
+      recentProducts();
+    }
+  }, [recentProducts, user?.id, productId]);
 
   const { data } = useGetRelatedProductsQuery(singleProducts?.category_id);
 

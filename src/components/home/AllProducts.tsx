@@ -1,10 +1,6 @@
 "use client";
-import {
-  useGetAllProductsQuery,
-  useGetMyFollowingShopQuery,
-} from "@/hook/products.hook";
-import { useSearchParams } from "next/navigation";
-import React, { useState } from "react";
+import { useGetMyFollowingShopQuery } from "@/hook/products.hook";
+
 import ProductCard from "../products/ProductsCard";
 import Title from "../title/Title";
 import { GrView } from "react-icons/gr";
