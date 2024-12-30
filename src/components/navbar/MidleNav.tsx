@@ -95,9 +95,7 @@ const MiddleNav = () => {
                     <Link href="/account">My Account</Link>
                   )}
                 </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <Link href="/profile">Profile</Link>
-                </DropdownMenuItem>
+
                 <DropdownMenuItem>
                   <Link href="/orders">Order History</Link>
                 </DropdownMenuItem>
