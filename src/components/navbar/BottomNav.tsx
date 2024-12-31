@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-
 import { usePathname } from "next/navigation";
 import {
   FaBars,
@@ -45,8 +44,9 @@ const BottomNav = () => {
   ];
 
   return (
-    <div className="relative border  mb-4">
-      <div className="flex md:gap-10 gap-4 items-center bg-white md:justify-between">
+    <div className="relative border mb-4">
+      <div className="flex flex-wrap items-center lg:justify-between gap-4 bg-white lg:px-4 py-2 ">
+        {/* Dropdown for Categories */}
         <div className="lg:w-[400px] flex items-center gap-2 py-2 rounded-md">
           <div className="relative hidden md:block">
             {pathname !== "/products" && (
@@ -59,47 +59,16 @@ const BottomNav = () => {
               </button>
             )}
             {isOpen && pathname !== "/products" && (
-              <div className="absolute mt-2 w-52 bg-white border border-gray-200 shadow-md transform translate-x-0 duration-200">
+              <div className="absolute mt-8 w-52 bg-white border border-gray-200 shadow-md transform translate-x-0 duration-200">
                 <ul className="flex flex-col">
                   {categories.map((category) => (
                     <li
                       key={category.slug}
-                      className="hover:bg-[#f85606] flex items-center gap-2 px-4 py-1  hover:text-[#fff] rounded-md mx-2 mt-2 "
+                      className="hover:bg-[#f85606] flex items-center gap-2 px-4 py-1 hover:text-[#fff] rounded-md mx-2 mt-2"
                     >
                       <Link
                         href={`/products?category=${category.slug}`}
-                        className="flex items-center gap-2 w-full p-2  text-center"
-                      >
-                        <p className="hover:text-[#fff]">{category.icon}</p>
-                        <span>{category.name}</span>
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-          </div>
-          <div className="relative md:hidden">
-            {pathname !== "/products" && (
-              <button
-                onClick={toggleDropdown}
-                className="button-primary flex items-center gap-2 ml-2"
-              >
-                Categories
-                <FaBars />
-              </button>
-            )}
-            {isOpen && pathname !== "/products" && (
-              <div className="absolute mt-2 w-52 bg-white border border-gray-200 shadow-md transform translate-x-0 duration-200">
-                <ul className="flex flex-col">
-                  {categories.map((category) => (
-                    <li
-                      key={category.slug}
-                      className="hover:bg-[#f85606] flex items-center gap-2 px-4 py-1  hover:text-[#fff] rounded-md mx-2 mt-2 "
-                    >
-                      <Link
-                        href={`/products?category=${category.slug}`}
-                        className="flex items-center gap-2 w-full p-2  text-center"
+                        className="flex items-center gap-2 w-full p-2 text-center"
                       >
                         <p className="hover:text-[#fff]">{category.icon}</p>
                         <span>{category.name}</span>
@@ -111,7 +80,9 @@ const BottomNav = () => {
             )}
           </div>
         </div>
-        <div className="flex md:gap-8 gap-4 ml-[30px] items-center">
+
+        {/* Navigation Links */}
+        <div className="flex flex-wrap items-center gap-4 md:gap-8">
           <Link
             className={`px-4 py-2 rounded ${
               pathname === "/" ? "bg-[#f85606] text-white" : "hover:bg-gray-200"

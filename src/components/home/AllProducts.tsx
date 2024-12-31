@@ -11,7 +11,10 @@ import Link from "next/link";
 const AllProducts = () => {
   const { user } = useUser();
   const { data } = useGetMyFollowingShopQuery(user?.id as string);
-  console.log(data);
+  if (!user) {
+    return <div className="text-center mt-10"></div>;
+  }
+
   return (
     <div className="">
       <Title title="Products" subTitle="From your following shop" />

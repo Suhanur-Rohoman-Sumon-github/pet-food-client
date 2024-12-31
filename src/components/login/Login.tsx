@@ -13,7 +13,7 @@ const Login = () => {
   const {
     register,
     handleSubmit,
-    setValue, // added to programmatically set form values
+    setValue,
     formState: { errors },
   } = useForm();
   const [showPassword, setShowPassword] = useState(false);
@@ -33,7 +33,7 @@ const Login = () => {
     }
   }, [isSuccess, redirectTo, router]);
 
-  const dummyCredentials = {
+  const dummy = {
     user: {
       email: "user@gmail.com",
       password: "123456",
@@ -48,9 +48,9 @@ const Login = () => {
     },
   };
 
-  const handleCredentialFill = (type: keyof typeof dummyCredentials) => {
-    setValue("email", dummyCredentials[type].email);
-    setValue("password", dummyCredentials[type].password);
+  const handleCredentialFill = (type: keyof typeof dummy) => {
+    setValue("email", dummy[type].email);
+    setValue("password", dummy[type].password);
   };
 
   return (
@@ -79,11 +79,9 @@ const Login = () => {
               Pet Haven Login
             </h2>
 
-            {/* Dummy Credentials Text */}
+            {/* Dummy  Text */}
             <div className="mb-6 text-center text-gray-600">
-              <p className="font-medium">
-                Use one of the following dummy credentials:
-              </p>
+              <p className="font-medium">Use one of the following dummy :</p>
             </div>
 
             {/* Credential Buttons */}
@@ -93,21 +91,21 @@ const Login = () => {
                 onClick={() => handleCredentialFill("user")}
                 className="button-secondary"
               >
-                User Credentials
+                User
               </button>
               <button
                 type="button"
                 onClick={() => handleCredentialFill("vendor")}
                 className="button-secondary"
               >
-                Vendor Credentials
+                Vendor
               </button>
               <button
                 type="button"
                 onClick={() => handleCredentialFill("admin")}
                 className="button-secondary"
               >
-                Admin Credentials
+                Admin
               </button>
             </div>
 
